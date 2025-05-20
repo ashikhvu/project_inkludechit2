@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User,UserProfileModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel
+from .models import User,SalePunchModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel
 
 # Register your models here.
 
@@ -17,7 +17,7 @@ class shareinterestsetup(admin.ModelAdmin):
     get_customer_name.short_description = "first name"
 
 admin.site.register(User)
-admin.site.register(UserProfileModel,userprof)
+admin.site.register(SalePunchModel,userprof)
 admin.site.register(NomineeModel)
 admin.site.register(ProductModel,productsetup)
 admin.site.register(ShareMyInterestModel,shareinterestsetup)

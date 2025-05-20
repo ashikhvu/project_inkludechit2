@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import User,UserProfileModel,my_model,ShareMyInterestModel
-from .serializers import UserProfileCreationSerializer,MyModelSerializer,CustomTokenObtainPairSerializer,CustomUserLoginSerializer,SendOtpSerializer,ShareMyInterestModelSerializer
+from .models import User,SalePunchModel,ShareMyInterestModel
+from .serializers import SalePunchCreationSerializer,CustomTokenObtainPairSerializer,CustomUserLoginSerializer,SendOtpSerializer,ShareMyInterestModelSerializer
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -58,50 +58,7 @@ class CustomLoginView(APIView):
             "user_type":str(user_type),
         }, status=status.HTTP_200_OK)
 
-
-class IndexView(APIView):
-
-    permission_classes = [IsAdminUser,IsAuthenticated]
-
-    def get(self, request):
-        profile = UserProfileModel.objects.all()
-        if profile:
-            serializer = UserProfileCreationSerializer(profile, many=True)
-            return Response(serializer.data,status=status.HTTP_200_OK)
-        return Response({"error":"Data unavailable"},status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = UserProfileCreationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class MymodelView(APIView):
-
-    # permission_classes = [IsAdminUser,IsAuthenticated]
-
-    def get(self,request):
-        mymdoel = my_model.objects.all()
-        serializer = MyModelSerializer(many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
-    
-    def post(self,request):
-        serializer = MyModelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"success":"Data Saved Successfully"},status=status.HTTP_200_OK)
-        return Response({"error":"Data Submission failed"},status=status.HTTP_400_BAD_REQUEST)
-        
-    
-class MymodelSingleView(APIView):
-
-    permission_classes = [IsAdminUser,IsAuthenticated]
-
-    def get(self,request,pk):
-        mymdoel = my_model.objects.get(id=pk)
-        serializer = MyModelSerializer(mymdoel,many=False)
-        return Response(serializer.data,status=status.HTTP_200_OK)
     
 class ShareMyInterestView(APIView):
     

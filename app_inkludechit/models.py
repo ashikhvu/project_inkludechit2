@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager
 from django.core.validators import RegexValidator,MinValueValidator,MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -10,8 +10,36 @@ from datetime import datetime
 from shortuuid.django_fields import ShortUUIDField
 from django.core.validators import RegexValidator
 
+class UserManager(BaseUserManager):
+    def create_user(self,email=None,mobile=None,password=None,**extra_fields):
+        if not email and not mobile:
+            raise ValueError("The Email or Mobile must be set")
+
+        if email:
+            extra_fields['email']=self.normalize_email(email)
+
+        # to avoid duplicate email or mobile attributevalue
+        extra_fields.pop('email',None)
+        extra_fields.pop('mobile',None)
+
+        email = self.normalize_email(email) if email else None
+
+        user = self.model(email=email,mobile=mobile,**extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user 
+    
+    def create_superuser(self,email=None,mobile=None,password=None,**extra_fields):
+        extra_fields.setdefault('is_staff',True)
+        extra_fields.setdefault('is_superuser',True)
+
+        # to avoid duplicate email or mobile attributevalue
+        extra_fields.pop('email',None)
+        extra_fields.pop('mobile',None)
+        return self.create_user(email=email,mobile=mobile,password=password,**extra_fields)
+
 # Create your models here.
-class User(AbstractUser):
+class User(AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=255,blank=True,null=True)
     user_type_choices = (
         ('admin','admin'),
@@ -30,11 +58,16 @@ class User(AbstractUser):
         message="Please Provide a 10 digit number"
     )])
 
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects= UserManager()
+
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ["username",'mobile']
+    REQUIRED_FIELDS = ['mobile']
 
     def __str__(self):
-        return str(self.first_name)
+        return str(self.username or self.email or "User")
     
     def save(self,*args,**kwargs):
         if self.email:
@@ -125,7 +158,7 @@ class PaymentModel(models.Model):
     forman_commision = models.CharField(max_length=50,blank=True,null=True)
     upi_number = models.CharField(max_length=50,blank=True,null=True)
 
-class UserProfileModel(models.Model):
+class SalePunchModel(models.Model):
     # basic info
     
     user = models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
@@ -207,27 +240,18 @@ class UserProfileModel(models.Model):
     product_model_data = models.ForeignKey(ProductModel,on_delete=models.CASCADE,blank=True,null=True)
     payment_model_data = models.ForeignKey(PaymentModel,on_delete=models.CASCADE,blank=True,null=True)
 
-class my_model(models.Model):
-    name = models.CharField(max_length=255,blank=True,null=True)
-    email = models.EmailField(blank=True,null=True,unique=True)
-    phone = models.CharField(max_length=10,validators=[RegexValidator(
-        regex=r"^[0-9]{10}",
-        message=f"Invalid Mobile Number"
-    )])
-
-
 
 @receiver(post_save,sender=User)
 def create_profile_details(sender,instance,created,**kwargs):
     if created:
-        UserProfileModel.objects.create(
+        SalePunchModel.objects.create(
             user=instance,
         )
 
 @receiver(post_save,sender=User)
 def save_user_profile(sender,instance,**kwargs):
-    if hasattr(instance,'userprofilemodel'):
-        instance.userprofilemodel.save()
+    if hasattr(instance,'salepunchmodel'):
+        instance.salepunchmodel.save()
 
 class ShareMyInterestModel(models.Model):
     customer_name = models.CharField(max_length=255,blank=True,null=True)

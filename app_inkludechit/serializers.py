@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app_inkludechit.models import UserProfileModel,User,NomineeModel,ProductModel,PaymentModel,my_model,ShareMyInterestModel
+from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel
 # from django.contrib.auth.models import c
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
@@ -124,7 +124,7 @@ class PaymentModelSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserProfileCreationSerializer(serializers.ModelSerializer):
+class SalePunchCreationSerializer(serializers.ModelSerializer):
 
     nominee_model_data = NomineeModelSerializer()
     product_model_data = ProductModelSerializer()
@@ -134,7 +134,7 @@ class UserProfileCreationSerializer(serializers.ModelSerializer):
     salary_date= serializers.DateField(input_formats=['%d-%m-%Y'])
 
     class Meta:
-        model = UserProfileModel
+        model = SalePunchModel
         exclude = ['uid','kyc','user']
 
 
@@ -277,7 +277,32 @@ class UserProfileCreationSerializer(serializers.ModelSerializer):
         payment_data = validated_data.pop('payment_model_data')
         payment = PaymentModel.objects.create(**payment_data)
 
-        return UserProfileModel.objects.create(
+        email = validated_data.get('email')
+        mobile = validated_data.get('mobile')
+
+        user,created = User.objects.get_or_create(
+            mobile=mobile,
+            defaults={
+                'first_name':validated_data.get('first_name'),
+                'last_name':validated_data.get('last_name'),
+                'email':email,
+                'mobile':mobile,
+            }
+        )
+
+        print("part1")
+
+        if not created:
+            print('not created')
+            if user.email !=email:
+                raise serializers.ValidationError(f"User with number {mobile} already exist with defferent email address")
+        print("part2")
+        
+        if not created and SalePunchModel.objects.filter(user=user).exists():
+            raise serializers.ValidationError(f"Sale punch model already exist with the same customer")
+        print("part3")
+
+        return SalePunchModel.objects.create(
             nominee_model_data=nominee,
             product_model_data=product,
             payment_model_data=payment,
@@ -291,12 +316,6 @@ class UserProfileCreationSerializer(serializers.ModelSerializer):
         response['product_model_data'] = ProductModelSerializer(instance.product_model_data).data
         response['payment_model_data'] = PaymentModelSerializer(instance.payment_model_data).data
         return response
-    
-
-class MyModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = my_model
-        fields = "__all__"
 
 class ShareMyInterestModelSerializer(serializers.ModelSerializer):
     # phone= serializers.CharField()
