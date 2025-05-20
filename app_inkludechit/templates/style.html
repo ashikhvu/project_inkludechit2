@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concern and Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f0c542;
+        }
+
+        .header {
+            background-color: #f0c542;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+
+            /* max-width: 600px; */
+
+        }
+
+        /* .input-box {
+          
+        } */
+
+        .activate-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+
+
+        .custom-box h5 {
+            font-weight: bold;
+        }
+
+        .custom-box ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .custom-box {
+            background-color: #fff;
+            padding: 20px;
+
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-box h5 {
+            font-weight: bold;
+        }
+
+        /* .custom-input {
+           
+        } */
+
+        .btn-confirm {
+            background-color: #d9edf7;
+            color: #333;
+        }
+
+        .btn-proceed {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .btn-proceed:hover {
+            background-color: #ec971f;
+        }
+
+        .label-text {
+            color: white;
+        }
+
+        .label-asterisk {
+            color: black;
+        }
+
+        input {
+            border-color: #ec971f;
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- <div class="header d-flex align-items-center">
+        <button class="btn btn-light">☰</button>
+        <img src="logo.png" alt="KDC Chits Logo" width="50">
+        <h3>KDC Chits Pvt. Ltd.</h3>
+    </div> -->
+
+
+
+        <!-- heading -->
+        <div class=" mt-5">
+            <h2 class="fw-bold">Concern and Confirmation</h2>
+
+
+
+
+
+
+
+
+
+            <!-- first -->
+
+            <div class="content-box pe-0">
+                <p>നമസ്കാരം സർ,<br>
+                    KDC ചിറ്റ്‌സ് പ്രൈവറ്റ് ലിമിറ്റഡിൽ നിന്നും ...................... ആണ് വിളിക്കുന്നത്. സർ പുതുതായി
+                    ചേർന്ന
+                    കുറിയുട
+                    concern and confirmation ൻറെ ഭാഗമായിട്ടാണ് വിളിക്കുന്നത്. ഇതിൽ product details ഉം പ്രധാനപ്പെട്ട
+                    rules
+                    and
+                    regulations ഉം മാത്രമാണ് highlight ചെയ്യപ്പെടുക. quality purpose ന്റെ ഭാഗമായി ഈ കോൾ record
+                    െയ്യപ്പെടും. ഇത് മുഴുവനായി കേട്ടതിന് ശേഷം താങ്കൾക്ക് സംശയങ്ങൾ ഉണ്ടെങ്കിൽ ചോദിക്കാവുന്നതാണ്.
+                    സർ ന്റെ KYC ഡീറ്റെയിൽസ് ആണ് ഞാൻ പറയുന്നത് .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </p>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- second -->
+
+            <div class="row my-5">
+                <div class="col-md-3 input-box">
+                    <label class="text-light">UID <span class="text-dark "> *</span>
+                    </label>
+                    <input type="text" class="form-control" placeholder="">
+
+
+                    <!-- Input box -->
+
+                    <!-- Bootstrap JS -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                </div>
+                <div class="col-md-3 input-box">
+                    <label class="text-light">KYC<span class="text-dark "> *</span>
+                    </label>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+                <div class="col-md-2 input-box">
+                    <button class="btn activate-btn w-100 mt-4">ACTIVATE</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- third -->
+        <div>
+            <div class="bg-white rounded shadow p-5 custom-form mb-3">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <label class="mt-3 text-muted" for="name">Name</label>
+                            <input type="text" class="form-control border border-warning" id="name" placeholder="">
+                            <label class="mt-3 text-muted" for="aadhar">Adhaar Number</label>
+                            <input type="number" class="form-control border border-warning" id="aadhar" placeholder="">
+                            <label class="mt-3 text-muted" for="whatsapp">Whatsapp Number</label>
+                            <input type="number" class="form-control border border-warning" id="whatsapp"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="product">Product Type</label>
+                            <input type="text" class="form-control border border-warning" id="product" placeholder="">
+                            <label class="mt-3 text-muted" for="duration">Duration</label>
+                            <input type="number" class="form-control border border-warning" id="duration"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="commission">Forman Commission And Percentage</label>
+                            <input type="text" class="form-control border border-warning" id="commission"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="amount">Forman Commission Amount</label>
+                            <input type="number" class="form-control border border-warning" id="commison id"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="amount">Auction Eligibility Date</label>
+                            <input type="date" class="form-control border border-warning text-muted" id="ae_date"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="amount">Payment Mode</label>
+                            <input type="text" class="form-control border border-warning" id="amount" placeholder="">
+                            <label class="mt-3 text-muted" for=" agent">Collection Agent</label>
+                            <select class="form-select border border-warning text-muted" id="agent">
+                                <option selected>Collection agent</option>
+
+                            </select>
+                            <label class="py-2 mt-4 fw-bold" for=" agent">ഇത്  REASSIGN ചെയ്യപ്പെട്ടേക്കാം .</label>
+
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <label class="mt-3 text-muted" for="dob">Date of Birth</label>
+                            <input type="date" class="form-control border border-warning" id="dob" style="color: red;">
+                            <label class="mt-3 text-muted" for="mobile">Registered Mobile Number</label>
+                            <input type="number" class="form-control border border-warning" id="mobile" placeholder="">
+                            <label class="mt-3 text-muted" for="address">Address</label>
+                            <input type="text" class="form-control border border-warning" id="address" placeholder="">
+                            <label class="mt-3 text-muted" for="emi">EMI Amount</label>
+                            <input type="number" class="form-control border border-warning" id="emi" placeholder="">
+                            <label class="mt-3 text-muted" for="sala">SALA</label>
+                            <input type="text" class="form-control border border-warning" id="sala" placeholder="">
+                            <label class="mt-3 text-muted" for="bid">Auction BID</label>
+                            <input type="text" class="form-control border border-warning" id="bid" placeholder="">
+                            <label class="mt-3 text-muted" for="bid">Collection Day/Date</label>
+                            <input type="date" class="form-control border border-warning text-muted" id="bid"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="cpoint">Collection Point</label>
+                            <input type="text" class="form-control border border-warning" id="cpoint" placeholder="">
+                            <label class="mt-3 text-muted" for="add">Auction / Draw Date</label>
+                            <input type="date" class="form-control border border-warning text-muted" id="add"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="offer">Offer chit Dispatching Date</label>
+                            <input type="date" class="form-control border border-warning text-muted" id="offer"
+                                placeholder="">
+                            <label class="mt-3 text-muted" for="dd">Divident Date</label>
+                            <input type="date" class="form-control border border-warning text-muted" id="dd"
+                                placeholder="">
+                    </div>
+                    </div>
+                    <br>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- fourth -->
+
+        <div>
+            <!-- Box 1 -->
+            <div class="custom-box  mb-3">
+                <p>ഇതിൽ സാറിന് PROXY ചെയ്യാവുന്നതാണ്. AUCTION ന്റെ തലേ ദിവസം വരെ മാത്രമേ PROXY വിളിക്കാൻ
+                    ാധിക്കുകയുള്ളു. AUCTION ന്റെ തലേ ദിവസം 1 PM വരെ മാത്രമേ COLLECTION PAYMENT സ്വീകരിക്കുകയുള്ളു.
+                    ഇങ്ങനെ payment വ്യത്യാസം വന്നാൽ ആ ഡിവിഡന്റിനു യാതൊരു അർഹതയും ഉണ്ടായിരിക്കുന്നതല്ല.
+                    കളക്ഷൻ payment receipt generate ചെയ്യപ്പെട്ടിട്ടില്ലങ്കിൽ ഉടനെ തന്നെ ഓഫിസുമായി ബന്ധപ്പെടേണ്ടതാണ്.
+                    ാങ്കളുടെ PAYMENT ന്റെ INFORM AND CONFIRM താങ്കളുടെ ഉത്തരവാദിത്തമാണ്. ഓഫീസ് സമയം രാവിലെ 9
+                    ുതൽ വൈകുന്നേരം 5 മണി വരെയാണ് . </p>
+                <p>ഓക്ഷനിൽ ഒന്നിൽ കൂടുതൽ ആളുകൾ ഫുൾ ബിഡ് വരികയാണെങ്കിൽ എത്രപേരാണോ ELIGIBLE
+                    ആയിട്ടുള്ളത് , അത്രയും പേരെ ഡ്രോയിൽ പങ്കെടുപ്പിക്കുന്നതാണ്. ഓക്ഷൻ അല്ലങ്കിൽ ഡ്രോ ലഭിക്കുന
+                    ിറ്റാളന് NON COLLATERAL വ്യവസ്ഥയിൽ ആണെങ്കിൽ , 2 സ്ത്രീ ജാമ്യക്കാരുടേതുൾപ്പെടെയുള്ള ഡോക്യുമെന
+                    ആണ് നൽകേണ്ടത്. </p>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- fifth -->
+
+            <!-- Box 2 (with list) -->
+            <div class="custom-box mb-3">
+                <h5 class="fw-bold">DOCUMENTS REQUIRED</h5>
+                <ul>
+                    <li>Cheque Leaf</li>
+                    <li>Stamp Paper</li>
+                    <li>ID Proof</li>
+                    <li>Photo</li>
+                    <li>Bank Statement</li>
+                </ul>
+                <p>ോക്യുമെന്റ് നൽകി 36 WORKING DAYS ൽ ആയിരിക്കും ചിറ്റാളന
+                    അക്കൗണ്ടിൽ PAYMENT ക്രെഡിറ്റാകുന്നത് . </p>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- sixth -->
+
+            <!-- Box 3 -->
+            <div class="custom-box mb-3">
+                ിലവിലെ കളക്ഷൻ മോഡ് അടിസ്ഥാനപ്പെടുത്തിയാണ് താങ്കളുടെ PAYMENT ELIGIBILITY ഫിക്സ
+                െയ്തിരിക്കുന്നത്. ഇതിനു വ്യതിയാനം സംഭവിച്ചാൽ PAYMENT ELIGIBILITY തീയതിയിൽ വ്യത്യാസ
+                വരുന്നതായിരിക്കും. <br>
+                ുറി ഇടയ്ക്കുവച്ച് നിർത്തുകയോ, റദ്ദാക്കുകയോ ചെയ്താൽ ഫോർമാൻ കമ്മീഷനും മറ്റ് അനുബന
+                ാർജുകളും കിഴിച്ച്, കുറിയുടെ കാലാവധി പൂർണമായും കഴിഞ്ഞതിനു ശേഷം മാത്രമേ PAYMENT
+                ൂർണമായി ലഭിക്കുകയുള്ളു.<br> 
+
+
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- seventh -->
+        <div>
+            <!-- Nominee Details Box -->
+            <div class="custom-box  mb-3">
+                <h5 class="fw-bold">NOMINEE DETAILS</h5>
+                <div class="row g-2">
+                    <div class="col-md-6 custom-input">
+                        <label class="mt-3 text-muted" for="name">Name</label>
+                        <input type="text" class="form-control border border-warning" placeholder="">
+                    </div>
+                    <div class="col-md-6 custom-input">
+                        <label class="mt-3 text-muted" for="relation">Relation</label>
+                        <input type="text" class="form-control border border-warning" placeholder="">
+                    </div>
+                    <div class="col-md-6 custom-input">
+                        <label class="mt-3 text-muted" for="address">Address</label>
+                        <input type="text" class="form-control border border-warning" placeholder="">
+                    </div>
+                    <div class="col-md-6 custom-input">
+                        <label class="mt-3 text-muted" for="phone">Phone Number</label>
+                        <input type="number" class="form-control border border-warning" placeholder="">
+                    </div>
+                </div>
+            </div>
+
+            <!-- <label class="mt-3" for="mobile">Registered Mobile Number</label>
+                        <input type="text" class="form-control border border-warning" id="mobile" placeholder=""> -->
+
+
+
+
+
+
+
+
+
+
+            <!-- eighth -->
+
+            <!-- Information Box -->
+            <div class="custom-box  mb-3">
+                <p>ിലവിലെ കളക്ഷൻ മോഡ് അടിസ്ഥാനപ്പെടുത്തിയാണ് താങ്കളുടെ PAYMENT ELIGIBILITY ഫിക്സ
+                    െയ്തിരിക്കുന്നത്. ഇതിനു വ്യതിയാനം സംഭവിച്ചാൽ PAYMENT ELIGIBILITY തീയതിയിൽ വ്യത്യാസ
+                    വരുന്നതായിരിക്കും.<br> 
+                    ുറി ഇടയ്ക്കുവച്ച് നിർത്തുകയോ, റദ്ദാക്കുകയോ ചെയ്താൽ ഫോർമാൻ കമ്മീഷനും മറ്റ് അനുബന
+                    ാർജുകളും കിഴിച്ച്, കുറിയുടെ കാലാവധി പൂർണമായും കഴിഞ്ഞതിനു ശേഷം മാത്രമേ PAYMENT
+                    ൂർണമായി ലഭിക്കുകയുള്ളു. <br>
+                    ാങ്കൾക്ക് ലഭിച്ചിട്ടുള്ള APP LINK വഴി താങ്കൾക്ക് ഡിജിറ്റൽ പാസ്ബുക്ക്, ഡിവിഡന്റ് ഡീറ്റെയിൽസ് , ഓക്ഷൻ
+                    എന്നിവ കാണാൻ സാധിക്കുന്നതാണ്. കൂടാതെ താങ്കൾക്ക് FEEDBACK & COMPLAINT , മറ്റു സർവീസ് എന്നിവയ
+                    ഇതിൽ ലഭിക്കുന്നതാണ്.<br> 
+                    ിട്ടിയിൽ അംഗമായതിനു ശേഷം തുടർന്നുള്ള ചിട്ടി സംബന്ധമായ എല്ലാ കാര്യങ്ങൾക്കും താങ്കൾക
+                    ഞങ്ങളുടെ കസ്റ്റമർ കെയറുമായി മാത്രം ബന്ധപ്പെടാവുന്നതാണ്. ചിട്ടി സംബന്ധമായ
+                    ിവരാന്വേഷണങ്ങൾക്ക് സെയിൽ ഡിവിഷനുമായോ, മറ്റു വ്യക്തികളുമായോ ബന്ധപ്പെടുന്നത
+                    ാങ്കേതികമായ ഏകീകരണ പ്രവർത്തനങ്ങൾക്ക് തടസ്സമാവുന്നതിനാൽ ദയവായി ഞങ്ങളുടെ കസ്റ്റമർ
+                    െയറുമായി മാത്രം ബന്ധപ്പെടാൻ ശ്രദ്ധിക്കുക. <br> 
+                    ൂടാതെ ഞങ്ങളുടെ കസ്റ്റമർ കെയർ സർവീസ് തിങ്കൾ മുതൽ ശനി വരെ രാവിലെ 9 മണിമുതൽ വൈകിട്ട് 5
+                    മണി വരെയും ലഭ്യമാണ്. 8089849800 എന്ന കസ്റ്റമർ കെയർ നമ്പറിലേക്കോ   kdcchitsprivate@gmail.com എന
+                    െയിൽ ഐഡി യിലേക്കോ  താങ്കൾക്ക് ഞങ്ങളുമായി ബന്ധപ്പെടാവുന്നതാണ്. ഞങ്ങളെക്കുറിച്ചുള്ള പൂർണ
+                    ിവരങ്ങൾ  www.kdcchits.com എന്ന വെബ്സൈറ്റിൽ ലഭ്യമാണ് . ഞാൻ പറഞ്ഞ കാര്യങ്ങളൊക്കെ താങ്കൾക
+                    യക്തമായി എന്ന് കരുതുന്നു .  താങ്കളുടെ സമയത്തിന് നന്ദി . ശുഭദിനം ..</p>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- nineth -->
+
+            <!-- Button Group -->
+            <div class="d-flex justify-content-center gap-3 mb-3">
+                <button class="btn btn-confirm">confirmed</button>
+                <button class="btn btn-proceed">PROCEED</button>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

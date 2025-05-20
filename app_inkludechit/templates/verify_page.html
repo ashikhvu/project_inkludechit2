@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Verification</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0c542;
+        }
+
+        /* .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 90%;
+        } */
+        .card {
+            margin: 5px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+        .btn-verify {
+            background-color: #ff9900;
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+
+        .header {
+            background-color: #e6b800;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            margin: 10px auto;
+            max-width: 300px;
+            border-radius: 20px;
+        }
+
+        h5 {
+            font-size: 1.1rem;
+            margin: 5px 0;
+        }
+
+        p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+ 
+
+
+    <div class="container text-center">
+
+        <!-- heading -->
+        <div class="mt-5">
+            <h2 class="fw-bold" style="margin-right: 70%; margin-top: 10%;">Customer Verification</h2>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="container content-box mt-4 bg-white p-5" style="border-radius: 35px;">
+           
+            <div class="row">
+                <div class="col-md-6">
+                     <h4 class="fw-bold" style="margin-right: 55%; margin-top: 5%;">Customers to verify</h4>
+            </div>
+                
+                <div class="col-md-6 text-end">
+            <input type="text" class="form-control search-bar me-5 text-muted" placeholder="Name / UID">
+                </div>
+
+
+
+
+
+
+
+
+            <hr>
+            <div class="row row-cols-1 row-cols-md-3 g-2">
+
+
+
+                <!-- Repeatable Customer Card -->
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                                <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                                <h6 class="mt-2 ms-4">Rahul</h6>
+                                <hr class="ms-4 my-1">
+                                <p class="ms-4">Product Code:201</p>
+                            </div>
+                           <div class="text-center" style="width: 3rem; margin: auto;">
+                                <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                                <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                                <h6 class="mt-2 ms-4">Rahul</h6>
+                                <hr class="ms-4 my-1">
+                                <p class="ms-4">Product Code:201</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                                <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                                <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                                <h6 class="mt-2 ms-4">Rahul</h6>
+                                <hr class="ms-4 my-1">
+                                <p class="ms-4">Product Code:201</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                                <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                                <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                                <h6 class="mt-2 ms-4">Anaaz</h6>
+                                <hr class="ms-4 my-1">
+                                <p class="ms-4">Product Code:901</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                                <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                                <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                                <h6 class="mt-2 ms-4">Anaaz</h6>
+                                <hr class="ms-4 my-1">
+                                <p class="ms-4">Product Code:901</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                                <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Anaaz</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:901</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Sheeja Thayyil</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Sheeja Thayyil</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Sheeja Thayyil</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Pratheesh Areekkal</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Pratheesh Areekkal</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 4rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Pratheesh Areekkal</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">P G Iyp Kottayam</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">P G Iyp Kottayam</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">P G Iyp Kottayam</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Ranjini M Thrissur</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Ranjini M Thrissur</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Ranjini M Thrissur</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Sarath S Chandran</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Sarath S Chandran</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Sarath S Chandran</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                          <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Akhil A to Z Mobiles</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Akhil A to Z Mobiles</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Akhil A to Z Mobiles</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Rasheed V P</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Rasheed V P</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Rasheed V P</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Nassimudheen A</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">  
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Nassimudheen A</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Nassimudheen A</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Shailaja Palakkad</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Shailaja Palakkad</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Shailaja Palakkad</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Joshil P P Poothappara</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Joshil P P Poothappara</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                          <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Joshil P P Poothappara</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Rajilesh K C</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Rajilesh K C</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Rajilesh K C</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Risana Cotton Mill Road</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Risana Cotton Mill Road</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Risana Cotton Mill Road</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Chathoth Dineshan Babu</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Chathoth Dineshan Babu</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Chathoth Dineshan Babu</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Bini P Jayanandham</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Bini P Jayanandham</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Bini P Jayanandham</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Fareeda K C</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Fareeda K C</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Fareeda K C</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;" >Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Bineesh V G</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Bineesh V G</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Bineesh V G</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Manoj Kumar</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Manoj Kumar</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Manoj Kumar</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Vineesh P Edavellikkal</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Vineesh P Edavellikkal</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Vineesh P Edavellikkal</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Nijeash N K</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Nijeash N K</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Nijeash N K</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                           <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Seenath</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Seenath</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Seenath</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Munaf</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Munaf</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Munaf</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Manoj Thrissur</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                            <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Manoj Thrissur</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Manoj Thrissur</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                             <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Anees Chelambra</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                    </div>
+                </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Anees Chelambra</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="col">
+                    <div class="card p-3 text-center">
+                        <div class="d-flex">
+                           <div>
+                            <img src="{% static 'images\shadow.png' %}" class="" alt="avatar" width="70px">
+                            </div>
+                            <div>
+                            <h6 class="mt-2 ms-4">Anees Chelambra</h6>
+                            <hr class="ms-4 my-1">
+                            <p class="ms-4">Product Code:</p>
+                            </div>
+                            <div class="text-center" style="width: 10rem; margin: auto;">
+                            <button class="btn btn-verify" style="width: 100px;">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+
+</body>
+
+</html>
