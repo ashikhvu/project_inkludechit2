@@ -135,7 +135,7 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SalePunchModel
-        exclude = ['uid','kyc','user']
+        exclude = ['uid','kyc']
 
 
     def validate(self,attrs):
@@ -280,35 +280,25 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         email = validated_data.get('email')
         mobile = validated_data.get('mobile')
 
-        user,created = User.objects.get_or_create(
-            mobile=mobile,
-            defaults={
-                'first_name':validated_data.get('first_name'),
-                'last_name':validated_data.get('last_name'),
-                'email':email,
-                'mobile':mobile,
-            }
-        )
+        if User.objects.filter(mobile=mobile).exists():
+            raise serializers.ValidationError(f"Sale punch already exist with the number [ {mobile} ]")
+        elif User.objects.filter(email=email).exists():
+            raise serializers.ValidationError(f"Sale punch already exist with the email [ {email} ]")
+        else:
+            user = User.objects.create(
+                first_name=validated_data.get('first_name'),
+                last_name=validated_data.get('last_name'),
+                email=email,
+                mobile=mobile
+            )
+            return SalePunchModel.objects.create(
+                user=user,
+                nominee_model_data=nominee,
+                product_model_data=product,
+                payment_model_data=payment,
+                **validated_data
+            )
 
-        print("part1")
-
-        if not created:
-            print('not created')
-            if user.email !=email:
-                raise serializers.ValidationError(f"User with number {mobile} already exist with defferent email address")
-        print("part2")
-        
-        if not created and SalePunchModel.objects.filter(user=user).exists():
-            raise serializers.ValidationError(f"Sale punch model already exist with the same customer")
-        print("part3")
-
-        return SalePunchModel.objects.create(
-            nominee_model_data=nominee,
-            product_model_data=product,
-            payment_model_data=payment,
-            **validated_data
-        )
-    
 
     def to_representation(self,instance):
         response = super().to_representation(instance)

@@ -161,7 +161,7 @@ class PaymentModel(models.Model):
 class SalePunchModel(models.Model):
     # basic info
     
-    user = models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     uid = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
     kyc = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
     agent_code = models.CharField(max_length=4,blank=True,null=True)
@@ -241,17 +241,17 @@ class SalePunchModel(models.Model):
     payment_model_data = models.ForeignKey(PaymentModel,on_delete=models.CASCADE,blank=True,null=True)
 
 
-@receiver(post_save,sender=User)
-def create_profile_details(sender,instance,created,**kwargs):
-    if created:
-        SalePunchModel.objects.create(
-            user=instance,
-        )
+# @receiver(post_save,sender=User)
+# def create_profile_details(sender,instance,created,**kwargs):
+#     if created:
+#         SalePunchModel.objects.create(
+#             user=instance,
+#         )
 
-@receiver(post_save,sender=User)
-def save_user_profile(sender,instance,**kwargs):
-    if hasattr(instance,'salepunchmodel'):
-        instance.salepunchmodel.save()
+# @receiver(post_save,sender=User)
+# def save_user_profile(sender,instance,**kwargs):
+#     if hasattr(instance,'salepunchmodel'):
+#         instance.salepunchmodel.save()
 
 class ShareMyInterestModel(models.Model):
     customer_name = models.CharField(max_length=255,blank=True,null=True)
