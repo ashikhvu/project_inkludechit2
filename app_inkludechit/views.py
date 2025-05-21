@@ -58,8 +58,6 @@ class CustomLoginView(APIView):
             "user_type":str(user_type),
         }, status=status.HTTP_200_OK)
 
-    
-    
 class ShareMyInterestView(APIView):
     
     def post(self,request):
@@ -86,4 +84,5 @@ class CustomerFetch(TemplateView):
 
     permission_classes= [IsAuthenticated,IsAdminUser]
     template_name = "style.html"
+
     

@@ -308,9 +308,6 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         return response
 
 class ShareMyInterestModelSerializer(serializers.ModelSerializer):
-    # phone= serializers.CharField()
-    # email = serializers.EmailField()
-
     class Meta:
         model = ShareMyInterestModel
         fields = "__all__"
