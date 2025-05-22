@@ -34,7 +34,7 @@ class SendOtp(APIView):
         msg = f'Your OTP is [ {result["otp"]} ]'
         print(f"\n{ph}\n{msg}")
         try:
-            OtpSendFunction(ph,msg)
+            # OtpSendFunction(ph,msg)
             return Response({"success":"OTP has been send to your Registered mobile number"},status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"error":str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel
+from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel
 # from django.contrib.auth.models import c
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
@@ -312,4 +312,37 @@ class ShareMyInterestModelSerializer(serializers.ModelSerializer):
         model = ShareMyInterestModel
         fields = "__all__"
 
+# CUSTOMER SERILISZERS START****************************************************************************************
 
+class CustomerUserCreationModelsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        exclude = ["password"]
+
+class CustomerProfileCreationModelsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomerProfileModel
+        fields = "__all__"
+
+    def create(self,validated_data):
+        
+        mobile = validated_data.get('mobile')
+        email = validated_data.get('email')
+        
+        if not User.objects.filter(mobile=mobile).exists() and not User.objects.filter(email=email).exists():
+            customer = User.objects.create(
+                first_name=validated_data.get('customer_name'),
+                mobile=validated_data.get('mobile_no'),
+                email=validated_data.get('email'),
+            )
+        else:
+            return serializers.ValidationError(f"Customer already registered with tha same email or password")
+        
+        return validated_data
+
+
+
+
+# CUSTOMER SERILISZERS END****************************************************************************************

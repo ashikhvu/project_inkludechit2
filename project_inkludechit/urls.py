@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('app_inkludechit.urls')),
     path('agent/',include('app_agent.urls')),
+    path('register/',include('app_register.urls')),
 ]

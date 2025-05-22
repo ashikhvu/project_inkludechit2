@@ -52,8 +52,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     user_type = models.CharField(max_length=255,choices=user_type_choices,default='customer',blank=True,null=True)
     first_name = models.CharField(max_length=255,blank=True,null=True)
     last_name = models.CharField(max_length=255,blank=True,null=True)
-    email = models.EmailField(unique=True,blank=True,null=True)
-    mobile = models.CharField(max_length=10,blank=True,null=True,unique=True,validators=[RegexValidator(
+    email = models.EmailField(unique=True)
+    mobile = models.CharField(max_length=10,unique=True,validators=[RegexValidator(
         regex=r"^\d{10}",
         message="Please Provide a 10 digit number"
     )])
@@ -240,18 +240,32 @@ class SalePunchModel(models.Model):
     product_model_data = models.ForeignKey(ProductModel,on_delete=models.CASCADE,blank=True,null=True)
     payment_model_data = models.ForeignKey(PaymentModel,on_delete=models.CASCADE,blank=True,null=True)
 
+# CUSTOMER MODELS START****************************************************************************************
 
-# @receiver(post_save,sender=User)
-# def create_profile_details(sender,instance,created,**kwargs):
-#     if created:
-#         SalePunchModel.objects.create(
-#             user=instance,
-#         )
+class CustomerProfileModel(models.Model):
+    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    customer_name = models.CharField(max_length=255)
+    mobile_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"\d{10}$",
+            message="Enter a 10 digit valid number"
+        )]
+    )
+    whatsapp_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"\d{10}$",
+            message="Enter a 10 digit valid number"
+        )]
+    )
+    email = models.EmailField()
+    amount = models.FloatField(default=0.00)
+    reciept_no = models.CharField(max_length=100)
 
-# @receiver(post_save,sender=User)
-# def save_user_profile(sender,instance,**kwargs):
-#     if hasattr(instance,'salepunchmodel'):
-#         instance.salepunchmodel.save()
+
+    def __str__(self):
+        return self.customer_name or self.customer.first_name
+
+# CUSTOMER MODELS END****************************************************************************************
 
 class ShareMyInterestModel(models.Model):
     customer_name = models.CharField(max_length=255,blank=True,null=True)
@@ -267,3 +281,29 @@ class ShareMyInterestModel(models.Model):
         return self.customer_name or self.customer_email
     
     
+
+
+
+
+
+
+
+
+
+
+# @receiver(post_save,sender=User)
+# def create_customer_profile(sender,instance,created,**kwargs):
+#     if created:
+#         print(instance.customer_type)
+
+# @receiver(post_save,sender=User)
+# def create_profile_details(sender,instance,created,**kwargs):
+#     if created:
+#         SalePunchModel.objects.create(
+#             user=instance,
+#         )
+
+# @receiver(post_save,sender=User)
+# def save_user_profile(sender,instance,**kwargs):
+#     if hasattr(instance,'salepunchmodel'):
+#         instance.salepunchmodel.save()
