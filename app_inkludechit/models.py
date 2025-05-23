@@ -259,7 +259,7 @@ class CustomerProfileModel(models.Model):
     )
     email = models.EmailField()
     amount = models.FloatField(default=0.00)
-    reciept_no = models.CharField(max_length=100)
+    reciept_no = models.CharField(max_length=12,unique=True)
 
 
     def __str__(self):

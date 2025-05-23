@@ -331,16 +331,20 @@ class CustomerProfileCreationModelsSerializer(serializers.ModelSerializer):
         mobile = validated_data.get('mobile')
         email = validated_data.get('email')
         
-        if not User.objects.filter(mobile=mobile).exists() and not User.objects.filter(email=email).exists():
-            customer = User.objects.create(
-                first_name=validated_data.get('customer_name'),
-                mobile=validated_data.get('mobile_no'),
-                email=validated_data.get('email'),
-            )
-        else:
-            return serializers.ValidationError(f"Customer already registered with tha same email or password")
+        if User.objects.filter(mobile=mobile).exists() or User.objects.filter(email=email).exists():
+            raise serializers.ValidationError(f"Customer already registered with tha same email or password")
+
+        customer = User.objects.create(
+            first_name=validated_data.get('customer_name'),
+            mobile=validated_data.get('mobile_no'),
+            email=validated_data.get('email'),
+        )
+
+        validated_data["customer"] = customer
+
+        customer_profile = CustomerProfileModel.objects.create(**validated_data)
         
-        return validated_data
+        return customer_profile
 
 
 
