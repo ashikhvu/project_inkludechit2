@@ -240,6 +240,19 @@ class SalePunchModel(models.Model):
     product_model_data = models.ForeignKey(ProductModel,on_delete=models.CASCADE,blank=True,null=True)
     payment_model_data = models.ForeignKey(PaymentModel,on_delete=models.CASCADE,blank=True,null=True)
 
+class ShareMyInterestModel(models.Model):
+    customer_name = models.CharField(max_length=255,blank=True,null=True)
+    customer_email = models.EmailField(unique=True,blank=True,null=True)
+    custoemr_comment = models.TextField(default='',blank=True,null=True)
+    customer_country_code = models.CharField(max_length=50,blank=True,null=True,default='+91')
+    customer_phone = models.CharField(max_length=10,unique=True,validators=[RegexValidator(
+        regex=r"^\d{10}$",
+        message="Enter a valid 10 digit phone number"
+    )])
+
+    def __str__(self):
+        return self.customer_name or self.customer_email
+
 # CUSTOMER MODELS START****************************************************************************************
 
 class CustomerProfileModel(models.Model):
@@ -260,25 +273,13 @@ class CustomerProfileModel(models.Model):
     email = models.EmailField()
     amount = models.FloatField(default=0.00)
     reciept_no = models.CharField(max_length=12,unique=True)
-
+    customer_otp = models.CharField(max_length=4,blank=True,null=True)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.customer_name or self.customer.first_name
+        return self.customer_name or "customer "+str(self.id)
 
 # CUSTOMER MODELS END****************************************************************************************
-
-class ShareMyInterestModel(models.Model):
-    customer_name = models.CharField(max_length=255,blank=True,null=True)
-    customer_email = models.EmailField(unique=True,blank=True,null=True)
-    custoemr_comment = models.TextField(default='',blank=True,null=True)
-    customer_country_code = models.CharField(max_length=50,blank=True,null=True,default='+91')
-    customer_phone = models.CharField(max_length=10,unique=True,validators=[RegexValidator(
-        regex=r"^\d{10}$",
-        message="Enter a valid 10 digit phone number"
-    )])
-
-    def __str__(self):
-        return self.customer_name or self.customer_email
     
     
 
