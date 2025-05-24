@@ -38,4 +38,5 @@ class GetAllCustomer(APIView):
         user_type = request.user.user_type
         if user_type in ["admin","super admin"]:
             cust = CustomerProfileModel.objects.all()
-            cust = CustomerProfileModel  
+        # elif user_type in []  
+        return None

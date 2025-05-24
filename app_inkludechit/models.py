@@ -308,3 +308,12 @@ class CustomerProfileModel(models.Model):
 # def save_user_profile(sender,instance,**kwargs):
 #     if hasattr(instance,'salepunchmodel'):
 #         instance.salepunchmodel.save()
+
+#otp send 
+#view function , serializer and url creation completed
+#authenticate otp
+#view function , serializer and url creation completed
+# create customer
+#view function , serializer and url creation completed
+# combined otp authentication and customer temp creation view function,serailizer and url
+
