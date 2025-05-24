@@ -414,15 +414,14 @@ class CustomerOtpAuthenticateSerializer(serializers.Serializer):
         return attrs
 
     def save(self,*args,**kwargs):
-
-        user =self.context.get('request')
-
-        try:
-            user = User.objects.get(id=user.id)
-        except User.DoesNotExist:
-            raise serializers.ValidationError(f"Permission denied")
-        
-        self.customer_profile.agent = user
+        # user =self.context.get('request').user
+        # print(user)
+        # try:
+        #     user = User.objects.get(id=user.id)
+        #     self.customer_profile.agent = user
+        # except User.DoesNotExist:
+        #     raise serializers.ValidationError(f"Permission denied")
+            
         self.customer_profile.is_verified = True
         self.customer_profile.customer_otp = None
         self.customer_profile.save()
