@@ -256,6 +256,7 @@ class ShareMyInterestModel(models.Model):
 # CUSTOMER MODELS START****************************************************************************************
 
 class CustomerProfileModel(models.Model):
+    agent = models.ForeignKey(User,on_delete=models.CASCADE,related_name="agent",blank=True,null=True)
     customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     customer_name = models.CharField(max_length=255)
     mobile_no = models.CharField(max_length=10,validators=[

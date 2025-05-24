@@ -329,16 +329,19 @@ class CustomerProfileCreationModelsSerializer(serializers.ModelSerializer):
 
     def create(self,validated_data):
         
-        mobile = validated_data.get('mobile')
+        mobile = validated_data.get('mobile_no')
         email = validated_data.get('email')
         
-        if User.objects.filter(mobile=mobile).exists() or User.objects.filter(email=email).exists():
-            raise serializers.ValidationError(f"Customer already registered with tha same email or password")
+        if User.objects.filter(mobile=mobile).exists():
+            raise serializers.ValidationError(f"Customer already registered with tha same email or number")
+
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError(f"Customer already registered with tha same email or number")
 
         customer = User.objects.create(
             first_name=validated_data.get('customer_name'),
-            mobile=validated_data.get('mobile_no'),
-            email=validated_data.get('email'),
+            mobile=mobile,
+            email=email,
         )
         validated_data["customer"] = customer
 
@@ -410,7 +413,16 @@ class CustomerOtpAuthenticateSerializer(serializers.Serializer):
 
         return attrs
 
-    def save(self):
+    def save(self,*args,**kwargs):
+
+        user =self.context.get('request')
+
+        try:
+            user = User.objects.get(id=user.id)
+        except User.DoesNotExist:
+            raise serializers.ValidationError(f"Permission denied")
+        
+        self.customer_profile.agent = user
         self.customer_profile.is_verified = True
         self.customer_profile.customer_otp = None
         self.customer_profile.save()

@@ -50,3 +50,4 @@ class GetAllRegisteredCustomer(APIView):
             serializer = CustomerUserCreationModelsSerializer(cust,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response({"error":"Data unavailable"},status=status.HTTP_400_BAD_REQUEST)
+    
