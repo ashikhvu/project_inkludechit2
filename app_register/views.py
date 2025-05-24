@@ -20,7 +20,7 @@ def SendOTPFunction(ph,msg):
 
 class IsAdminOrIsStaff(BasePermission):
     def has_permission(self,request,view):
-        return request.user and request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser) 
+        return request.user and request.user.is_authenticated and (request.user.user_type in ["admin","super admin"] or request.user.user_type in ["sales agent","sales and collection agent"])
 
 # Create your views here.
 class CustomerCreationSerializer(APIView):
