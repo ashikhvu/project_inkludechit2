@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from app_inkludechit.serializers import CustomerProfileCreationModelsSerializer,CustomerOtpAuthenticateSerializer
 # from app_inkludechit.serializers import CustomerRegisterSendOtp
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,6 +7,8 @@ from rest_framework.permissions import BasePermission
 from twilio.rest import Client
 from django.conf import settings
 import random
+from app_inkludechit.serializers import CustomerCreationAndSendOtpSerializer
+from app_inkludechit.models import User
 
 def SendOTPFunction(ph,msg):
     client = Client(settings.TWILIO_ACCOUNT_SID,settings.TWILIO_AUTH_TOKEN)
@@ -26,44 +27,53 @@ class IsAdminOrIsStaff(BasePermission):
 class CustomerCreationSerializer(APIView):
     
     permission_classes = [IsAdminOrIsStaff]
-    
-    def post(self,request):
-        serializer = CustomerProfileCreationModelsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            customer_random_otp = random.randint(1111,9999)
-            serializer.validated_data["customer_otp"] = customer_random_otp
-            serializer.save()
-            customer_otp = str(customer_random_otp)
-            phone = "+91"+ str(customer_random_otp)
-            msg = f"Your OTP is [ {customer_random_otp} ]"
-            print(f"Your OTP is [ {customer_random_otp} ]")
-            # SendOTPFunction(phone,msg)
-            return Response({"success":"OTP Sent Successfully"},status=status.HTTP_200_OK)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-# class CustomerSendOtp(APIView):
+    def post(self,request):
+        serializer = CustomerCreationAndSendOtpSerializer(data=request.data)
+        if serializer.is_valid():
+            cust_data = serializer.validated_data
+            rand_otp = random.randint(1111,9999)
+            cust_data["customer_otp"] =rand_otp
+            request.session["customer_data"] = cust_data
+            request.session.set_expiry(180)
+            request.session.modified = True
+            ph = "+91"+ serializer.validated_data["mobile_no"]
+            msg = f"Your OTP is [ {rand_otp} ]"
+            # SendOTPFunction(ph,msg)
+            print(f"Your OTP is [ {rand_otp} ]")
+            return Response({"success":"Otp send successfully"},status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_200_OK)
     
-#     permission_classes = [IsAdminOrIsStaff]
-    
-#     def post(self,request):
-#         serializer = CustomerRegisterSendOtp(data=request.data)
-#         if serializer.is_valid():
-#             customer_otp = str(serializer.validated_data["customer_otp"])
-#             phone = "+91"+ str(serializer.validated_data["mobile_no"])
-#             msg = f"Your OTP is [ {customer_otp} ]"
-#             print(f"Your OTP is [ {customer_otp} ]")
-#             # SendOTPFunction(phone,msg)
-#             return Response({"success":"OTP Sent Successfully"},status=status.HTTP_200_OK)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-#         # return Response({"error":"OTP Sending Failed"},status=status.HTTP_400_BAD_REQUEST)
 
 class CustomerOtpAuthenticateView(APIView):
     
+
     permission_classes = [IsAdminOrIsStaff]
 
     def post(self,request):
-        serializer = CustomerOtpAuthenticateSerializer(data=request.data)
+        serializer = CustomerCreationAndSendOtpSerializer(data=request.data)
         if serializer.is_valid():
-            return Response({"success":"Validation success"},status=status.HTTP_200_OK)
+            mobile = serializer.validated_data["mobile_no"]
+            customer_otp = serializer.validated_data["customer_otp"]
+            email = serializer.validated_data["email"]
+            customer_name = serializer.validated_data["customer_name"]
+            
+            cust_data = request.session.get("customer_data")
+            if cust_data and cust_data["mobile_no"] == mobile:
+                if int(cust_data["customer_otp"]) ==  int(customer_otp):
+                    customer_user = User.objects.create(
+                        first_name=customer_name,
+                        mobile=mobile,
+                        email=email,
+                    )
+                    serializer.validated_data["agent"]=request.user
+                    serializer.validated_data["customer"]=customer_user
+                    serializer.save()
+                    return Response({"success":"OTP verfication success"},status=status.HTTP_200_OK)
+                else: 
+                    return Response({"error":"Invalid OTP"},status=status.HTTP_400_BAD_REQUEST) 
+            else:
+                return Response({"error":"mobile number not found"},status=status.HTTP_400_BAD_REQUEST) 
+
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+

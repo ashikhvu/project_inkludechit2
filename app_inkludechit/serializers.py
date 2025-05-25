@@ -321,110 +321,22 @@ class CustomerUserCreationModelsSerializer(serializers.ModelSerializer):
         model = User
         exclude = ["password"]
 
-class CustomerProfileCreationModelsSerializer(serializers.ModelSerializer):
+class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomerProfileModel
-        exclude = ["customer_otp"]
-
-    def create(self,validated_data):
-        
-        mobile = validated_data.get('mobile_no')
-        email = validated_data.get('email')
-        
-        if User.objects.filter(mobile=mobile).exists():
-            raise serializers.ValidationError(f"Customer already registered with tha same email or number")
-
-        if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError(f"Customer already registered with tha same email or number")
-
-        customer = User.objects.create(
-            first_name=validated_data.get('customer_name'),
-            mobile=mobile,
-            email=email,
-        )
-        validated_data["customer"] = customer
-
-        customer_profile = CustomerProfileModel.objects.create(**validated_data)
-        
-        return customer_profile
-
-# class CustomerRegisterSendOtp(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = CustomerProfileModel
-#         fields = ["mobile_no","customer_otp"]
-
-#     def validate(self, attrs):
-#         mobile_no = attrs["mobile_no"]
-
-#         if User.objects.filter(mobile=mobile_no).count()>1:
-#             raise serializers.ValidationError(f"User already exist")
-        
-#         user =None
-#         try:
-#             user = User.objects.get(mobile=mobile_no)
-#         except User.DoesNotExist:
-#             raise serializers.ValidationError(f"User doesn't exist in this number")
-
-        
-        
-#         return attrs
-
-class CustomerOtpAuthenticateSerializer(serializers.Serializer):
-
-    mobile_no = serializers.CharField(max_length=10,validators=[
-        RegexValidator(
-            regex=r"\d{10}$",
-            message="Enter a 10 digit valid number"
-        )]
-    )
-    customer_otp = serializers.CharField(max_length=4,validators=[
-        RegexValidator(
-            regex=r"^[0-9]{4}",
-            message=f"OTP should be combination of digits"
-        )
-    ])
+        fields = "__all__"
 
     def validate(self,attrs):
+        email = attrs.get("email")
+        mobile_no = attrs.get("mobile_no")
 
-        mobile_no = attrs["mobile_no"]
-        customer_otp = attrs["customer_otp"]
-
-        if User.objects.filter(mobile=mobile_no).count()>1:
-            raise serializers.ValidationError(f"User already exist")
+        if User.objects.filter(mobile = mobile_no).filter(user_type="customer"):
+            raise serializers.ValidationError(f"Customer Already exist with this number")
         
-        try:
-            user = User.objects.get(mobile=mobile_no)
-        except User.DoesNotExist:
-            raise serializers.ValidationError(f"User doesn't exist in this number")
-        
-        try:
-            cust = CustomerProfileModel.objects.get(customer = user)
-        except CustomerProfileModel.DoesNotExist:
-            raise serializers.ValidationError(f"Customer doesn't exist in this number")
-
-        if customer_otp != cust.customer_otp:
-            raise serializers.ValidationError(f"Invalid otp Entered")
-
-        self.user = user
-        self.customer_profile = cust
-        self.save()
-
+        if User.objects.filter(email = email).filter(user_type="customer"):
+            raise serializers.ValidationError(f"Customer Already exist with this email")
+    
         return attrs
-
-    def save(self,*args,**kwargs):
-        # user =self.context.get('request').user
-        # print(user)
-        # try:
-        #     user = User.objects.get(id=user.id)
-        #     self.customer_profile.agent = user
-        # except User.DoesNotExist:
-        #     raise serializers.ValidationError(f"Permission denied")
-            
-        self.customer_profile.is_verified = True
-        self.customer_profile.customer_otp = None
-        self.customer_profile.save()
-
 
 # CUSTOMER SERILISZERS END****************************************************************************************
