@@ -56,13 +56,15 @@ class RemoveRegisteredCustomer(APIView):
     permission_classes = [IsAdminOrIsStaff]
 
     def post(self,request):
-        id = request.data.get("customer") or None
+        id = request.data.get("id") or None
+        print(request.user)
         if not id:
             return Response({"error":"Please provide an id"},status=status.HTTP_400_BAD_REQUEST)
         try:
-            cust = User.objects.get(id=id)
+            cust_prof = CustomerProfileModel.objects.get(id=id)
+            cust = User.objects.get(id=cust_prof.customer.id)
             if request.user.user_type not in ["admin","super admin"]:
-                if cust.agent!=request.user:
+                if cust_prof.agent!=request.user:
                     return Response({"error":"User has no permission to delete this data"},status=status.HTTP_400_BAD_REQUEST)
             cust.delete()
             return Response({"success":"Customer deleted seccesfully"},status=status.HTTP_200_OK)
