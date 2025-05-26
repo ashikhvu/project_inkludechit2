@@ -51,3 +51,21 @@ class GetAllRegisteredCustomerView(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response({"error":"Data unavailable"},status=status.HTTP_400_BAD_REQUEST)
     
+class RemoveRegisteredCustomer(APIView):
+    
+    permission_classes = [IsAdminOrIsStaff]
+
+    def post(self,request):
+        id = request.data.get("customer") or None
+        if not id:
+            return Response({"error":"Please provide an id"},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            cust = User.objects.get(id=id)
+            if cust.agent!=request.user and (request.user.user_type not in ["admin","super admin"]):
+                return Response({"error":"User has no permission to delete this data"},status=status.HTTP_400_BAD_REQUEST)
+            cust.delete()
+            return Response({"success":"Customer deleted seccesfully"},status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error":str(e)},status=status.HTTP_400_BAD_REQUEST)
+        
+    

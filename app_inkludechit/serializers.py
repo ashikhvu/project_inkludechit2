@@ -342,6 +342,6 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
 class GetAllRegisteredCustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerProfileModel
-        exclude = ["agent",]
+        fields = "__all__"
 
 # CUSTOMER SERILISZERS END****************************************************************************************

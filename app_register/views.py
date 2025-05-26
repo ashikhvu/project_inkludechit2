@@ -68,6 +68,7 @@ class CustomerOtpAuthenticateView(APIView):
                     )
                     serializer.validated_data["agent"]=request.user
                     serializer.validated_data["customer"]=customer_user
+                    serializer.validated_data["is_verified"]=True
                     serializer.save()
                     return Response({"success":"OTP verfication success"},status=status.HTTP_200_OK)
                 else: 

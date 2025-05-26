@@ -19,7 +19,10 @@ class shareinterestsetup(admin.ModelAdmin):
 class customerprofileclass(admin.ModelAdmin):
     list_display = ["customer_name","mobile_no","email","amount","reciept_no","agent"]
 
-admin.site.register(User)
+class Usersetup(admin.ModelAdmin):
+    list_display = ["id","email","mobile"]
+
+admin.site.register(User,Usersetup)
 admin.site.register(SalePunchModel,userprof)
 admin.site.register(NomineeModel)
 admin.site.register(ProductModel,productsetup)
