@@ -331,12 +331,17 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
         email = attrs.get("email")
         mobile_no = attrs.get("mobile_no")
 
-        if User.objects.filter(mobile = mobile_no).filter(user_type="customer"):
-            raise serializers.ValidationError(f"Customer Already exist with this number")
+        if User.objects.filter(mobile = mobile_no):
+            raise serializers.ValidationError(f"User Already exist with this number")
         
-        if User.objects.filter(email = email).filter(user_type="customer"):
-            raise serializers.ValidationError(f"Customer Already exist with this email")
+        if User.objects.filter(email = email):
+            raise serializers.ValidationError(f"User Already exist with this email")
     
         return attrs
+    
+class GetAllRegisteredCustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomerProfileModel
+        exclude = ["agent",]
 
 # CUSTOMER SERILISZERS END****************************************************************************************

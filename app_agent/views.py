@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from app_inkludechit.models import SalePunchModel,CustomerProfileModel,User
 from rest_framework.permissions import IsAdminUser,IsAuthenticated
 from rest_framework import status
-from app_inkludechit.serializers import SalePunchCreationSerializer,CustomerUserCreationModelsSerializer
+from app_inkludechit.serializers import SalePunchCreationSerializer,GetAllRegisteredCustomerSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission
 
@@ -30,7 +30,7 @@ class SalePunchView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class GetAllRegisteredCustomer(APIView):
+class GetAllRegisteredCustomerView(APIView):
 
     permission_classes = [IsAdminOrIsStaff]
 
@@ -39,15 +39,15 @@ class GetAllRegisteredCustomer(APIView):
         print(user_type)
         if user_type in ["admin","super admin"]:
             cust = CustomerProfileModel.objects.all()
-            serializer = CustomerUserCreationModelsSerializer(cust,many=True)
+            serializer = GetAllRegisteredCustomerSerializer(cust,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         elif user_type in ["sales agent","sales and collection agent"]:
             try:
                 user = User.objects.get(id=request.user.id)
             except User.DoesNotExist:
                 return Response({"error","User doesn't exist"})
-            cust = CustomerProfileModel.objects.filter(customer=user)
-            serializer = CustomerUserCreationModelsSerializer(cust,many=True)
+            cust = CustomerProfileModel.objects.filter(agent=user)
+            serializer = GetAllRegisteredCustomerSerializer(cust,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response({"error":"Data unavailable"},status=status.HTTP_400_BAD_REQUEST)
     

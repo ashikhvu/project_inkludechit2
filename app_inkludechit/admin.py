@@ -17,7 +17,7 @@ class shareinterestsetup(admin.ModelAdmin):
     get_customer_name.short_description = "first name"
 
 class customerprofileclass(admin.ModelAdmin):
-    list_display = ["customer_name","mobile_no","email","amount","reciept_no"]
+    list_display = ["customer_name","mobile_no","email","amount","reciept_no","agent"]
 
 admin.site.register(User)
 admin.site.register(SalePunchModel,userprof)
