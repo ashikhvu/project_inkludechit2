@@ -70,5 +70,21 @@ class RemoveRegisteredCustomer(APIView):
             return Response({"success":"Customer deleted seccesfully"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error":str(e)},status=status.HTTP_400_BAD_REQUEST)
-        
-    
+
+class ClickOnRegisterBtn(APIView):
+
+    permission_classes = [IsAdminOrIsStaff]
+
+    def get(self,request):
+        id = request.data.get("id") or None
+        if not id:
+            return Response({"error":"Please provide an id"},status=status.HTTP_200_OK)
+        try:
+            cust_prof = CustomerProfileModel.objects.get(id=id)
+            serializer = GetAllRegisteredCustomerSerializer(cust_prof,many=False)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        except CustomerProfileModel.DoesNotExist:
+            return Response({"error":"Customer details doesn't exist"},status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error",str(e)},status=status.HTTP_400_BAD_REQUEST)
+

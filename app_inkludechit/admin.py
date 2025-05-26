@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User,SalePunchModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel
-
+from .models import AgentProfileModel
 # Register your models here.
 
 class productsetup(admin.ModelAdmin):
@@ -20,7 +20,7 @@ class customerprofileclass(admin.ModelAdmin):
     list_display = ["customer_name","mobile_no","email","amount","reciept_no","agent"]
 
 class Usersetup(admin.ModelAdmin):
-    list_display = ["id","email","mobile"]
+    list_display = ["id","email","mobile","user_type"]
 
 admin.site.register(User,Usersetup)
 admin.site.register(SalePunchModel,userprof)
@@ -28,3 +28,4 @@ admin.site.register(NomineeModel)
 admin.site.register(ProductModel,productsetup)
 admin.site.register(ShareMyInterestModel,shareinterestsetup)
 admin.site.register(CustomerProfileModel,customerprofileclass)
+admin.site.register(AgentProfileModel)

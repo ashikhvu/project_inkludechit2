@@ -284,6 +284,32 @@ class CustomerProfileModel(models.Model):
     
     
 
+# AGENT MODELS START*****************************************************************************************
+
+class AgentProfileModel(models.Model):
+    agent = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    agent_code = ShortUUIDField(max_length=6,length=4,alphabet="0123456789",unique=True,blank=True,null=True)
+
+    def __str__(self):
+        return "AgentProfile "+str(self.id)
+
+@receiver(post_save,sender=User)
+def create_agent_profile(sender,instance,created,**kwargs):
+    if created: 
+        if instance.user_type in ["sales agent","sales and collection agent"]:
+            AgentProfileModel.objects.create(agent=instance)
+        elif instance.user_type in ["sales agent","sales and collection agent"]:
+            try: 
+                agent_instance = AgentProfileModel.objects.get(agent=instance)
+            except AgentProfileModel.DoesNotExist():
+                AgentProfileModel.objects.create(agent=instance)
+
+@receiver(post_save,sender=User)
+def save_agent_profile(sender,instance,**kwargs):
+    if hasattr(instance,"agentprofilemodel"):
+        instance.agentprofilemodel.save()
+
+# AGENT MODELS END*******************************************************************************************
 
 
 
