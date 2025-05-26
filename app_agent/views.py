@@ -61,8 +61,9 @@ class RemoveRegisteredCustomer(APIView):
             return Response({"error":"Please provide an id"},status=status.HTTP_400_BAD_REQUEST)
         try:
             cust = User.objects.get(id=id)
-            if cust.agent!=request.user and (request.user.user_type not in ["admin","super admin"]):
-                return Response({"error":"User has no permission to delete this data"},status=status.HTTP_400_BAD_REQUEST)
+            if request.user.user_type not in ["admin","super admin"]:
+                if cust.agent!=request.user:
+                    return Response({"error":"User has no permission to delete this data"},status=status.HTTP_400_BAD_REQUEST)
             cust.delete()
             return Response({"success":"Customer deleted seccesfully"},status=status.HTTP_200_OK)
         except Exception as e:
