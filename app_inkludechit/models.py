@@ -9,6 +9,8 @@ from django.dispatch import receiver
 from datetime import datetime
 from shortuuid.django_fields import ShortUUIDField
 from django.core.validators import RegexValidator
+from django.utils import timezone
+from datetime import timedelta
 
 class UserManager(BaseUserManager):
     def create_user(self,email=None,mobile=None,password=None,**extra_fields):
@@ -311,6 +313,19 @@ class CustomerProfileModel(models.Model):
 
     def __str__(self):
         return self.customer_name or "customer "+str(self.id)
+
+class OtpRecordModel(models.Model):
+    mobile_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"^\d{10}",
+            message="Enter a 10 digit number"
+        )
+    ])
+    otp = models.CharField(max_length=4,blank=True,null=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+
+    def is_valid(self):
+        return (timezone.now() - self.create_at )< timedelta(minutes=3)
 
 # CUSTOMER MODELS END****************************************************************************************
 

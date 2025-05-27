@@ -8,7 +8,7 @@ from twilio.rest import Client
 from django.conf import settings
 import random
 from app_inkludechit.serializers import CustomerCreationAndSendOtpSerializer
-from app_inkludechit.models import User,AgentProfileModel
+from app_inkludechit.models import User,AgentProfileModel,OtpRecordModel
 
 def SendOTPFunction(ph,msg):
     client = Client(settings.TWILIO_ACCOUNT_SID,settings.TWILIO_AUTH_TOKEN)
@@ -34,9 +34,19 @@ class CustomerCreationSerializer(APIView):
             cust_data = serializer.validated_data
             rand_otp = random.randint(1111,9999)
             cust_data["customer_otp"] =rand_otp
-            request.session["customer_data"] = cust_data
-            request.session.set_expiry(180)
-            request.session.modified = True
+            # request.session["customer_data"] = cust_data
+
+            try:
+                OtpRecordModel.objects.create(
+                    mobile_no=serializer.validated_data["mobile_no"],
+                    otp=rand_otp,
+                )
+            except:
+                return Response({"error":"Otp Sending Failed"},status=status.HTTP_400_BAD_REQUEST)
+
+            # request.session.set_expiry(180)
+            # request.session.modified = True
+
             ph = "+91"+ serializer.validated_data["mobile_no"]
             msg = f"Your OTP is [ {rand_otp} ]"
             # SendOTPFunction(ph,msg)
@@ -57,9 +67,11 @@ class CustomerOtpAuthenticateView(APIView):
             email = serializer.validated_data["email"]
             customer_name = serializer.validated_data["customer_name"]
             
-            cust_data = request.session.get("customer_data")
-            if cust_data and cust_data["mobile_no"] == mobile:
-                if int(cust_data["customer_otp"]) ==  int(customer_otp):
+            # cust_data = request.session.get("customer_data")
+            cust_datas = OtpRecordModel.objects.filter(mobile_no=mobile).last()
+            print(f"\nsession data is {cust_datas}\n")
+            if cust_datas and cust_datas.mobile_no == mobile:
+                if int(cust_datas.otp) ==  int(customer_otp):
                     customer_user = User.objects.create(
                         first_name=customer_name,
                         mobile=mobile,
