@@ -1729,6 +1729,123 @@
     </div>
 
 
+    <!-- <style>
+        
+.button-nav {
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid silver;
+  padding: 0.5em;
+  display: inline-block;
+  zoom: 1;
+  border-radius: 4px;
+}
+
+.button-nav .line {
+  display: block;
+  background: #969696;
+  height: 3px;
+  width: 25px;
+  margin: 3px 0;
+}
+
+.header-top {
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #dad5d5;
+}
+
+.header-top h1 {
+  margin: 0;
+  display: inline-block;
+  font-size: 1.5em;
+  vertical-align: text-bottom;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.navigation-backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(212, 212, 212, 0.36);
+}
+
+.navigation {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #fff;
+  z-index: 1001;
+  min-width: 250px;
+  overflow: auto;
+  display: none;
+  box-shadow: -1px 2px 6px 1px #9e9e9e;
+}
+
+.navigation.open {
+  display: block;
+}
+
+.navigation-button {
+  padding: 10px;
+  text-align: right;
+}
+
+.navigation-heading {
+  margin: 0;
+  font-weight: 400;
+  color: #777777;
+  padding: 10px;
+}
+
+.navigation-list {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.navigation-list a {
+  color: #159bfb;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+    </style>
+
+    <div class="navigation" id="navigation-demo">
+
+            <button onclick="function_name()" class="button-nav">
+                <i>logo</i>
+            </button>
+
+    </div>
+
+
+
+
+    <script>
+            $(document).on("click", ".button-nav, .navigation-backdrop", function () {
+            var $nav = $("#navigation-demo");
+            var $hasClass = $nav.hasClass("open");
+
+            if (!$hasClass) {
+                $nav.addClass("open");
+                $("body").append("<div class='navigation-backdrop'></div>");
+            } else {
+                $nav.removeClass("open");
+                $(".navigation-backdrop").remove();
+            }
+            });
+
+    </script> -->
+
 </body>
 
 </html>

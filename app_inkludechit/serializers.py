@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel
+from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel
 # from django.contrib.auth.models import c
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
@@ -318,6 +318,17 @@ class ShareMyInterestModelSerializer(serializers.ModelSerializer):
         model = ShareMyInterestModel
         fields = "__all__"
 
+# AGENT SERILISZERS START*****************************************************************************************
+
+class AgentProfileSerializer(serializers.ModelField):
+    class Meta:
+        model = AgentProfileModel
+        fields = "__all__"
+
+# AGENT SERILISZERS END*******************************************************************************************
+
+
+
 # CUSTOMER SERILISZERS START****************************************************************************************
 
 class CustomerUserCreationModelsSerializer(serializers.ModelSerializer):
@@ -357,7 +368,10 @@ class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializ
 
     def to_representation(self,instance):
         response = super().to_representation(instance)
+        print(response["agent"])
+        # response["agent"]= AgentProfileSerializer(instance.agent).data
         response["customer"] = UserGetSerializer(instance.customer).data
         return response
     
 # CUSTOMER SERILISZERS END****************************************************************************************
+
