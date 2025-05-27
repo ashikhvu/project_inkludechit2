@@ -97,6 +97,11 @@ class UserCreationSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username','first_name','last_name','email','password']
 
+class UserGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','email']
+
 class NomineeModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = NomineeModel
@@ -344,4 +349,15 @@ class GetAllRegisteredCustomerSerializer(serializers.ModelSerializer):
         model = CustomerProfileModel
         fields = "__all__"
 
+class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomerProfileModel
+        fields = "__all__"
+
+    def to_representation(self,instance):
+        response = super().to_representation(instance)
+        response["customer"] = UserGetSerializer(instance.customer).data
+        return response
+    
 # CUSTOMER SERILISZERS END****************************************************************************************

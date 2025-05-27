@@ -8,7 +8,7 @@ from twilio.rest import Client
 from django.conf import settings
 import random
 from app_inkludechit.serializers import CustomerCreationAndSendOtpSerializer
-from app_inkludechit.models import User
+from app_inkludechit.models import User,AgentProfileModel
 
 def SendOTPFunction(ph,msg):
     client = Client(settings.TWILIO_ACCOUNT_SID,settings.TWILIO_AUTH_TOKEN)
@@ -47,7 +47,6 @@ class CustomerCreationSerializer(APIView):
 
 class CustomerOtpAuthenticateView(APIView):
     
-
     permission_classes = [IsAdminOrIsStaff]
 
     def post(self,request):
@@ -66,7 +65,11 @@ class CustomerOtpAuthenticateView(APIView):
                         mobile=mobile,
                         email=email,
                     )
-                    serializer.validated_data["agent"]=request.user
+                    try:
+                        agent_prof = AgentProfileModel.objects.get(agent=request.user)
+                        serializer.validated_data["agent"]=agent_prof
+                    except:
+                        pass
                     serializer.validated_data["customer"]=customer_user
                     serializer.validated_data["is_verified"]=True
                     serializer.save()

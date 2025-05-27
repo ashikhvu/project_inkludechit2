@@ -253,34 +253,6 @@ class ShareMyInterestModel(models.Model):
     def __str__(self):
         return self.customer_name or self.customer_email
 
-# CUSTOMER MODELS START****************************************************************************************
-
-class CustomerProfileModel(models.Model):
-    agent = models.ForeignKey(User,on_delete=models.CASCADE,related_name="agent",blank=True,null=True)
-    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
-    customer_name = models.CharField(max_length=255)
-    mobile_no = models.CharField(max_length=10,validators=[
-        RegexValidator(
-            regex=r"\d{10}$",
-            message="Enter a 10 digit valid number"
-        )]
-    )
-    whatsapp_no = models.CharField(max_length=10,validators=[
-        RegexValidator(
-            regex=r"\d{10}$",
-            message="Enter a 10 digit valid number"
-        )]
-    )
-    email = models.EmailField()
-    amount = models.FloatField(default=0.00)
-    reciept_no = models.CharField(max_length=12,unique=True)
-    customer_otp = models.CharField(max_length=4,blank=True,null=True)
-    is_verified = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.customer_name or "customer "+str(self.id)
-
-# CUSTOMER MODELS END****************************************************************************************
     
     
 
@@ -313,6 +285,34 @@ def save_agent_profile(sender,instance,**kwargs):
 
 
 
+# CUSTOMER MODELS START****************************************************************************************
+
+class CustomerProfileModel(models.Model):
+    agent = models.ForeignKey(AgentProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    customer_name = models.CharField(max_length=255)
+    mobile_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"\d{10}$",
+            message="Enter a 10 digit valid number"
+        )]
+    )
+    whatsapp_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"\d{10}$",
+            message="Enter a 10 digit valid number"
+        )]
+    )
+    email = models.EmailField()
+    amount = models.FloatField(default=0.00)
+    reciept_no = models.CharField(max_length=12,unique=True)
+    customer_otp = models.CharField(max_length=4,blank=True,null=True)
+    is_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.customer_name or "customer "+str(self.id)
+
+# CUSTOMER MODELS END****************************************************************************************
 
 
 

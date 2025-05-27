@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from app_inkludechit.models import SalePunchModel,CustomerProfileModel,User
+from app_inkludechit.models import SalePunchModel,CustomerProfileModel,User,AgentProfileModel
 from rest_framework.permissions import IsAdminUser,IsAuthenticated
 from rest_framework import status
-from app_inkludechit.serializers import SalePunchCreationSerializer,GetAllRegisteredCustomerSerializer
+from app_inkludechit.serializers import SalePunchCreationSerializer,GetAllRegisteredCustomerSerializer,PartialFetchSelectedRegisteredCustomerSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission
 
@@ -43,10 +43,17 @@ class GetAllRegisteredCustomerView(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         elif user_type in ["sales agent","sales and collection agent"]:
             try:
+                print("trying")
                 user = User.objects.get(id=request.user.id)
+                agent_prof = AgentProfileModel.objects.get(agent=user)
+                print(f"agent id : {agent_prof.id}")
             except User.DoesNotExist:
                 return Response({"error","User doesn't exist"})
-            cust = CustomerProfileModel.objects.filter(agent=user)
+            except AgentProfileModel.DoesNotExist:
+                return Response({"error","Agent Profile doesn't exist"})
+
+            cust = CustomerProfileModel.objects.filter(agent=agent_prof)
+            print(cust)
             serializer = GetAllRegisteredCustomerSerializer(cust,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response({"error":"Data unavailable"},status=status.HTTP_400_BAD_REQUEST)
@@ -63,8 +70,9 @@ class RemoveRegisteredCustomer(APIView):
         try:
             cust_prof = CustomerProfileModel.objects.get(id=id)
             cust = User.objects.get(id=cust_prof.customer.id)
+            agent_prof = AgentProfileModel.objects.get(agent = request.user)
             if request.user.user_type not in ["admin","super admin"]:
-                if cust_prof.agent!=request.user:
+                if cust_prof.agent!=agent_prof:
                     return Response({"error":"User has no permission to delete this data"},status=status.HTTP_400_BAD_REQUEST)
             cust.delete()
             return Response({"success":"Customer deleted seccesfully"},status=status.HTTP_200_OK)
@@ -81,10 +89,13 @@ class ClickOnRegisterBtn(APIView):
             return Response({"error":"Please provide an id"},status=status.HTTP_200_OK)
         try:
             cust_prof = CustomerProfileModel.objects.get(id=id)
-            serializer = GetAllRegisteredCustomerSerializer(cust_prof,many=False)
+            print(cust_prof)
+            serializer = PartialFetchSelectedRegisteredCustomerSerializer(cust_prof,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)
         except CustomerProfileModel.DoesNotExist:
             return Response({"error":"Customer details doesn't exist"},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error",str(e)},status=status.HTTP_400_BAD_REQUEST)
+        
+
 
