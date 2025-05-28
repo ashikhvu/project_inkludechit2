@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import User,SalePunchModel,ShareMyInterestModel
+from .models import User,SalePunchModel,ShareMyInterestModel,AgentProfileModel
 from .serializers import SalePunchCreationSerializer,CustomTokenObtainPairSerializer,CustomUserLoginSerializer,SendOtpSerializer,ShareMyInterestModelSerializer
 from rest_framework import status
 from django.http import JsonResponse
@@ -47,6 +47,10 @@ class CustomLoginView(APIView):
         serializer = CustomUserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+        # if user.user_type in ["sales agent","collection agent","sales and collection agent"]:
+
+        # agent_prof = AgentProfileModel.objects.get(agent = user)
+
 
         refresh = RefreshToken.for_user(user)
 
@@ -58,6 +62,7 @@ class CustomLoginView(APIView):
             "user_type":str(user_type),
             "agent_name": user.first_name or user.username.split('@')[0],
             "position": user.user_type,
+            "agent_code":
         }, status=status.HTTP_200_OK)
 
 class ShareMyInterestView(APIView):
