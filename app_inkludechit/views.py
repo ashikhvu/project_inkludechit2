@@ -63,7 +63,7 @@ class CustomLoginView(APIView):
             "user_type":str(user_type),
             "agent_name": user.first_name or user.username.split('@')[0],
             "position": user.user_type,
-            "agent_code": agent_prof_code
+            "agent_code": str(agent_prof_code)
         }, status=status.HTTP_200_OK)
 
 class ShareMyInterestView(APIView):
