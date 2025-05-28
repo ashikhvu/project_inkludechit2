@@ -320,7 +320,7 @@ class ShareMyInterestModelSerializer(serializers.ModelSerializer):
 
 # AGENT SERILISZERS START*****************************************************************************************
 
-class AgentProfileSerializer(serializers.ModelField):
+class AgentProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = AgentProfileModel
         fields = "__all__"
@@ -369,7 +369,9 @@ class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializ
     def to_representation(self,instance):
         response = super().to_representation(instance)
         print(response["agent"])
-        # response["agent"]= AgentProfileSerializer(instance.agent).data
+        response["agent"]= AgentProfileSerializer(instance.agent).data
+        print(response["agent"])
+        # response["agent"]["agent"]=UserGetSerializer(instance.agent).data
         response["customer"] = UserGetSerializer(instance.customer).data
         return response
     
