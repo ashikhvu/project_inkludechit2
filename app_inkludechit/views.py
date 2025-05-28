@@ -56,6 +56,7 @@ class CustomLoginView(APIView):
             "access": str(refresh.access_token),
             "refresh": str(refresh),
             "user_type":str(user_type),
+            "agent_name":user.username or user.first_name,
         }, status=status.HTTP_200_OK)
 
 class ShareMyInterestView(APIView):
