@@ -134,8 +134,8 @@ class CustomerProfileModel(models.Model):
     customer_otp = models.CharField(max_length=4,blank=True,null=True)
     is_verified = models.BooleanField(default=False)
 
-    # def __str__(self):
-    #     return self.id
+    def __str__(self):
+        return self.customer_name or self.email.split('@')[0]
 
 class OtpRecordModel(models.Model):
     mobile_no = models.CharField(max_length=10,validators=[
@@ -232,20 +232,9 @@ class PaymentModel(models.Model):
     forman_commision = models.CharField(max_length=50,blank=True,null=True)
     upi_number = models.CharField(max_length=50,blank=True,null=True)
 
-class LiabilitiesModel(models.Model):
-    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
-    customer_prof = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
-    # current liabilities
-    bank_name = models.CharField(max_length=255,blank=True,null=True)
-    amount = models.FloatField(default=0.0)
-    emi_amount = models.FloatField(default=0.0)
-
-    def __str__(self):
-        return self.bank_name
-
 class SalePunchModel(models.Model):
     # basic info
-    
+    agent = models.ForeignKey(User,on_delete=models.CASCADE,related_name="agent",blank=True,null=True)
     customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     customer_prof = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
     uid = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
@@ -323,6 +312,16 @@ class SalePunchModel(models.Model):
     nominee_model_data = models.ForeignKey(NomineeModel,on_delete=models.CASCADE,blank=True,null=True)
     product_model_data = models.ForeignKey(ProductModel,on_delete=models.CASCADE,blank=True,null=True)
     payment_model_data = models.ForeignKey(PaymentModel,on_delete=models.CASCADE,blank=True,null=True)
+
+class LiabilitiesModel(models.Model):
+    salepunch = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
+    # current liabilities
+    bank_name = models.CharField(max_length=255,blank=True,null=True)
+    amount = models.FloatField(default=0.0)
+    emi_amount = models.FloatField(default=0.0)
+
+    def __str__(self):
+        return self.bank_name
 
 class ShareMyInterestModel(models.Model):
     customer_name = models.CharField(max_length=255,blank=True,null=True)

@@ -18,6 +18,13 @@ class SalePunchViewPost(APIView):
     def post(self, request):
         serializer = SalePunchCreationSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.validated_data["agent"] = request.user
+            # customer_prof_id = serializer.validated_data["customer_prof"]
+            # try:
+            #     CustomerProfileModel.objects.get(id=customer_prof_id)
+            # except CustomerProfileModel.DoesNotExist:
+            #     return Response({"error":"Customer data doesn't exist"})
+            # serializer.validated_data.customer_prof = customer_prof
             serializer.save()
             return Response({"success":"SalePunch submitted successfully"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

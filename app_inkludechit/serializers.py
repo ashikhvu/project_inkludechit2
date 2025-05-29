@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel
+from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel,LiabilitiesModel
 # from django.contrib.auth.models import c
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
@@ -129,8 +129,14 @@ class PaymentModelSerializer(serializers.ModelSerializer):
         model = PaymentModel
         fields = '__all__'
 
+class LiabilitiesSerailizer(serializers.ModelSerializer):
+    class Meta:
+        model = LiabilitiesModel
+        fields = ["bank_name","amount","emi_amount"]
 
 class SalePunchCreationSerializer(serializers.ModelSerializer):
+
+    liabilities = LiabilitiesSerailizer(many=True,required=False)
 
     nominee_model_data = NomineeModelSerializer()
     product_model_data = ProductModelSerializer()
@@ -267,7 +273,7 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
                 if not init_day == multi_division_auction_eligibility:
                     raise serializers.ValidationError(f"Auction eligibility date should be '{init_day.strftime('%d-%m-%Y')}' ")
 
-            print(f"{multi_division_auction_date}\t{type(multi_division_auction_date)}")
+            # print(f"{multi_division_auction_date}\t{type(multi_division_auction_date)}")
             if not multi_division_auction_date == "Friday":
                 raise serializers.ValidationError(f"Auction date for multi division should be 'Friday' ")
             if not multi_division_divident_date == "Thursday":
@@ -313,17 +319,28 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         # except CustomerProfileModel.DoesNotExist:
         #     raise serializers.ValidationError("Customer Profile doesnt exist please remove and reregister the customer")
 
-        id = validated_data.pop("customer_prof")
+        # user=User.objects.get(id=validated_data.get("customer_prof").id)
+        cust = validated_data.get("customer_prof")
+        customer_prof = CustomerProfileModel.objects.get(id=cust.id)
 
-        print(f'asdasdasdsa   {id}')
-        
-        return SalePunchModel.objects.create(
-            customer_prof = validated_data.get("customer_prof"),
+
+        liability_data = validated_data.pop("liabilities",[])
+
+        salepunch =SalePunchModel.objects.create(
+            customer=customer_prof.customer,
             nominee_model_data=nominee,
             product_model_data=product,
             payment_model_data=payment,
             **validated_data
         )
+
+        for i in liability_data:
+            LiabilitiesModel.objects.create(
+                salepunch=salepunch,
+                **i
+            )
+
+        return salepunch
 
     def to_representation(self,instance):
         response = super().to_representation(instance)
@@ -387,9 +404,9 @@ class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializ
 
     def to_representation(self,instance):
         response = super().to_representation(instance)
-        print(response["agent"])
+        # print(response["agent"])
         response["agent"]= AgentProfileSerializer(instance.agent).data
-        print(response["agent"])
+        # print(response["agent"])
         # response["agent"]["agent"]=UserGetSerializer(instance.agent).data
         response["customer"] = UserGetSerializer(instance.customer).data
         return response

@@ -7,10 +7,13 @@ class productsetup(admin.ModelAdmin):
     list_display=["kuri_type","product_code","document_type","collection_mode","joining_date"]
     list_display_links = list_display
 
-class userprof(admin.ModelAdmin):
-    # list_display=["full_name","email","mobile","current_address"]
-    list_display=["full_name"]
+class salepunchmodel(admin.ModelAdmin):
+    list_display=["get_customer_prof","place","adhar_no","current_address"]
     list_display_links = list_display
+
+    def get_customer_prof(self,obj):
+        return  obj.full_name
+    get_customer_prof.short_description = "FULL_NAME"
 
 class shareinterestsetup(admin.ModelAdmin):
     list_display=["get_customer_name","customer_email","custoemr_comment","customer_country_code","customer_phone"]
@@ -42,7 +45,7 @@ class AgentSetup(admin.ModelAdmin):
     agent_email.short_description = "Agent Email"
 
 admin.site.register(User,Usersetup)
-admin.site.register(SalePunchModel,userprof)
+admin.site.register(SalePunchModel,salepunchmodel)
 admin.site.register(NomineeModel)
 admin.site.register(ProductModel,productsetup)
 admin.site.register(ShareMyInterestModel,shareinterestsetup)
