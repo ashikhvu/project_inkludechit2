@@ -79,6 +79,78 @@ class User(AbstractBaseUser,PermissionsMixin):
             if self.username == '' or self.username == None:
                 self.username = user_name
         super(User,self).save(*args,**kwargs)
+    
+
+# AGENT MODELS START*****************************************************************************************
+
+class AgentProfileModel(models.Model):
+    agent = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    agent_code = ShortUUIDField(max_length=6,length=4,alphabet="0123456789",unique=True,blank=True,null=True)
+
+    def __str__(self):
+        return "AgentProfile "+str(self.id)
+
+@receiver(post_save,sender=User)
+def create_agent_profile(sender,instance,created,**kwargs):
+    if created: 
+        if instance.user_type in ["sales agent","sales and collection agent"]:
+            AgentProfileModel.objects.create(agent=instance)
+        elif instance.user_type in ["sales agent","sales and collection agent"]:
+            try: 
+                agent_instance = AgentProfileModel.objects.get(agent=instance)
+            except AgentProfileModel.DoesNotExist():
+                AgentProfileModel.objects.create(agent=instance)
+
+@receiver(post_save,sender=User)
+def save_agent_profile(sender,instance,**kwargs):
+    if hasattr(instance,"agentprofilemodel"):
+        instance.agentprofilemodel.save()
+
+# AGENT MODELS END*******************************************************************************************
+
+
+
+# CUSTOMER MODELS START****************************************************************************************
+
+class CustomerProfileModel(models.Model):
+    agent = models.ForeignKey(AgentProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    customer_name = models.CharField(max_length=255)
+    mobile_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"\d{10}$",
+            message="Enter a 10 digit valid number"
+        )]
+    )
+    whatsapp_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"\d{10}$",
+            message="Enter a 10 digit valid number"
+        )]
+    )
+    email = models.EmailField()
+    amount = models.FloatField(default=0.00)
+    reciept_no = models.CharField(max_length=12,unique=True)
+    customer_otp = models.CharField(max_length=4,blank=True,null=True)
+    is_verified = models.BooleanField(default=False)
+
+    # def __str__(self):
+    #     return self.id
+
+class OtpRecordModel(models.Model):
+    mobile_no = models.CharField(max_length=10,validators=[
+        RegexValidator(
+            regex=r"^\d{10}",
+            message="Enter a 10 digit number"
+        )
+    ])
+    otp = models.CharField(max_length=4,blank=True,null=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+
+    def is_valid(self):
+        return (timezone.now() - self.create_at )< timedelta(minutes=3)
+
+# CUSTOMER MODELS END****************************************************************************************
 
 class NomineeModel(models.Model):
     nominee_name = models.CharField(max_length=255,blank=True,null=True)
@@ -160,31 +232,43 @@ class PaymentModel(models.Model):
     forman_commision = models.CharField(max_length=50,blank=True,null=True)
     upi_number = models.CharField(max_length=50,blank=True,null=True)
 
+class LiabilitiesModel(models.Model):
+    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    customer_prof = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+    # current liabilities
+    bank_name = models.CharField(max_length=255,blank=True,null=True)
+    amount = models.FloatField(default=0.0)
+    emi_amount = models.FloatField(default=0.0)
+
+    def __str__(self):
+        return self.bank_name
+
 class SalePunchModel(models.Model):
     # basic info
     
-    user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    customer_prof = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
     uid = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
     kyc = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
     agent_code = models.CharField(max_length=4,blank=True,null=True)
-    first_name = models.CharField(max_length=255,blank=True,null=True)
-    last_name = models.CharField(max_length=255,blank=True,null=True)
+    full_name = models.CharField(max_length=255,blank=True,null=True)
+    # last_name = models.CharField(max_length=255,blank=True,null=True)
     family_name = models.CharField(max_length=255,blank=True,null=True)
-    email = models.EmailField(blank=True,null=True)
-    mobile = models.CharField(max_length=10,blank=True,null=True,validators=[
-        RegexValidator(
-            regex=r'^\d{10}$',
-            message='Enter a valid 10-digit phone number.'
-        )
-    ])
-    whatsapp = models.CharField(max_length=10,blank=True,null=True,validators=[
-        RegexValidator(
-            regex=r'^\d{10}$',
-            message='Enter a valid 10-digit phone number.'
-        )
-    ])
+    # email = models.EmailField(blank=True,null=True)
+    # mobile = models.CharField(max_length=10,blank=True,null=True,validators=[
+    #     RegexValidator(
+    #         regex=r'^\d{10}$',
+    #         message='Enter a valid 10-digit phone number.'
+    #     )
+    # ])
+    # whatsapp = models.CharField(max_length=10,blank=True,null=True,validators=[
+    #     RegexValidator(
+    #         regex=r'^\d{10}$',
+    #         message='Enter a valid 10-digit phone number.'
+    #     )
+    # ])
     place = models.CharField(max_length=255,blank=True,null=True)
-    dob = models.DateField(blank=True,null=True)
+    # dob = models.DateField(blank=True,null=True)
     pancard_no = models.CharField(max_length=10,validators=[
         RegexValidator(regex=r"^[A-Z]{5}[0-9]{4}[A-Z]{1}$",
                        message="Invalid Pancard Number")
@@ -233,10 +317,8 @@ class SalePunchModel(models.Model):
     ])
     company_partner_detail = models.CharField(max_length=255,blank=True,null=True)
 
-    # current liabilities
-    bank_name = models.CharField(max_length=255,blank=True,null=True)
-    amount = models.FloatField(default=0.0)
-    emi_amount = models.FloatField(default=0.0)
+    signature_field = models.FileField(upload_to="signature/",blank=True,null=True)
+    video_field = models.FileField(upload_to="video/",blank=True,null=True)
 
     nominee_model_data = models.ForeignKey(NomineeModel,on_delete=models.CASCADE,blank=True,null=True)
     product_model_data = models.ForeignKey(ProductModel,on_delete=models.CASCADE,blank=True,null=True)
@@ -256,78 +338,6 @@ class ShareMyInterestModel(models.Model):
         return self.customer_name or self.customer_email
 
     
-    
-
-# AGENT MODELS START*****************************************************************************************
-
-class AgentProfileModel(models.Model):
-    agent = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
-    agent_code = ShortUUIDField(max_length=6,length=4,alphabet="0123456789",unique=True,blank=True,null=True)
-
-    def __str__(self):
-        return "AgentProfile "+str(self.id)
-
-@receiver(post_save,sender=User)
-def create_agent_profile(sender,instance,created,**kwargs):
-    if created: 
-        if instance.user_type in ["sales agent","sales and collection agent"]:
-            AgentProfileModel.objects.create(agent=instance)
-        elif instance.user_type in ["sales agent","sales and collection agent"]:
-            try: 
-                agent_instance = AgentProfileModel.objects.get(agent=instance)
-            except AgentProfileModel.DoesNotExist():
-                AgentProfileModel.objects.create(agent=instance)
-
-@receiver(post_save,sender=User)
-def save_agent_profile(sender,instance,**kwargs):
-    if hasattr(instance,"agentprofilemodel"):
-        instance.agentprofilemodel.save()
-
-# AGENT MODELS END*******************************************************************************************
-
-
-
-# CUSTOMER MODELS START****************************************************************************************
-
-class CustomerProfileModel(models.Model):
-    agent = models.ForeignKey(AgentProfileModel,on_delete=models.CASCADE,blank=True,null=True)
-    customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
-    customer_name = models.CharField(max_length=255)
-    mobile_no = models.CharField(max_length=10,validators=[
-        RegexValidator(
-            regex=r"\d{10}$",
-            message="Enter a 10 digit valid number"
-        )]
-    )
-    whatsapp_no = models.CharField(max_length=10,validators=[
-        RegexValidator(
-            regex=r"\d{10}$",
-            message="Enter a 10 digit valid number"
-        )]
-    )
-    email = models.EmailField()
-    amount = models.FloatField(default=0.00)
-    reciept_no = models.CharField(max_length=12,unique=True)
-    customer_otp = models.CharField(max_length=4,blank=True,null=True)
-    is_verified = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.customer_name or "customer "+str(self.id)
-
-class OtpRecordModel(models.Model):
-    mobile_no = models.CharField(max_length=10,validators=[
-        RegexValidator(
-            regex=r"^\d{10}",
-            message="Enter a 10 digit number"
-        )
-    ])
-    otp = models.CharField(max_length=4,blank=True,null=True)
-    create_at = models.DateTimeField(auto_now_add=True)
-
-    def is_valid(self):
-        return (timezone.now() - self.create_at )< timedelta(minutes=3)
-
-# CUSTOMER MODELS END****************************************************************************************
 
 
 

@@ -11,8 +11,18 @@ class IsAdminOrIsStaff(BasePermission):
     def has_permission(self,request,view):
         return request.user and request.user.is_authenticated and (request.user.user_type in ["admin","super admin"] or request.user.user_type in ["sales agent","sales and collection agent"])
 
+class SalePunchViewPost(APIView):
+
+    permission_classes = [IsAdminOrIsStaff]
+
+    def post(self, request):
+        serializer = SalePunchCreationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success":"SalePunch submitted successfully"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 # Create your views here.
-class SalePunchView(APIView):
+class SalePunchViewGet(APIView):
 
     permission_classes = [IsAdminUser,IsAuthenticated]
 
@@ -23,12 +33,6 @@ class SalePunchView(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response({"error":"Data unavailable"},status=status.HTTP_200_OK)
 
-    def post(self, request):
-        serializer = SalePunchCreationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class GetAllRegisteredCustomerView(APIView):
 

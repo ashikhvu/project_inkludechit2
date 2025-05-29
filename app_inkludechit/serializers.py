@@ -136,7 +136,7 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
     product_model_data = ProductModelSerializer()
     payment_model_data = PaymentModelSerializer()
 
-    dob= serializers.DateField(input_formats=['%d-%m-%Y'])
+    # dob= serializers.DateField(input_formats=['%d-%m-%Y'])
     salary_date= serializers.DateField(input_formats=['%d-%m-%Y'])
 
     class Meta:
@@ -283,28 +283,47 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         payment_data = validated_data.pop('payment_model_data')
         payment = PaymentModel.objects.create(**payment_data)
 
-        email = validated_data.get('email')
-        mobile = validated_data.get('mobile')
+        # email = validated_data.get('email')
+        # mobile = validated_data.get('mobile')
 
-        if User.objects.filter(mobile=mobile).exists():
-            raise serializers.ValidationError(f"Sale punch already exist with the number [ {mobile} ]")
-        elif User.objects.filter(email=email).exists():
-            raise serializers.ValidationError(f"Sale punch already exist with the email [ {email} ]")
-        else:
-            user = User.objects.create(
-                first_name=validated_data.get('first_name'),
-                last_name=validated_data.get('last_name'),
-                email=email,
-                mobile=mobile
-            )
-            return SalePunchModel.objects.create(
-                user=user,
-                nominee_model_data=nominee,
-                product_model_data=product,
-                payment_model_data=payment,
-                **validated_data
-            )
+        # if User.objects.filter(mobile=mobile).exists():
+        #     raise serializers.ValidationError(f"Sale punch already exist with the number [ {mobile} ]")
+        # elif User.objects.filter(email=email).exists():
+        #     raise serializers.ValidationError(f"Sale punch already exist with the email [ {email} ]")
+        # else:
+        #     user = User.objects.create(
+        #         first_name=validated_data.get('first_name'),
+        #         last_name=validated_data.get('last_name'),
+        #         email=email,
+        #         mobile=mobile
+        #     )
+        #     return SalePunchModel.objects.create(
+        #         user=user,
+        #         nominee_model_data=nominee,
+        #         product_model_data=product,
+        #         payment_model_data=payment,
+        #         **validated_data
+        #     )
+        
+        # customer_prof = None
+        # asd = validated_data.get("customer_prof")
+        # print(f"id is {asd}")
+        # try:
+        # prof = CustomerProfileModel.objects.get(id=asd)
+        # except CustomerProfileModel.DoesNotExist:
+        #     raise serializers.ValidationError("Customer Profile doesnt exist please remove and reregister the customer")
 
+        id = validated_data.pop("customer_prof")
+
+        print(f'asdasdasdsa   {id}')
+        
+        return SalePunchModel.objects.create(
+            customer_prof = validated_data.get("customer_prof"),
+            nominee_model_data=nominee,
+            product_model_data=product,
+            payment_model_data=payment,
+            **validated_data
+        )
 
     def to_representation(self,instance):
         response = super().to_representation(instance)

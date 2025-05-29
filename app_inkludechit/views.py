@@ -65,7 +65,7 @@ class CustomLoginView(APIView):
             "position": user.user_type,
             "agent_code": str(agent_prof_code)
         }, status=status.HTTP_200_OK)
-
+    
 class ShareMyInterestView(APIView):
     
     def post(self,request):

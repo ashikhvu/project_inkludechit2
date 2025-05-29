@@ -8,7 +8,8 @@ class productsetup(admin.ModelAdmin):
     list_display_links = list_display
 
 class userprof(admin.ModelAdmin):
-    list_display=["first_name","email","mobile","current_address"]
+    # list_display=["full_name","email","mobile","current_address"]
+    list_display=["full_name"]
     list_display_links = list_display
 
 class shareinterestsetup(admin.ModelAdmin):
@@ -20,7 +21,7 @@ class shareinterestsetup(admin.ModelAdmin):
     get_customer_name.short_description = "first name"
 
 class customerprofileclass(admin.ModelAdmin):
-    list_display = ["customer_name","mobile_no","email","amount","reciept_no","agent","agent_id"]
+    list_display = ["id","customer_name","mobile_no","email","amount","reciept_no","agent","agent_id"]
     list_display_links = list_display
 
     def agent_id(self,obj):
