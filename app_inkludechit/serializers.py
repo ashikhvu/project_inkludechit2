@@ -134,6 +134,8 @@ class LiabilitiesSerailizer(serializers.ModelSerializer):
         model = LiabilitiesModel
         fields = ["bank_name","amount","emi_amount"]
 
+
+
 class SalePunchCreationSerializer(serializers.ModelSerializer):
 
     liabilities = LiabilitiesSerailizer(many=True,required=False)
@@ -347,6 +349,14 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         response['nominee_model_data'] = NomineeModelSerializer(instance.nominee_model_data).data
         response['product_model_data'] = ProductModelSerializer(instance.product_model_data).data
         response['payment_model_data'] = PaymentModelSerializer(instance.payment_model_data).data
+
+        liabilities = LiabilitiesModel.objects.filter(salepunch=instance)
+        response["liabilities"]= LiabilitiesSerailizer(liabilities,many=True).data
+
+        response["customer_prof"]= GetAllRegisteredCustomerSerializer(instance.customer_prof).data
+
+
+
         return response
 
 class ShareMyInterestModelSerializer(serializers.ModelSerializer):
