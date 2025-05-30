@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User,SalePunchModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel
+from .models import User,SalePunchModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,LiabilitiesModel
 from .models import AgentProfileModel
 # Register your models here.
 
@@ -44,6 +44,14 @@ class AgentSetup(admin.ModelAdmin):
         return obj.agent.email
     agent_email.short_description = "Agent Email"
 
+class liabilitysetup(admin.ModelAdmin):
+    list_display = ["get_bank_name","amount","emi_amount"]
+    list_display_links = list_display
+
+    def get_bank_name(self,obj):
+        return obj.bank_name.upper()
+    get_bank_name.short_description = "BANK NAME"
+
 admin.site.register(User,Usersetup)
 admin.site.register(SalePunchModel,salepunchmodel)
 admin.site.register(NomineeModel)
@@ -51,3 +59,4 @@ admin.site.register(ProductModel,productsetup)
 admin.site.register(ShareMyInterestModel,shareinterestsetup)
 admin.site.register(CustomerProfileModel,customerprofileclass)
 admin.site.register(AgentProfileModel,AgentSetup)
+admin.site.register(LiabilitiesModel,liabilitysetup)
