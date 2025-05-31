@@ -238,13 +238,13 @@ class SalePunchModel(models.Model):
     customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     customer_prof = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
     # uid = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
-    uid = models.IntegerField(unique=True,max_length=12,blank=True,null=True,validators=[
+    uid = models.CharField(unique=True,max_length=12,blank=True,null=True,validators=[
         RegexValidator(
             regex=r"^\d{12}",
             message="UID should be 12 digit"
         )
     ])
-    kyc = models.IntegerField(unique=True,max_length=12,blank=True,null=True,validators=[
+    kyc = models.CharField(unique=True,max_length=12,blank=True,null=True,validators=[
         RegexValidator(
             regex=r"^\d{12}",
             message="KYC number should be 12 digit"
@@ -347,6 +347,7 @@ class ShareMyInterestModel(models.Model):
 
     def __str__(self):
         return self.customer_name or self.customer_email
+
 
     
 
