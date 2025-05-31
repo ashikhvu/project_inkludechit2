@@ -133,6 +133,7 @@ class CustomerProfileModel(models.Model):
     reciept_no = models.CharField(max_length=12,unique=True)
     customer_otp = models.CharField(max_length=4,blank=True,null=True)
     is_verified = models.BooleanField(default=False)
+    is_salepunch_created = models.BooleanField(default=False)
 
     def __str__(self):
         return self.customer_name or self.email.split('@')[0]
