@@ -146,11 +146,11 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
 
     # dob= serializers.DateField(input_formats=['%d-%m-%Y'])
     salary_date= serializers.DateField(input_formats=['%d-%m-%Y'])
+    
 
     class Meta:
         model = SalePunchModel
         exclude = ['uid','kyc']
-
 
     def validate(self,attrs):
         kuri_type=attrs["product_model_data"]["kuri_type"]

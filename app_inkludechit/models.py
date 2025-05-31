@@ -237,8 +237,20 @@ class SalePunchModel(models.Model):
     agent = models.ForeignKey(User,on_delete=models.CASCADE,related_name="agent",blank=True,null=True)
     customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     customer_prof = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
-    uid = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
-    kyc = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
+    # uid = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
+    uid = models.IntegerField(unique=True,max_length=12,blank=True,null=True,validators=[
+        RegexValidator(
+            regex=r"^\d{12}",
+            message="UID should be 12 digit"
+        )
+    ])
+    kyc = models.IntegerField(unique=True,max_length=12,blank=True,null=True,validators=[
+        RegexValidator(
+            regex=r"^\d{12}",
+            message="KYC number should be 12 digit"
+        )
+    ])
+    # kyc = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
     agent_code = models.CharField(max_length=4,blank=True,null=True)
     full_name = models.CharField(max_length=255,blank=True,null=True)
     # last_name = models.CharField(max_length=255,blank=True,null=True)
