@@ -340,6 +340,8 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         )
 
         for i in liability_data:
+
+            # if i["bank_name"]!=None or i["bank_name"]!="" and i["amount"]!=None or i["amount"]!="" and i["emi_amount"]!=None or i["emi_amount"]!="":
             LiabilitiesModel.objects.create(
                 salepunch=salepunch,
                 **i

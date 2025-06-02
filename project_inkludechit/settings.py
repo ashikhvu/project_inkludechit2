@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'app_agent',
     'app_register',
+    'app_admin',
+    'app_customer',
 ]
 
 REST_FRAMEWORK = {

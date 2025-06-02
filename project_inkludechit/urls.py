@@ -22,4 +22,5 @@ urlpatterns = [
     path('',include('app_inkludechit.urls')),
     path('agent/',include('app_agent.urls')),
     path('register/',include('app_register.urls')),
+    path('admin_page/',include("app_admin.urls")),
 ]

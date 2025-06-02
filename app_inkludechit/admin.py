@@ -45,7 +45,7 @@ class AgentSetup(admin.ModelAdmin):
     agent_email.short_description = "Agent Email"
 
 class liabilitysetup(admin.ModelAdmin):
-    list_display = ["get_bank_name","amount","emi_amount"]
+    list_display = ["get_bank_name","amount","emi_amount","salepunch_id"]
     list_display_links = list_display
 
     def get_bank_name(self,obj):

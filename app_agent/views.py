@@ -29,18 +29,7 @@ class SalePunchViewPost(APIView):
             serializer.save()
             return Response({"success":"SalePunch submitted successfully"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-# Create your views here.
-class SalePunchViewGet(APIView):
-
-    permission_classes = [IsAdminUser,IsAuthenticated]
-
-    def get(self, request):
-        profile = SalePunchModel.objects.all()
-        if profile:
-            serializer = SalePunchCreationSerializer(profile, many=True)
-            return Response(serializer.data,status=status.HTTP_200_OK)
-        return Response({"error":"Data unavailable"},status=status.HTTP_200_OK)
-
+    
     
 class GetAllRegisteredCustomerView(APIView):
 

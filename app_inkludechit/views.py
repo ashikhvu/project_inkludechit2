@@ -12,9 +12,11 @@ from django.conf import settings
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from django.views.generic import TemplateView
 
+
 # Create your views here.
 # class CustomTokenObtainPairView(TokenObtainPairView):
 #     serializer_class = CustomTokenObtainPairSerializer
+        
 
 def OtpSendFunction(phone,message):
     client = Client(settings.TWILIO_ACCOUNT_SID,settings.TWILIO_AUTH_TOKEN)
