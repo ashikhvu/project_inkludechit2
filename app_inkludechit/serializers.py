@@ -326,8 +326,8 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
 
         # user=User.objects.get(id=validated_data.get("customer_prof").id)
         cust = validated_data.get("customer_prof")
+        print(cust)
         customer_prof = CustomerProfileModel.objects.get(id=cust.id)
-
 
         liability_data = validated_data.pop("liabilities",[])
 
