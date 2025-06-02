@@ -386,7 +386,7 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomerProfileModel
-        exclude = ["is_salepunch_created"]
+        fileds = "__all__"
 
     def validate(self,attrs):
         email = attrs.get("email")
