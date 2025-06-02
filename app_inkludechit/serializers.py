@@ -163,14 +163,14 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         divident_date=attrs["product_model_data"]["divident_date"]
         if attrs["product_model_data"]["multi_division_auction_eligibility"]:
             multi_division_auction_eligibility= attrs["product_model_data"]["multi_division_auction_eligibility"]
+            print(f"\n\nINSIDE SERIALIZER VALIDATION METHOD")
+            print(f"----------------------------------------")
+            print(f"multi_division_auction_eligibility = {multi_division_auction_eligibility}\n")
         if attrs["product_model_data"]["multi_division_auction_date"]:
             multi_division_auction_date=attrs["product_model_data"]["multi_division_auction_date"]
         if attrs["product_model_data"]["multi_division_divident_date"]:
             multi_division_divident_date=attrs["product_model_data"]["multi_division_divident_date"]
 
-        print(f"\n\nINSIDE SERIALIZER VALIDATION METHOD")
-        print(f"----------------------------------------")
-        print(f"multi_division_auction_eligibility = {multi_division_auction_eligibility}\n")
 
 
         draw_date = attrs["product_model_data"]["draw_date"]
