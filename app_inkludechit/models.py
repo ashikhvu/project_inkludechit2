@@ -193,7 +193,7 @@ class ProductModel(models.Model):
     product_code = models.PositiveIntegerField(validators=[MinValueValidator(111),MaxValueValidator(999)],blank=True,null=True)
     document_type_choices = (
         ('collateral','collateral'),
-        ('noncollateral','noncollateral'),
+        ('non collateral','non collateral'),
     )
     document_type = models.CharField(max_length=100,choices=document_type_choices,default='collateral',blank=True,null=True)
     collection_mode_choices = (
