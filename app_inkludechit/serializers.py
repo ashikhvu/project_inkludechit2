@@ -374,7 +374,7 @@ class ShareMyInterestModelSerializer(serializers.ModelSerializer):
 class BankModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = BankListModel
-        fields = "__all__"
+        fields = ["bank_name"]
 
 # BANK SERIALIZER END
 
