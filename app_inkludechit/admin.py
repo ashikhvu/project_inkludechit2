@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User,SalePunchModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,LiabilitiesModel
-from .models import AgentProfileModel
+from .models import AgentProfileModel,BankListModel
 # Register your models here.
 
 class productsetup(admin.ModelAdmin):
@@ -52,6 +52,10 @@ class liabilitysetup(admin.ModelAdmin):
         return obj.bank_name.upper()
     get_bank_name.short_description = "BANK NAME"
 
+class bankmodel_setup(admin.ModelAdmin):
+    list_display = ["id","bank_name"]
+    list_display_link = list_display
+
 admin.site.register(User,Usersetup)
 admin.site.register(SalePunchModel,salepunchmodel)
 admin.site.register(NomineeModel)
@@ -60,3 +64,4 @@ admin.site.register(ShareMyInterestModel,shareinterestsetup)
 admin.site.register(CustomerProfileModel,customerprofileclass)
 admin.site.register(AgentProfileModel,AgentSetup)
 admin.site.register(LiabilitiesModel,liabilitysetup)
+admin.site.register(BankListModel,bankmodel_setup)

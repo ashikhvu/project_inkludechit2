@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import User,SalePunchModel,ShareMyInterestModel,AgentProfileModel
-from .serializers import SalePunchCreationSerializer,CustomTokenObtainPairSerializer,CustomUserLoginSerializer,SendOtpSerializer,ShareMyInterestModelSerializer
+from .models import User,SalePunchModel,ShareMyInterestModel,AgentProfileModel,BankListModel
+from .serializers import SalePunchCreationSerializer,CustomTokenObtainPairSerializer,CustomUserLoginSerializer,SendOtpSerializer,ShareMyInterestModelSerializer,BankModelSerializer
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -11,12 +11,30 @@ from twilio.rest import Client
 from django.conf import settings
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from django.views.generic import TemplateView
+from rest_framework.permissions import BasePermission
 
 
 # Create your views here.
 # class CustomTokenObtainPairView(TokenObtainPairView):
 #     serializer_class = CustomTokenObtainPairSerializer
         
+class IsAdminOrIsStaff(BasePermission):
+    def has_permission(self,request,view):
+        return request.user and request.user.is_authenticated and (request.user.user_type in ["admin","super admin"] or request.user.user_type in ["sales agent","sales and collection agent"])
+
+# BANK VIEW FUNCTION START
+
+class GetAllBankView(APIView):
+
+    permission_classes = [IsAdminOrIsStaff]
+
+    def get(self,request):
+        bank_list = BankListModel.objects.all().order_by("bank_name")
+        print(bank_list)
+        serializer = BankModelSerializer(bank_list,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+# BANK VIEW FUNCTION END
 
 def OtpSendFunction(phone,message):
     client = Client(settings.TWILIO_ACCOUNT_SID,settings.TWILIO_AUTH_TOKEN)

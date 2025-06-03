@@ -81,6 +81,89 @@ class User(AbstractBaseUser,PermissionsMixin):
         super(User,self).save(*args,**kwargs)
     
 
+# BANK MODEL START
+class BankListModel(models.Model):
+    indian_banks_choices = (
+        # Public Sector Banks (12)
+        ("State Bank of India", "State Bank of India"),
+        ("Bank of Baroda", "Bank of Baroda"),
+        ("Bank of India", "Bank of India"),
+        ("Bank of Maharashtra", "Bank of Maharashtra"),
+        ("Canara Bank", "Canara Bank"),
+        ("Central Bank of India", "Central Bank of India"),
+        ("Indian Bank", "Indian Bank"),
+        ("Indian Overseas Bank", "Indian Overseas Bank"),
+        ("Punjab National Bank", "Punjab National Bank"),
+        ("Punjab & Sind Bank", "Punjab & Sind Bank"),
+        ("UCO Bank", "UCO Bank"),
+        ("Union Bank of India", "Union Bank of India"),
+
+        # Private Sector Banks (21)
+        ("HDFC Bank", "HDFC Bank"),
+        ("ICICI Bank", "ICICI Bank"),
+        ("Axis Bank", "Axis Bank"),
+        ("Kotak Mahindra Bank", "Kotak Mahindra Bank"),
+        ("IndusInd Bank", "IndusInd Bank"),
+        ("IDFC FIRST Bank", "IDFC FIRST Bank"),
+        ("Bandhan Bank", "Bandhan Bank"),
+        ("CSB Bank", "CSB Bank"),
+        ("City Union Bank", "City Union Bank"),
+        ("DCB Bank", "DCB Bank"),
+        ("Dhanlaxmi Bank", "Dhanlaxmi Bank"),
+        ("Federal Bank", "Federal Bank"),
+        ("Jammu & Kashmir Bank", "Jammu & Kashmir Bank"),
+        ("Karnataka Bank", "Karnataka Bank"),
+        ("Karur Vysya Bank", "Karur Vysya Bank"),
+        ("Nainital Bank", "Nainital Bank"),
+        ("South Indian Bank", "South Indian Bank"),
+        ("Tamilnad Mercantile Bank", "Tamilnad Mercantile Bank"),
+        ("Yes Bank", "Yes Bank"),
+        ("RBL Bank", "RBL Bank"),
+        ("Lakshmi Vilas Bank", "Lakshmi Vilas Bank"),
+
+        # Foreign Banks
+        ("Citibank", "Citibank"),
+        ("HSBC", "HSBC"),
+        ("Standard Chartered", "Standard Chartered"),
+        ("Deutsche Bank", "Deutsche Bank"),
+        ("Barclays", "Barclays"),
+        ("BNP Paribas", "BNP Paribas"),
+        ("Bank of America", "Bank of America"),
+        ("DBS Bank", "DBS Bank"),
+        ("Societe Generale", "Societe Generale"),
+
+        # Payments Banks
+        ("Airtel Payments Bank", "Airtel Payments Bank"),
+        ("Fino Payments Bank", "Fino Payments Bank"),
+        ("India Post Payments Bank", "India Post Payments Bank"),
+        ("NSDL Payments Bank", "NSDL Payments Bank"),
+        ("Paytm Payments Bank", "Paytm Payments Bank"),
+
+        # Small Finance Banks
+        ("AU Small Finance Bank", "AU Small Finance Bank"),
+        ("Equitas Small Finance Bank", "Equitas Small Finance Bank"),
+        ("Fincare Small Finance Bank", "Fincare Small Finance Bank"),
+        ("ESAF Small Finance Bank", "ESAF Small Finance Bank"),
+        ("Ujjivan Small Finance Bank", "Ujjivan Small Finance Bank"),
+        ("Utkarsh Small Finance Bank", "Utkarsh Small Finance Bank"),
+        ("Suryoday Small Finance Bank", "Suryoday Small Finance Bank"),
+        ("Jana Small Finance Bank", "Jana Small Finance Bank"),
+        ("North East Small Finance Bank", "North East Small Finance Bank"),
+        ("Shivalik Small Finance Bank", "Shivalik Small Finance Bank"),
+        ("Capital Small Finance Bank", "Capital Small Finance Bank"),
+
+        # Local Area Banks
+        ("Coastal Local Area Bank Ltd", "Coastal Local Area Bank Ltd"),
+        ("Krishna Bhima Samruddhi LAB Ltd", "Krishna Bhima Samruddhi LAB Ltd"),
+    )
+    bank_name = models.CharField(max_length=255,default="State Bank of India",choices=indian_banks_choices,blank=True,null=True)
+
+    def __str__(self):
+        return self.bank_name
+
+# BANK MODEL END
+
+
 # AGENT MODELS START*****************************************************************************************
 
 class AgentProfileModel(models.Model):
@@ -351,8 +434,6 @@ class ShareMyInterestModel(models.Model):
 
 
     
-
-
 
 
 

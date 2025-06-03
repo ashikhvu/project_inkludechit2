@@ -9,6 +9,9 @@ urlpatterns = [
     path('share_interest',views.ShareMyInterestView.as_view(),name="share_interest"),
     path('getshare_interest',views.GetShareMyInterest.as_view(),name="getshare_interest"),
     path('customerfetch',views.CustomerFetch.as_view(),name="customerfetch"),
+
+    # bank
+    path('get_all_bank',views.GetAllBankView.as_view(),name="get_all_bank"),
 ]
 
 if settings.DEBUG:

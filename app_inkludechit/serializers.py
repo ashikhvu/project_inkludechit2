@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel,LiabilitiesModel
+from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel,LiabilitiesModel,BankListModel
 # from django.contrib.auth.models import c
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
@@ -15,7 +15,7 @@ class CustomerCustomUserLoginSerializerViaAgent(serializers.ModelSerializer):
 class SendOtpSerializer(serializers.Serializer):
     email_or_mobile = serializers.CharField()
 
-    def validate(self,attrs):   
+    def validate(self,attrs):
         identifier = attrs.get("email_or_mobile")
         # print(f"{identifier}\t{type(identifier)}")
         user=None
@@ -368,6 +368,15 @@ class ShareMyInterestModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShareMyInterestModel
         fields = "__all__"
+
+# BANK SERIALIZER START
+
+class BankModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BankListModel
+        fields = "__all__"
+
+# BANK SERIALIZER END
 
 # AGENT SERILISZERS START*****************************************************************************************
 
