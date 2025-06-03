@@ -294,54 +294,27 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         payment_data = validated_data.pop('payment_model_data')
         payment = PaymentModel.objects.create(**payment_data)
 
-        # email = validated_data.get('email')
-        # mobile = validated_data.get('mobile')
-
-        # if User.objects.filter(mobile=mobile).exists():
-        #     raise serializers.ValidationError(f"Sale punch already exist with the number [ {mobile} ]")
-        # elif User.objects.filter(email=email).exists():
-        #     raise serializers.ValidationError(f"Sale punch already exist with the email [ {email} ]")
-        # else:
-        #     user = User.objects.create(
-        #         first_name=validated_data.get('first_name'),
-        #         last_name=validated_data.get('last_name'),
-        #         email=email,
-        #         mobile=mobile
-        #     )
-        #     return SalePunchModel.objects.create(
-        #         user=user,
-        #         nominee_model_data=nominee,
-        #         product_model_data=product,
-        #         payment_model_data=payment,
-        #         **validated_data
-        #     )
-        
-        # customer_prof = None
-        # asd = validated_data.get("customer_prof")
-        # print(f"id is {asd}")
-        # try:
-        # prof = CustomerProfileModel.objects.get(id=asd)
-        # except CustomerProfileModel.DoesNotExist:
-        #     raise serializers.ValidationError("Customer Profile doesnt exist please remove and reregister the customer")
-
-        # user=User.objects.get(id=validated_data.get("customer_prof").id)
         cust = validated_data.get("customer_prof")
         print(cust)
         customer_prof = CustomerProfileModel.objects.get(id=cust.id)
 
         liability_data = validated_data.pop("liabilities",[])
 
-        salepunch =SalePunchModel.objects.create(
-            customer=customer_prof.customer,
-            nominee_model_data=nominee,
-            product_model_data=product,
-            payment_model_data=payment,
-            **validated_data
-        )
+        try:
+            salepunch =SalePunchModel.objects.create(
+                customer=customer_prof.customer,
+                nominee_model_data=nominee,
+                product_model_data=product,
+                payment_model_data=payment,
+                **validated_data
+            )
+            customer_prof.is_salepunch_created = True
+            customer_prof.save()
+        except:
+            raise serializers.ValidationError(f"failed to create sale punch model")
 
         for i in liability_data:
 
-            # if i["bank_name"]!=None or i["bank_name"]!="" and i["amount"]!=None or i["amount"]!="" and i["emi_amount"]!=None or i["emi_amount"]!="":
             LiabilitiesModel.objects.create(
                 salepunch=salepunch,
                 **i
@@ -401,7 +374,7 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomerProfileModel
-        exclude = ["is_verified"]
+        exclude = ["is_verified","is_salepunch_created"]
 
     def validate(self,attrs):
         email = attrs.get("email")
@@ -418,7 +391,7 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
 class GetAllRegisteredCustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerProfileModel
-        fields = "__all__"
+        exclude = ["is_verified","is_salepunch_created"]
 
 class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializer):
 

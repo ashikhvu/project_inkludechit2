@@ -19,7 +19,6 @@ class SalePunchViewPost(APIView):
         serializer = SalePunchCreationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data["agent"] = request.user
-            # serializer.validated_data["is_salepunch_created"] = True
             # customer_prof_id = serializer.validated_data["customer_prof"]
             # try:
             #     CustomerProfileModel.objects.get(id=customer_prof_id)
