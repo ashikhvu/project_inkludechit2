@@ -19,12 +19,6 @@ class SalePunchViewPost(APIView):
         serializer = SalePunchCreationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data["agent"] = request.user
-            # customer_prof_id = serializer.validated_data["customer_prof"]
-            # try:
-            #     CustomerProfileModel.objects.get(id=customer_prof_id)
-            # except CustomerProfileModel.DoesNotExist:
-            #     return Response({"error":"Customer data doesn't exist"})
-            # serializer.validated_data.customer_prof = customer_prof
             serializer.save()
             return Response({"success":"SalePunch submitted successfully"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -38,7 +32,7 @@ class GetAllRegisteredCustomerView(APIView):
         user_type = request.user.user_type
         print(user_type)
         if user_type in ["admin","super admin"]:
-            cust = CustomerProfileModel.objects.all()
+            cust = CustomerProfileModel.objects.filter(is_salepunch_created=False)
             serializer = GetAllRegisteredCustomerSerializer(cust,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         elif user_type in ["sales agent","sales and collection agent"]:
@@ -52,7 +46,7 @@ class GetAllRegisteredCustomerView(APIView):
             except AgentProfileModel.DoesNotExist:
                 return Response({"error","Agent Profile doesn't exist"})
 
-            cust = CustomerProfileModel.objects.filter(agent=agent_prof)
+            cust = CustomerProfileModel.objects.filter(agent=agent_prof,is_salepunch_created=False)
             print(cust)
             serializer = GetAllRegisteredCustomerSerializer(cust,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
