@@ -175,15 +175,32 @@ class AgentProfileModel(models.Model):
 
 @receiver(post_save,sender=User)
 def create_agent_profile(sender,instance,created,**kwargs):
-    if created: 
-        if instance.user_type in ["sales agent","sales and collection agent"]:
-            AgentProfileModel.objects.create(agent=instance)
-        elif instance.user_type in ["sales agent","sales and collection agent"]:
-            try: 
-                agent_instance = AgentProfileModel.objects.get(agent=instance)
-            except AgentProfileModel.DoesNotExist():
-                AgentProfileModel.objects.create(agent=instance)
-
+    # if created: 
+        # if instance.user_type in ["sales agent","sales and collection agent"]:
+        #     AgentProfileModel.objects.create(agent=instance)
+        # elif instance.user_type in ["sales agent","sales and collection agent"]:
+        #     try: 
+        #         agent_instance = AgentProfileModel.objects.get(agent=instance)
+        #     except AgentProfileModel.DoesNotExist():
+        #         AgentProfileModel.objects.create(agent=instance)
+    if created:
+        print("create")
+        AgentProfileModel.objects.create(agent=instance)
+    else:
+        print("update")
+        try:
+            prev = AgentProfileModel.objects.filter(agent=instance).last()
+        except AgentProfileModel.DoesNotExist:
+            return
+        print(prev)
+        if prev.agent.user_type in ["sales agent","collection agent","sales and collection agent"]:
+            print('ues')
+        else:
+            print("no")
+        # if prev.agent.user_type in ["sales agent","collection agent","sales and collection agent"] and instance.user_type not in ["sales agent","collection agent","sales and collection agent"]:
+        #     print("agent to customer")
+        # elif prev.agent.user_type not in ["sales agent","collection agent","sales and collection agent"] and instance.user_type in ["sales agent","collection agent","sales and collection agent"]:  
+        #     print("customer to agent")
 @receiver(post_save,sender=User)
 def save_agent_profile(sender,instance,**kwargs):
     if hasattr(instance,"agentprofilemodel"):
@@ -198,7 +215,9 @@ def save_agent_profile(sender,instance,**kwargs):
 class CustomerProfileModel(models.Model):
     agent = models.ForeignKey(AgentProfileModel,on_delete=models.CASCADE,blank=True,null=True)
     customer = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
-    customer_name = models.CharField(max_length=255)
+    # customer_name = models.CharField(max_length=255)
+    customer_first_name = models.CharField(max_length=255,blank=True,null=True)
+    customer_last_name = models.CharField(max_length=255,blank=True,null=True)
     mobile_no = models.CharField(max_length=10,validators=[
         RegexValidator(
             regex=r"\d{10}$",
@@ -219,7 +238,7 @@ class CustomerProfileModel(models.Model):
     is_salepunch_created = models.BooleanField(default=False,blank=True,null=True)
 
     def __str__(self):
-        return self.customer_name or self.email.split('@')[0]
+        return str(self.customer_first_name)+str(self.customer_last_name) or self.email.split('@')[0]
 
 class OtpRecordModel(models.Model):
     mobile_no = models.CharField(max_length=10,validators=[
@@ -336,7 +355,8 @@ class SalePunchModel(models.Model):
     ])
     # kyc = ShortUUIDField(unique=True,length=10,max_length=12,alphabet='0123456789',blank=True,null=True)
     agent_code = models.CharField(max_length=4,blank=True,null=True)
-    full_name = models.CharField(max_length=255,blank=True,null=True)
+    first_name = models.CharField(max_length=255,blank=True,null=True)
+    last_name = models.CharField(max_length=255,blank=True,null=True)
     # last_name = models.CharField(max_length=255,blank=True,null=True)
     family_name = models.CharField(max_length=255,blank=True,null=True)
     # email = models.EmailField(blank=True,null=True)

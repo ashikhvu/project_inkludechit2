@@ -24,7 +24,7 @@ class shareinterestsetup(admin.ModelAdmin):
     get_customer_name.short_description = "first name"
 
 class customerprofileclass(admin.ModelAdmin):
-    list_display = ["id","customer_name","mobile_no","email","amount","reciept_no","agent","agent_id"]
+    list_display = ["id","mobile_no","email","amount","reciept_no","agent","agent_id"]
     list_display_links = list_display
 
     def agent_id(self,obj):

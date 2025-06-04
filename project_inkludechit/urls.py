@@ -23,4 +23,5 @@ urlpatterns = [
     path('agent/',include('app_agent.urls')),
     path('register/',include('app_register.urls')),
     path('admin_page/',include("app_admin.urls")),
+    path('collection_agent/',include("app_collection_agent.urls")),
 ]

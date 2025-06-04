@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'app_register',
     'app_admin',
     'app_customer',
+    'app_collection_agent',
 ]
 
 REST_FRAMEWORK = {
