@@ -71,6 +71,8 @@ class CustomUserLoginSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed("User account is not active yet")
         
         attrs['user'] = user
+        user.set_password(None)
+        user.save()
 
         return attrs
 

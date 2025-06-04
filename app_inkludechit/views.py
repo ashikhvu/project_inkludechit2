@@ -60,7 +60,7 @@ class SendOtp(APIView):
             return Response({"error":str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
         # return Response({"success":"OTP has been send to your Registered mobile number"},status=status.HTTP_201_CREATED)
-
+    
 class CustomLoginView(APIView):
     # print("login here")
     def post(self, request):
