@@ -381,10 +381,10 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
         mobile_no = attrs.get("mobile_no")
 
         if User.objects.filter(mobile = mobile_no):
-            raise serializers.ValidationError(f"User Already exist with this number"code=400)
+            raise serializers.ValidationError(f"User Already exist with this number",code=400)
         
         if User.objects.filter(email = email):
-            raise serializers.ValidationError(f"User Already exist with this email"code=400)
+            raise serializers.ValidationError(f"User Already exist with this email",code=400)
     
         return attrs
     
