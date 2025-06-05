@@ -52,7 +52,7 @@ class CustomerCreationSerializer(APIView):
             # SendOTPFunction(ph,msg)
             print(f"Your OTP is [ {rand_otp} ]")
             return Response({"success":"Otp send successfully"},status=status.HTTP_200_OK)
-        return Response(serializer.errors,status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
 
 class CustomerOtpAuthenticateView(APIView):
