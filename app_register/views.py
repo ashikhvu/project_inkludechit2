@@ -96,4 +96,3 @@ class CustomerOtpAuthenticateView(APIView):
                 return Response({"error":"mobile number not found"},status=status.HTTP_400_BAD_REQUEST) 
 
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
