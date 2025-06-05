@@ -176,27 +176,14 @@ class AgentProfileModel(models.Model):
 @receiver(post_save,sender=User)
 def create_agent_profile(sender,instance,created,**kwargs):
     if created: 
-        if instance.user_type in ["sales agent","sales and collection agent"]:
+        if instance.user_type in ["sales agent","collection agent","sales and collection agent"]:
             AgentProfileModel.objects.create(agent=instance)
-        elif instance.user_type in ["sales agent","sales and collection agent"]:
+        elif instance.user_type in ["sales agent","collection agent","sales and collection agent"]:
             try: 
                 agent_instance = AgentProfileModel.objects.get(agent=instance)
             except AgentProfileModel.DoesNotExist():
                 AgentProfileModel.objects.create(agent=instance)
-    # if created:
-    #     print("create")
-    #     AgentProfileModel.objects.create(agent=instance)
-    # else:
-    #     print("update")
-    #     try:
-    #         prev = AgentProfileModel.objects.filter(agent=instance).last()
-    #     except AgentProfileModel.DoesNotExist:
-    #         return
-    #     print(prev)
-    #     if prev.agent.user_type in ["sales agent","collection agent","sales and collection agent"]:
-    #         print('ues')
-    #     else:
-    #         print("no")
+                
 @receiver(post_save,sender=User)
 def save_agent_profile(sender,instance,**kwargs):
     if hasattr(instance,"agentprofilemodel"):

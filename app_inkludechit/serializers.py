@@ -173,8 +173,6 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         if attrs["product_model_data"]["multi_division_divident_date"]:
             multi_division_divident_date=attrs["product_model_data"]["multi_division_divident_date"]
 
-
-
         draw_date = attrs["product_model_data"]["draw_date"]
         dispatching_committed_date = attrs["product_model_data"]["dispatching_committed_date"]
 
@@ -383,10 +381,10 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
         mobile_no = attrs.get("mobile_no")
 
         if User.objects.filter(mobile = mobile_no):
-            raise serializers.ValidationError(f"User Already exist with this number")
+            raise serializers.ValidationError(f"User Already exist with this number"code=400)
         
         if User.objects.filter(email = email):
-            raise serializers.ValidationError(f"User Already exist with this email")
+            raise serializers.ValidationError(f"User Already exist with this email"code=400)
     
         return attrs
     
