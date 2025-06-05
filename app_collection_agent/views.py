@@ -4,9 +4,17 @@ from app_inkludechit.serializers import GetAllRegisteredCustomerSerializer
 from app_inkludechit.models import CustomerProfileModel 
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import BasePermission,IsAdminUser,IsAuthenticated
+
+class IsCollectionAgent(BasePermission):
+    def has_permission(self,request,view):
+        return request.user and request.user.is_authenticated and request.user.user_type == "collection agent"
 
 # Create your views here.
 class GetEformCompletedCustomer(APIView):
+
+    permission_classes = [IsCollectionAgent]
+
     def get(self,request):
         try:
             cust_prof = CustomerProfileModel.objects.filter(is_salepunch_created=True)

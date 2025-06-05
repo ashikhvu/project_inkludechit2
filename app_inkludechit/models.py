@@ -183,7 +183,7 @@ def create_agent_profile(sender,instance,created,**kwargs):
                 agent_instance = AgentProfileModel.objects.get(agent=instance)
             except AgentProfileModel.DoesNotExist():
                 AgentProfileModel.objects.create(agent=instance)
-                
+
 @receiver(post_save,sender=User)
 def save_agent_profile(sender,instance,**kwargs):
     if hasattr(instance,"agentprofilemodel"):
@@ -436,7 +436,13 @@ class ShareMyInterestModel(models.Model):
         return self.customer_name or self.customer_email
 
 
-    
+class CollectionModel(models.Model):
+    current_payment_status_choices = (
+        ("paid","unpaid","other")
+    )
+    # payment_status = models.CharField(max_length=50,default="unpaid",choices=current_payment_status_choices,blank=True,null=True)
+    # emi_amount_tobe_paid
+    emi_amount = models.FloatField(default=0.0,blank=True,null=True)
 
 
 
