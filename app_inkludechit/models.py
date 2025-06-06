@@ -435,14 +435,109 @@ class ShareMyInterestModel(models.Model):
     def __str__(self):
         return self.customer_name or self.customer_email
 
+# ==========================================================================================================
+#                                        COLLECTION MODELS START  
+# ==========================================================================================================
+
+class PaidModel(models.Model):
+    paid_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="paid_agent_data")
+    paid_customer_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    paid_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+
+    paid_amount = models.FloatField(default=0.0,blank=True,null=True)
+    paid_trans_type_choices = (
+        ("cash","cash"),
+        ("bank","bank"),
+        ("cheque","cheque")
+    )
+    paid_trans_type = models.CharField(max_length=100,default="cash",choices=paid_trans_type_choices,blank=True,null=True)
+    paid_pay_type_choices = (
+        ("fixed amount","fixed amount"),
+        ("minimum required amount","minimum required amount")
+    )
+    paid_pay_type = models.CharField(max_length=100,choices=paid_pay_type_choices,blank=True,null=True)
+    paid_next_pay_date = models.DateTimeField(blank=True,null=True)
+    paid_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+    def __str__(self):
+        return self.paid_amount
+    
+class UnpaidModel(models.Model):
+    unpaid_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="unpaid_agent_data")
+    unpaid_customer_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    unpaid_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+
+    unpaid_reason_choices = (
+        ("income date & collection date variation","income date & collection date variation"),
+        ("rescentment of not getting kuri","rescentment of not getting kuri"),
+        ("unexpected expenses","unexpected expenses"),
+        ("payment unscheduled","payment unscheduled"),
+        ("current over liability","current over liability"),
+        ("unstructured financial behaviour","unstructured financial behaviour")
+    )
+    unpaid_reason = models.CharField(max_length=255,blank=True,null=True)
+    unpaid_pos_next_pend_pay_choices = (
+        ("salary/income","salary/income"),
+        ("anticipating money","anticipating money"),
+        ("borrowed","borrowed"),
+        ("money rolling","money rolling"),
+        ("better financial profile","better financial profile"),
+    )
+    unpaid_pos_next_pend_pay = models.CharField(max_length=100,choices=unpaid_pos_next_pend_pay_choices,blank=True,null=True)
+    unpaid_res_date = models.DateTimeField(blank=True,null=True)
+    unpaid_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+    def __str__(self):
+        return self.unpaid_reason
+
+class OtherModel(models.Model):
+    other_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="other_agent_data")
+    other_customer_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    other_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+
+    other_remarks = models.TextField(blank=True,null=True)
+    other_res_date = models
+    other_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+    def __str__(self):
+        return self.other_remarks
 
 class CollectionModel(models.Model):
-    current_payment_status_choices = (
-        ("paid","unpaid","other")
+    cm_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="cm_agent_data")
+    cm_customer_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    cm_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+
+    cm_full_name = models.CharField(max_length=255,blank=True,null=True)
+    cm_next_date_and_time = models.DateTimeField()
+    cm_emi_tobe_paid = models.FloatField(default=0.0,blank=True,null=True)
+    cm_visit_type_choices = (
+        ("direct visit","direct visit"),
+        ("phone","phone")
     )
-    # payment_status = models.CharField(max_length=50,default="unpaid",choices=current_payment_status_choices,blank=True,null=True)
-    # emi_amount_tobe_paid
-    emi_amount = models.FloatField(default=0.0,blank=True,null=True)
+    cm_visit_type = models.CharField(max_length=100,default="direct visit",blank=True,null=True)
+    cm_visit_count = models.PositiveIntegerField(default=0,blank=True,null=True)
+
+    cm_paid_data = models.ForeignKey(PaidModel,on_delete=models.CASCADE,blank=True,null=True)
+    cm_unpaid_data = models.ForeignKey(UnpaidModel,on_delete=models.CASCADE,blank=True,null=True)
+    cm_others_data = models.ForeignKey(OtherModel,on_delete=models.CASCADE,blank=True,null=True)
+
+    cm_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+    def __str__(self):
+        return self.cm_full_name 
+
+# ==========================================================================================================
+#                                         COLLECTION MODELS START END
+# ==========================================================================================================
+
+
+
+
+
+
+
+
+
 
 
 
