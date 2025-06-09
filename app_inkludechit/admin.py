@@ -16,7 +16,7 @@ class salepunchmodel(admin.ModelAdmin):
     get_customer_prof.short_description = ""
 
 class shareinterestsetup(admin.ModelAdmin):
-    list_display=["get_customer_name","customer_email","custoemr_comment","customer_country_code","customer_phone"]
+    list_display=["id","get_customer_name","customer_email","custoemr_comment","customer_country_code","customer_phone"]
     list_display_links = list_display
 
     def get_customer_name(self,obj):
@@ -45,7 +45,7 @@ class AgentSetup(admin.ModelAdmin):
     agent_email.short_description = "Agent Email"
 
 class liabilitysetup(admin.ModelAdmin):
-    list_display = ["get_bank_name","amount","emi_amount","salepunch_id"]
+    list_display = ["id","get_bank_name","amount","emi_amount","salepunch_id"]
     list_display_links = list_display
 
     def get_bank_name(self,obj):
@@ -57,19 +57,19 @@ class bankmodel_setup(admin.ModelAdmin):
     list_display_link = list_display
     
 class PaidModelSetup(admin.ModelAdmin):
-    list_display = ["paid_amount","paid_trans_type"]
+    list_display = ["id","paid_amount","paid_trans_type"]
     list_display_links = list_display
 
 class UnpaidModelSetup(admin.ModelAdmin):
-    list_display = ["unpaid_reason_choices","unpaid_pos_next_pend_pay_choices"]
+    list_display = ["id","unpaid_reason_choices","unpaid_pos_next_pend_pay_choices"]
     list_display_links = list_display
 
 class OtherModelSetup(admin.ModelAdmin):
-    list_display = ["other_remarks","other_res_date"]
+    list_display = ["id","other_remarks","other_res_date"]
     list_display_links = list_display
 
 class CollectionModelSetup(admin.ModelAdmin):
-    list_display = ["cm_full_name","cm_next_date_and_time"]
+    list_display = ["id","cm_full_name","cm_next_date_and_time"]
     list_display_links = list_display
 
 
