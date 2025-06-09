@@ -163,6 +163,15 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         auction_eligibility=attrs["product_model_data"]["auction_eligibility"]
         auction_date=attrs["product_model_data"]["auction_date"]
         divident_date=attrs["product_model_data"]["divident_date"]
+        customer_prof=attrs["customer_prof"]
+
+        if not CustomerProfileModel.objects.filter(id=customer_prof.id).exists():
+            raise serializers.ValidationError(f"customer data doesnt exist",code=400)
+
+        if SalePunchModel.objects.filter(customer_prof=customer_prof).exists():
+            raise serializers.ValidationError(f"Salepunch already eixst for this customer",code=400)
+        
+
         if attrs["product_model_data"]["multi_division_auction_eligibility"]:
             multi_division_auction_eligibility= attrs["product_model_data"]["multi_division_auction_eligibility"]
             print(f"\n\nINSIDE SERIALIZER VALIDATION METHOD")
@@ -295,10 +304,12 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         payment = PaymentModel.objects.create(**payment_data)
 
         cust = validated_data.get("customer_prof")
-        print(cust)
+        # print(cust)
         customer_prof = CustomerProfileModel.objects.get(id=cust.id)
 
         liability_data = validated_data.pop("liabilities",[])
+
+        # is sale punch of this custopmer already exist or not
 
         try:
             salepunch =SalePunchModel.objects.create(
@@ -392,6 +403,17 @@ class GetAllRegisteredCustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerProfileModel
         exclude = ["is_verified","is_salepunch_created"]
+    
+    
+    def to_representation(self,instance):
+        respose = super().to_representation(instance)
+        salepunch = SalePunchModel.objects.filter(customer_prof=instance).first()
+        if salepunch:
+            respose["collection_mode"] = salepunch.product_model_data.collection_mode
+            respose["collection_date"] = salepunch.payment_model_data.collection_start_date
+            respose["visit_count"] = 0
+            respose["product_code"] = salepunch.product_model_data.product_code
+        return respose
 
 class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializer):
 

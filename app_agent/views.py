@@ -1,15 +1,21 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from app_inkludechit.models import SalePunchModel,CustomerProfileModel,User,AgentProfileModel
+from app_inkludechit.models import SalePunchModel,CustomerProfileModel,User,AgentProfileModel,CollectionModel
 from rest_framework.permissions import IsAdminUser,IsAuthenticated
 from rest_framework import status
 from app_inkludechit.serializers import SalePunchCreationSerializer,GetAllRegisteredCustomerSerializer,PartialFetchSelectedRegisteredCustomerSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission
+from dateutil.relativedelta import relativedelta
+import datetime
 
 class IsAdminOrIsStaff(BasePermission):
     def has_permission(self,request,view):
         return request.user and request.user.is_authenticated and (request.user.user_type in ["admin","super admin"] or request.user.user_type in ["sales agent","sales and collection agent"])
+
+class IsSalesAgent(BasePermission):
+    def has_permission(self,request,view):
+        return request.user and request.user.is_authenticated and request.user.user_type =="sales agent"
 
 class SalePunchViewPost(APIView):
 
@@ -20,6 +26,38 @@ class SalePunchViewPost(APIView):
         if serializer.is_valid():
             serializer.validated_data["agent"] = request.user
             serializer.save()
+
+            val_data = serializer.validated_data
+
+            if val_data:
+                kuri_type=val_data["product_model_data"]["kuri_type"]
+                product_code=val_data["product_model_data"]["product_code"]
+                document_type=val_data["product_model_data"]["document_type"]
+                chit_duration=val_data["product_model_data"]["chit_duration"]
+                first_emi_completion_date=val_data["product_model_data"]["first_emi_completion_date"]
+                last_emi_date=val_data["product_model_data"]["last_emi_date"]
+                auction_eligibility=val_data["product_model_data"]["auction_eligibility"]
+                auction_date=val_data["product_model_data"]["auction_date"]
+                divident_date=val_data["product_model_data"]["divident_date"]
+
+                # print(f"{kuri_type}\n{product_code}\n{document_type}\n{chit_duration}\n{first_emi_completion_date}\n{last_emi_date}\n{auction_eligibility}\n{auction_date}\n{divident_date}")
+
+
+                if kuri_type=="auction":
+                    print(f"inside auction")
+                    if document_type == "collateral":
+
+                        first_emi_completion_date
+                        for i in range(40):
+                            # print(f"\n{i}")
+                            future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
+                            next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
+                            CollectionModel.objects.get_or_create(
+                                # cm_agent_data=
+                                cm_full_name=f"name {i}",
+                                cm_next_date_and_time=next_emi_date
+                            )
+
             return Response({"success":"SalePunch submitted successfully"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

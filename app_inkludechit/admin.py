@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User,SalePunchModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,LiabilitiesModel
-from .models import AgentProfileModel,BankListModel
+from .models import AgentProfileModel,BankListModel,PaidModel,UnpaidModel,OtherModel,CollectionModel
 # Register your models here.
 
 class productsetup(admin.ModelAdmin):
@@ -8,12 +8,12 @@ class productsetup(admin.ModelAdmin):
     list_display_links = list_display
 
 class salepunchmodel(admin.ModelAdmin):
-    list_display=["get_customer_prof","place","adhar_no","current_address"]
+    list_display=["id","get_customer_prof","place","adhar_no","current_address"]
     list_display_links = list_display
 
     def get_customer_prof(self,obj):
-        return  obj.full_name
-    get_customer_prof.short_description = "FULL_NAME"
+        return  obj.customer.first_name
+    get_customer_prof.short_description = ""
 
 class shareinterestsetup(admin.ModelAdmin):
     list_display=["get_customer_name","customer_email","custoemr_comment","customer_country_code","customer_phone"]
@@ -55,6 +55,23 @@ class liabilitysetup(admin.ModelAdmin):
 class bankmodel_setup(admin.ModelAdmin):
     list_display = ["id","bank_name"]
     list_display_link = list_display
+    
+class PaidModelSetup(admin.ModelAdmin):
+    list_display = ["paid_amount","paid_trans_type"]
+    list_display_links = list_display
+
+class UnpaidModelSetup(admin.ModelAdmin):
+    list_display = ["unpaid_reason_choices","unpaid_pos_next_pend_pay_choices"]
+    list_display_links = list_display
+
+class OtherModelSetup(admin.ModelAdmin):
+    list_display = ["other_remarks","other_res_date"]
+    list_display_links = list_display
+
+class CollectionModelSetup(admin.ModelAdmin):
+    list_display = ["cm_full_name","cm_next_date_and_time"]
+    list_display_links = list_display
+
 
 admin.site.register(User,Usersetup)
 admin.site.register(SalePunchModel,salepunchmodel)
@@ -65,3 +82,7 @@ admin.site.register(CustomerProfileModel,customerprofileclass)
 admin.site.register(AgentProfileModel,AgentSetup)
 admin.site.register(LiabilitiesModel,liabilitysetup)
 admin.site.register(BankListModel,bankmodel_setup)
+admin.site.register(PaidModel,PaidModelSetup)
+admin.site.register(UnpaidModel,UnpaidModelSetup)
+admin.site.register(OtherModel,OtherModelSetup)
+admin.site.register(CollectionModel,CollectionModelSetup)

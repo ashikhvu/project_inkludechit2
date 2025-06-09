@@ -508,7 +508,7 @@ class CollectionModel(models.Model):
     cm_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
 
     cm_full_name = models.CharField(max_length=255,blank=True,null=True)
-    cm_next_date_and_time = models.DateTimeField()
+    cm_next_date_and_time = models.DateField()
     cm_emi_tobe_paid = models.FloatField(default=0.0,blank=True,null=True)
     cm_visit_type_choices = (
         ("direct visit","direct visit"),
@@ -524,7 +524,7 @@ class CollectionModel(models.Model):
     cm_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
 
     def __str__(self):
-        return self.cm_full_name 
+        return str(self.cm_full_name)
 
 # ==========================================================================================================
 #                                         COLLECTION MODELS START END
