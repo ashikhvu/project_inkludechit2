@@ -28,7 +28,7 @@ class SalePunchViewPost(APIView):
             serializer.save()
 
             val_data = serializer.validated_data
-            print(serializer.data['id'])
+            # print(serializer.data['id'])
 
             if val_data:
                 kuri_type=val_data["product_model_data"]["kuri_type"]
@@ -52,68 +52,71 @@ class SalePunchViewPost(APIView):
 
                 if kuri_type=="auction":
                     print(f"inside auction")
-                    if document_type == "collateral":
+                    range_limit=None
 
-                        first_emi_completion_date
-                        for i in range(40):
-                            # print(f"\n{i}")
-                            future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
-                            next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
-                            CollectionModel.objects.get_or_create(
-                                cm_salepunch_data=sp,
-                                cm_first_name=customer_prof.customer_first_name,
-                                cm_last_name=customer_prof.customer_last_name,
-                                cm_current_date_and_time=future_emi_date,
-                                cm_next_date_and_time=next_emi_date
-                            )
-                    elif kuri_type=="draw":
-                        print(f"inside draw")
-                        if document_type == "collateral":
+                    if product_code in [301,801]:
+                        range_limit=40
 
-                            first_emi_completion_date
-                            for i in range(40):
-                                # print(f"\n{i}")
-                                future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
-                                next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
-                                CollectionModel.objects.get_or_create(
-                                    cm_salepunch_data=sp,
-                                    cm_first_name=customer_prof.customer_first_name,
-                                    cm_last_name=customer_prof.customer_last_name,
-                                    cm_current_date_and_time=future_emi_date,
-                                    cm_next_date_and_time=next_emi_date
-                                )
-                    elif kuri_type=="offer":
-                        print(f"inside offer")
-                        if document_type == "collateral":
+                    for i in range(40):
+                        future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
+                        next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
+                        CollectionModel.objects.get_or_create(
+                            cm_salepunch_data=sp,
+                            cm_first_name=customer_prof.customer_first_name,
+                            cm_last_name=customer_prof.customer_last_name,
+                            cm_current_date_and_time=future_emi_date,
+                            cm_next_date_and_time=next_emi_date
+                        )
 
-                            first_emi_completion_date
-                            for i in range(40):
-                                # print(f"\n{i}")
-                                future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
-                                next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
-                                CollectionModel.objects.get_or_create(
-                                    cm_salepunch_data=sp,
-                                    cm_first_name=customer_prof.customer_first_name,
-                                    cm_last_name=customer_prof.customer_last_name,
-                                    cm_current_date_and_time=future_emi_date,
-                                    cm_next_date_and_time=next_emi_date
-                                )
-                    elif kuri_type=="multi division":
-                        print(f"inside multi division")
-                        if document_type == "collateral":
+                elif kuri_type=="draw":
+                    print(f"inside draw")
+                    if product_code in [201,202]:
+                        range_limit = 25
+                    for i in range(range_limit):
+                        future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
+                        next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
+                        CollectionModel.objects.get_or_create(
+                            cm_salepunch_data=sp,
+                            cm_first_name=customer_prof.customer_first_name,
+                            cm_last_name=customer_prof.customer_last_name,
+                            cm_current_date_and_time=future_emi_date,
+                            cm_next_date_and_time=next_emi_date
+                        )
+                elif kuri_type=="offer":
+                    print(f"inside offer")
+                    if product_code in [901,903,904]:
+                        range_limit = 20
+                    elif product_code in [902]:
+                        range_limit = 25
+                    elif product_code in [951,952]:
+                        range_limit = 40
 
-                            first_emi_completion_date
-                            for i in range(40):
-                                # print(f"\n{i}")
-                                future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
-                                next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
-                                CollectionModel.objects.get_or_create(
-                                    cm_salepunch_data=sp,
-                                    cm_first_name=customer_prof.customer_first_name,
-                                    cm_last_name=customer_prof.customer_last_name,
-                                    cm_current_date_and_time=future_emi_date,
-                                    cm_next_date_and_time=next_emi_date
-                                )
+                    for i in range(range_limit):
+                        future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
+                        next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
+                        CollectionModel.objects.get_or_create(
+                            cm_salepunch_data=sp,
+                            cm_first_name=customer_prof.customer_first_name,
+                            cm_last_name=customer_prof.customer_last_name,
+                            cm_current_date_and_time=future_emi_date,
+                            cm_next_date_and_time=next_emi_date
+                        )
+
+                elif kuri_type=="multi division":
+                    print(f"inside multi division")
+                    if product_code in [502]:
+                        range_limit=100
+
+                    for i in range(range_limit):
+                        future_emi_date = first_emi_completion_date+relativedelta(weeks=i+1)
+                        next_emi_date = first_emi_completion_date+relativedelta(weeks=i+2)
+                        CollectionModel.objects.get_or_create(
+                            cm_salepunch_data=sp,
+                            cm_first_name=customer_prof.customer_first_name,
+                            cm_last_name=customer_prof.customer_last_name,
+                            cm_current_date_and_time=future_emi_date,
+                            cm_next_date_and_time=next_emi_date
+                        )
 
             return Response({"success":"SalePunch submitted successfully"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
