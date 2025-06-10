@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concern and Confirmation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+
+
 
     <style>
         body {
@@ -108,8 +114,12 @@
 
 
         <!-- heading -->
-        <div class=" mt-5">
-            <h2 class="fw-bold">Concern and Confirmation</h2>
+        <form action="">
+
+
+
+            <div class=" mt-5">
+                <h2 class="fw-bold">Concern and Confirmation</h2>
 
 
 
@@ -119,21 +129,19 @@
 
 
 
-            <!-- first -->
+                <!-- first -->
 
-            <div class="content-box pe-0">
-                <p>നമസ്കാരം സർ,<br>
-                    KDC ചിറ്റ്‌സ് പ്രൈവറ്റ് ലിമിറ്റഡിൽ നിന്നും ...................... ആണ് വിളിക്കുന്നത്. സർ പുതുതായി
-                    ചേർന്ന
-                    കുറിയുട
-                    concern and confirmation ൻറെ ഭാഗമായിട്ടാണ് വിളിക്കുന്നത്. ഇതിൽ product details ഉം പ്രധാനപ്പെട്ട
-                    rules
-                    and
-                    regulations ഉം മാത്രമാണ് highlight ചെയ്യപ്പെടുക. quality purpose ന്റെ ഭാഗമായി ഈ കോൾ record
-                    െയ്യപ്പെടും. ഇത് മുഴുവനായി കേട്ടതിന് ശേഷം താങ്കൾക്ക് സംശയങ്ങൾ ഉണ്ടെങ്കിൽ ചോദിക്കാവുന്നതാണ്.
-                    സർ ന്റെ KYC ഡീറ്റെയിൽസ് ആണ് ഞാൻ പറയുന്നത് .
-
-
+                <div class="content-box pe-0">
+                    <p>നമസ്കാരം സർ,<br>
+                        KDC ചിറ്റ്‌സ് പ്രൈവറ്റ് ലിമിറ്റഡിൽ നിന്നും ...................... ആണ് വിളിക്കുന്നത്. സർ പുതുതായി
+                        ചേർന്ന
+                        കുറിയുട
+                        concern and confirmation ൻറെ ഭാഗമായിട്ടാണ് വിളിക്കുന്നത്. ഇതിൽ product details ഉം പ്രധാനപ്പെട്ട
+                        rules
+                        and
+                        regulations ഉം മാത്രമാണ് highlight ചെയ്യപ്പെടുക. quality purpose ന്റെ ഭാഗമായി ഈ കോൾ record
+                        െയ്യപ്പെടും. ഇത് മുഴുവനായി കേട്ടതിന് ശേഷം താങ്കൾക്ക് സംശയങ്ങൾ ഉണ്ടെങ്കിൽ ചോദിക്കാവുന്നതാണ്.
+                        സർ ന്റെ KYC ഡീറ്റെയിൽസ് ആണ് ഞാൻ പറയുന്നത് .
 
 
 
@@ -146,11 +154,168 @@
 
 
 
-                </p>
+
+
+                    </p>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- second -->
+
+
+
+                <div class="row my-5">
+                    <div class="col-md-3 input-box">
+
+                        <label class="text-light">UID <span class="text-dark "> *</span>
+                        </label>
+                        <input type="text" class="form-control" placeholder=""
+                            value="{% if detail.uid %} {{detail.uid}} {% endif %}">
+
+
+                        <!-- Input box -->
+
+                        <!-- Bootstrap JS -->
+                        <script
+                            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                    </div>
+                    <div class="col-md-3 input-box">
+                        <label class="text-light">KYC<span class="text-dark "> *</span>
+                        </label>
+                        <input type="text" class="form-control" placeholder=""
+                            value="{% if detail.kyc %} {{detail.kyc}} {% endif %}">
+                    </div>
+                    <div class="col-md-2 input-box">
+                        <button class="btn activate-btn w-100 mt-4">ACTIVATE</button>
+                    </div>
+                </div>
+
             </div>
 
 
 
+            <!-- third -->
+            <div>
+                <div class="bg-white rounded shadow p-5 custom-form mb-3">
+                    <form>
+                        <div class="row">
+
+                            <div class="col-md-12 col-lg-6">
+                                <label class="mt-3 text-muted" for="name">Full Name</label>
+                                <input type="text" class="form-control border border-warning" id="name" placeholder=""
+                                    value="{{ detail.customer_prof.customer_name}}">
+
+
+                                <label class="mt-3 text-muted" for="duration">Place</label>
+                                <input type="text" class="form-control border border-warning" id="duration"
+                                    placeholder="" value="{{ detail.place }}">
+
+
+
+
+
+                                <label class="mt-3 text-muted" for="duration">Family Name</label>
+                                <input type="text" class="form-control border border-warning" id="duration"
+                                    placeholder="" value="{{ detail.family_name}}">
+
+
+                                <label class="mt-3 text-muted" for="product">Current Address</label>
+                                <input type="text" class="form-control border border-warning" id="product"
+                                    placeholder="" value="{{ detail.current_address  }}">
+
+
+
+
+                                <label class="mt-3 text-muted" for="product">Permenent Address</label>
+                                <input type="text" class="form-control border border-warning" id="product"
+                                    placeholder="" value="{{ detail.permenent_address }}">
+
+
+
+
+
+
+
+                                <label class="mt-3 text-muted" for="duration">PAN Card</label>
+                                <input type="text" class="form-control border border-warning" id="duration"
+                                    placeholder="" value="{{ detail.pancard_no }}">
+
+
+
+
+                                <label class="mt-3 text-muted" for="aadhar">Aadhaar</label>
+                                <input type="number" class="form-control border border-warning" id="aadhar"
+                                    placeholder="" value="{{ detail.adhar_no }}">
+
+
+                                <label class="mt-3 text-muted" for="product">Marrital Status</label>
+                                <input type="text" class="form-control border border-warning" id="product"
+                                    placeholder="" value="{{ detail.marital_status }}">
+
+                                <label class="mt-3 text-muted" for="product">Company Address</label>
+                                <input type="text" class="form-control border border-warning" id="product"
+                                    placeholder="" value="{{ detail.company_address }}">
+
+                                <label class="mt-3 text-muted" for="product">Company Pincode</label>
+                                <input type="number" class="form-control border border-warning" id="product"
+                                    placeholder="" value="{{ detail.company_pincode }}">
+
+
+                                <label class="mt-3 text-muted" for="amount">Designation</label>
+                                <input type="text" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{ detail.designation }}">
+
+
+
+                                <label class="mt-3 text-muted" for="amount">Company Salary Mode</label>
+                                <input type="text" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{ detail.company_salary_mode }}">
+
+
+
+                                <label class="mt-3 text-muted" for="amount">Company Contact Number</label>
+                                <input type="number" class="form-control border border-warning" id="amount"
+                                    placeholder="" value="{{ detail.company_contact_no }}">
+
+
+
+                                <label class="mt-3 text-muted" for="amount">Company Reference Mobile Number</label>
+                                <input type="number" class="form-control border border-warning" id="amount"
+                                    placeholder="" value="{{ detail.company_reference_mobile_no  }}">
+
+
+
+
+                                <label class="mt-3 text-muted" for="amount">Company Partner Detail</label>
+                                <input type="text" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{ detail.company_partner_detail }}">
+
+                                <label class="mt-3 text-muted" for="amount">Period of Work</label>
+                                <input type="text" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{ detail.period_of_work }}">
+
+
+
+
+                                <label class="mt-3 text-muted" for="amount">Working Time</label>
+                                <input type="text" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{ detail.working_time }}">
+
+
+
+                                <label class="mt-3 text-muted" for="amount">Salary Date</label>
+                                <input type="date" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{ detail.salary_date}}">
 
 
 
@@ -160,30 +325,6 @@
 
 
 
-            <!-- second -->
-
-            <div class="row my-5">
-                <div class="col-md-3 input-box">
-                    <label class="text-light">UID <span class="text-dark "> *</span>
-                    </label>
-                    <input type="text" class="form-control" placeholder="">
-
-
-                    <!-- Input box -->
-
-                    <!-- Bootstrap JS -->
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-                </div>
-                <div class="col-md-3 input-box">
-                    <label class="text-light">KYC<span class="text-dark "> *</span>
-                    </label>
-                    <input type="text" class="form-control" placeholder="">
-                </div>
-                <div class="col-md-2 input-box">
-                    <button class="btn activate-btn w-100 mt-4">ACTIVATE</button>
-                </div>
-            </div>
-        </div>
 
 
 
@@ -197,251 +338,236 @@
 
 
 
+                                <label class="mt-3 text-muted" for="amount">Payment Mode</label>
+                                <input type="text" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{detail.payment_model_data.payment_mode}}">
 
 
 
 
-        <!-- third -->
-        <div>
-            <div class="bg-white rounded shadow p-5 custom-form mb-3">
-                <form>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-6">
-                            <label class="mt-3 text-muted" for="name">Name</label>
-                            <input type="text" class="form-control border border-warning" id="name" placeholder="">
-                            <label class="mt-3 text-muted" for="aadhar">Adhaar Number</label>
-                            <input type="number" class="form-control border border-warning" id="aadhar" placeholder="">
-                            <label class="mt-3 text-muted" for="whatsapp">Whatsapp Number</label>
-                            <input type="number" class="form-control border border-warning" id="whatsapp"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="product">Product Type</label>
-                            <input type="text" class="form-control border border-warning" id="product" placeholder="">
-                            <label class="mt-3 text-muted" for="duration">Duration</label>
-                            <input type="number" class="form-control border border-warning" id="duration"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="commission">Forman Commission And Percentage</label>
-                            <input type="text" class="form-control border border-warning" id="commission"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="amount">Forman Commission Amount</label>
-                            <input type="number" class="form-control border border-warning" id="commison id"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="amount">Auction Eligibility Date</label>
-                            <input type="date" class="form-control border border-warning text-muted" id="ae_date"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="amount">Payment Mode</label>
-                            <input type="text" class="form-control border border-warning" id="amount" placeholder="">
-                            <label class="mt-3 text-muted" for=" agent">Collection Agent</label>
-                            <select class="form-select border border-warning text-muted" id="agent">
-                                <option selected>Collection agent</option>
 
-                            </select>
-                            <label class="py-2 mt-4 fw-bold" for=" agent">ഇത്  REASSIGN ചെയ്യപ്പെട്ടേക്കാം .</label>
 
+
+                                <!-- 
+                                <label class="mt-3 text-muted" for="amount">company_partner_detail</label>
+                                <input type="text" class="form-control border border-warning" id="amount" placeholder=""
+                                    value="{{detail.payment_model_data.payment_mode}}"> -->
+
+
+
+
+
+                                <label class="mt-3 text-muted" for=" agent">Collection Agent</label>
+                                <select class="form-select border border-warning text-muted" id="agent">
+                                    <option selected>Collection agent</option>
+                                </select>
+
+
+
+
+                                <label class="py-2 mt-4 fw-bold" for=" agent">ഇത്  REASSIGN ചെയ്യപ്പെട്ടേക്കാം .</label>
+
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <label class="mt-3 text-muted" for="dob">Date of Birth</label>
+                                <input type="date" class="form-control border border-warning" id="dob"
+                                    style="color: red;">
+
+                                <label class="mt-3 text-muted" for="mobile">Registered Mobile Number</label>
+                                <input type="number" class="form-control border border-warning" id="mobile"
+                                    placeholder="" value="{{ detail.customer_prof.mobile_no }}">
+
+
+                                <label class="mt-3 text-muted" for="whatsapp">Whatsapp Number</label>
+                                <input type="number" class="form-control border border-warning" id="whatsapp"
+                                    placeholder="" value="{{ detail.customer_prof.whatsapp_no }}">
+
+
+
+                                <label class="mt-3 text-muted" for="product">Postal Address</label>
+                                <input type="text" class="form-control border border-warning" id="product"
+                                    placeholder="" value="{{ detail.postal_address }}">
+                                <label class="mt-3 text-muted" for="product">Product Type</label>
+                                <input type="text" class="form-control border border-warning" id="product"
+                                    placeholder="">
+
+
+
+
+
+
+
+                                <label class="mt-3 text-muted" for="duration">Agent</label>
+                                <input type="text" class="form-control border border-warning" id="duration"
+                                    placeholder="" value="{{ detail.agent }}">
+
+
+                                <label class="mt-3 text-muted" for="duration">Customer</label>
+                                <input type="text" class="form-control border border-warning" id="duration"
+                                    placeholder="" value="{{ detail.customer }}">
+
+
+
+
+                                <label class="mt-3 text-muted" for="duration">Agent code</label>
+                                <input type="number" class="form-control border border-warning" id="duration"
+                                    placeholder="" value="{{ detail.agent_code }}">
+
+
+
+
+                                <label class="mt-3 text-muted" for="duration">Duration</label>
+                                <input type="text" class="form-control border border-warning" id="duration"
+                                    placeholder="">
+
+
+
+
+
+
+
+
+
+                                <label class="mt-3 text-muted" for="emi">EMI Amount</label>
+                                <input type="number" class="form-control border border-warning" id="emi" placeholder=""
+                                    value="{{ detail.emi_amount}}">
+
+
+                                <label class="mt-3 text-muted" for="sala">SALA</label>
+                                <input type="text" class="form-control border border-warning" id="sala" placeholder="">
+
+
+                                <label class="mt-3 text-muted" for="bid">Auction BID</label>
+                                <input type="text" class="form-control border border-warning" id="bid" placeholder="">
+
+
+                                <label class="mt-3 text-muted" for="bid">Collection Day/Date</label>
+
+                                <input type="text" class="form-control border border-warning" id="bid" placeholder="">
+
+
+                                <label class="mt-3 text-muted" for="bid">Collection Day/Date</label>
+                                <input type="date" class="form-control border border-warning text-muted" id="bid"
+                                    placeholder="">
+                                <label class="mt-3 text-muted" for="cpoint">Collection Point</label>
+                                <input type="text" class="form-control border border-warning" id="cpoint"
+                                    placeholder="">
+                                <!-- <label class="mt-3 text-muted" for="add">Auction Date</label>
+                                <input type="text" class="form-control border border-warning text-muted" id="add"
+                                    placeholder="" value="{{ detail.product_model_data.auction_date}}"> -->
+                                <label class="mt-3 text-muted" for="offer">Offer chit Dispatching Date</label>
+                                <input type="date" class="form-control border border-warning text-muted" id="offer"
+                                    placeholder="">
+                                <!-- <label class="mt-3 text-muted" for="dd">Divident Date</label>
+                                <input type="text" class="form-control border border-warning text-muted" id="dd"
+                                    placeholder="" value="{{detail.product_model_data.divident_date}}"> -->
+
+
+                                <label class="mt-3 text-muted" for="commission">Forman Commission And Percentage</label>
+                                <input type="text" class="form-control border border-warning" id="commission"
+                                    placeholder="" value="{{ detail.payment_model_data.forman_commission }}">
+
+
+
+
+                                <label class="mt-3 text-muted" for="amount">Forman Commission Amount</label>
+                                <input type="number" class="form-control border border-warning" id="commison id"
+                                    placeholder="">
+
+
+                            </div>
                         </div>
-                        <div class="col-md-12 col-lg-6">
-                            <label class="mt-3 text-muted" for="dob">Date of Birth</label>
-                            <input type="date" class="form-control border border-warning" id="dob" style="color: red;">
-                            <label class="mt-3 text-muted" for="mobile">Registered Mobile Number</label>
-                            <input type="number" class="form-control border border-warning" id="mobile" placeholder="">
-                            <label class="mt-3 text-muted" for="address">Address</label>
-                            <input type="text" class="form-control border border-warning" id="address" placeholder="">
-                            <label class="mt-3 text-muted" for="emi">EMI Amount</label>
-                            <input type="number" class="form-control border border-warning" id="emi" placeholder="">
-                            <label class="mt-3 text-muted" for="sala">SALA</label>
-                            <input type="text" class="form-control border border-warning" id="sala" placeholder="">
-                            <label class="mt-3 text-muted" for="bid">Auction BID</label>
-                            <input type="text" class="form-control border border-warning" id="bid" placeholder="">
-                            <label class="mt-3 text-muted" for="bid">Collection Day/Date</label>
-                            <input type="date" class="form-control border border-warning text-muted" id="bid"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="cpoint">Collection Point</label>
-                            <input type="text" class="form-control border border-warning" id="cpoint" placeholder="">
-                            <label class="mt-3 text-muted" for="add">Auction / Draw Date</label>
-                            <input type="date" class="form-control border border-warning text-muted" id="add"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="offer">Offer chit Dispatching Date</label>
-                            <input type="date" class="form-control border border-warning text-muted" id="offer"
-                                placeholder="">
-                            <label class="mt-3 text-muted" for="dd">Divident Date</label>
-                            <input type="date" class="form-control border border-warning text-muted" id="dd"
-                                placeholder="">
-                    </div>
-                    </div>
-                    <br>
-                </form>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- fourth -->
-
-        <div>
-            <!-- Box 1 -->
-            <div class="custom-box  mb-3">
-                <p>ഇതിൽ സാറിന് PROXY ചെയ്യാവുന്നതാണ്. AUCTION ന്റെ തലേ ദിവസം വരെ മാത്രമേ PROXY വിളിക്കാൻ
-                    ാധിക്കുകയുള്ളു. AUCTION ന്റെ തലേ ദിവസം 1 PM വരെ മാത്രമേ COLLECTION PAYMENT സ്വീകരിക്കുകയുള്ളു.
-                    ഇങ്ങനെ payment വ്യത്യാസം വന്നാൽ ആ ഡിവിഡന്റിനു യാതൊരു അർഹതയും ഉണ്ടായിരിക്കുന്നതല്ല.
-                    കളക്ഷൻ payment receipt generate ചെയ്യപ്പെട്ടിട്ടില്ലങ്കിൽ ഉടനെ തന്നെ ഓഫിസുമായി ബന്ധപ്പെടേണ്ടതാണ്.
-                    ാങ്കളുടെ PAYMENT ന്റെ INFORM AND CONFIRM താങ്കളുടെ ഉത്തരവാദിത്തമാണ്. ഓഫീസ് സമയം രാവിലെ 9
-                    ുതൽ വൈകുന്നേരം 5 മണി വരെയാണ് . </p>
-                <p>ഓക്ഷനിൽ ഒന്നിൽ കൂടുതൽ ആളുകൾ ഫുൾ ബിഡ് വരികയാണെങ്കിൽ എത്രപേരാണോ ELIGIBLE
-                    ആയിട്ടുള്ളത് , അത്രയും പേരെ ഡ്രോയിൽ പങ്കെടുപ്പിക്കുന്നതാണ്. ഓക്ഷൻ അല്ലങ്കിൽ ഡ്രോ ലഭിക്കുന
-                    ിറ്റാളന് NON COLLATERAL വ്യവസ്ഥയിൽ ആണെങ്കിൽ , 2 സ്ത്രീ ജാമ്യക്കാരുടേതുൾപ്പെടെയുള്ള ഡോക്യുമെന
-                    ആണ് നൽകേണ്ടത്. </p>
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- fifth -->
-
-            <!-- Box 2 (with list) -->
-            <div class="custom-box mb-3">
-                <h5 class="fw-bold">DOCUMENTS REQUIRED</h5>
-                <ul>
-                    <li>Cheque Leaf</li>
-                    <li>Stamp Paper</li>
-                    <li>ID Proof</li>
-                    <li>Photo</li>
-                    <li>Bank Statement</li>
-                </ul>
-                <p>ോക്യുമെന്റ് നൽകി 36 WORKING DAYS ൽ ആയിരിക്കും ചിറ്റാളന
-                    അക്കൗണ്ടിൽ PAYMENT ക്രെഡിറ്റാകുന്നത് . </p>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- sixth -->
-
-            <!-- Box 3 -->
-            <div class="custom-box mb-3">
-                ിലവിലെ കളക്ഷൻ മോഡ് അടിസ്ഥാനപ്പെടുത്തിയാണ് താങ്കളുടെ PAYMENT ELIGIBILITY ഫിക്സ
-                െയ്തിരിക്കുന്നത്. ഇതിനു വ്യതിയാനം സംഭവിച്ചാൽ PAYMENT ELIGIBILITY തീയതിയിൽ വ്യത്യാസ
-                വരുന്നതായിരിക്കും. <br>
-                ുറി ഇടയ്ക്കുവച്ച് നിർത്തുകയോ, റദ്ദാക്കുകയോ ചെയ്താൽ ഫോർമാൻ കമ്മീഷനും മറ്റ് അനുബന
-                ാർജുകളും കിഴിച്ച്, കുറിയുടെ കാലാവധി പൂർണമായും കഴിഞ്ഞതിനു ശേഷം മാത്രമേ PAYMENT
-                ൂർണമായി ലഭിക്കുകയുള്ളു.<br> 
-
-
-            </div>
-        </div>
-
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- seventh -->
-        <div>
-            <!-- Nominee Details Box -->
-            <div class="custom-box  mb-3">
-                <h5 class="fw-bold">NOMINEE DETAILS</h5>
-                <div class="row g-2">
-                    <div class="col-md-6 custom-input">
-                        <label class="mt-3 text-muted" for="name">Name</label>
-                        <input type="text" class="form-control border border-warning" placeholder="">
-                    </div>
-                    <div class="col-md-6 custom-input">
-                        <label class="mt-3 text-muted" for="relation">Relation</label>
-                        <input type="text" class="form-control border border-warning" placeholder="">
-                    </div>
-                    <div class="col-md-6 custom-input">
-                        <label class="mt-3 text-muted" for="address">Address</label>
-                        <input type="text" class="form-control border border-warning" placeholder="">
-                    </div>
-                    <div class="col-md-6 custom-input">
-                        <label class="mt-3 text-muted" for="phone">Phone Number</label>
-                        <input type="number" class="form-control border border-warning" placeholder="">
-                    </div>
+                        <br>
+                    </form>
                 </div>
             </div>
 
-            <!-- <label class="mt-3" for="mobile">Registered Mobile Number</label>
-                        <input type="text" class="form-control border border-warning" id="mobile" placeholder=""> -->
+
+            <!-- fourth -->
+
+            <div>
+                <!-- Box 1 -->
+                <div class="custom-box  mb-3">
+                    <p>ഇതിൽ സാറിന് PROXY ചെയ്യാവുന്നതാണ്. AUCTION ന്റെ തലേ ദിവസം വരെ മാത്രമേ PROXY വിളിക്കാൻ
+                        ാധിക്കുകയുള്ളു. AUCTION ന്റെ തലേ ദിവസം 1 PM വരെ മാത്രമേ COLLECTION PAYMENT സ്വീകരിക്കുകയുള്ളു.
+                        ഇങ്ങനെ payment വ്യത്യാസം വന്നാൽ ആ ഡിവിഡന്റിനു യാതൊരു അർഹതയും ഉണ്ടായിരിക്കുന്നതല്ല.
+                        കളക്ഷൻ payment receipt generate ചെയ്യപ്പെട്ടിട്ടില്ലങ്കിൽ ഉടനെ തന്നെ ഓഫിസുമായി
+                        ബന്ധപ്പെടേണ്ടതാണ്.
+                        ാങ്കളുടെ PAYMENT ന്റെ INFORM AND CONFIRM താങ്കളുടെ ഉത്തരവാദിത്തമാണ്. ഓഫീസ് സമയം രാവിലെ 9
+                        ുതൽ വൈകുന്നേരം 5 മണി വരെയാണ് . </p>
+                    <p>ഓക്ഷനിൽ ഒന്നിൽ കൂടുതൽ ആളുകൾ ഫുൾ ബിഡ് വരികയാണെങ്കിൽ എത്രപേരാണോ ELIGIBLE
+                        ആയിട്ടുള്ളത് , അത്രയും പേരെ ഡ്രോയിൽ പങ്കെടുപ്പിക്കുന്നതാണ്. ഓക്ഷൻ അല്ലങ്കിൽ ഡ്രോ ലഭിക്കുന
+                        ിറ്റാളന് NON COLLATERAL വ്യവസ്ഥയിൽ ആണെങ്കിൽ , 2 സ്ത്രീ ജാമ്യക്കാരുടേതുൾപ്പെടെയുള്ള ഡോക്യുമെന
+                        ആണ് നൽകേണ്ടത്. </p>
+
+                </div>
 
 
 
 
+                <!-- fifth -->
+
+                <!-- Box 2 (with list) -->
+                <div class="custom-box mb-3">
+                    <h5 class="fw-bold">DOCUMENTS REQUIRED</h5>
+                    <ul>
+                        <li>Cheque Leaf</li>
+                        <li>Stamp Paper</li>
+                        <li>ID Proof</li>
+                        <li>Photo</li>
+                        <li>Bank Statement</li>
+                    </ul>
+                    <p>ോക്യുമെന്റ് നൽകി 36 WORKING DAYS ൽ ആയിരിക്കും ചിറ്റാളന
+                        അക്കൗണ്ടിൽ PAYMENT ക്രെഡിറ്റാകുന്നത് . </p>
+                </div>
 
 
 
 
+                <!-- sixth -->
 
-
-            <!-- eighth -->
-
-            <!-- Information Box -->
-            <div class="custom-box  mb-3">
-                <p>ിലവിലെ കളക്ഷൻ മോഡ് അടിസ്ഥാനപ്പെടുത്തിയാണ് താങ്കളുടെ PAYMENT ELIGIBILITY ഫിക്സ
+                <!-- Box 3 -->
+                <div class="custom-box mb-3">
+                    ിലവിലെ കളക്ഷൻ മോഡ് അടിസ്ഥാനപ്പെടുത്തിയാണ് താങ്കളുടെ PAYMENT ELIGIBILITY ഫിക്സ
                     െയ്തിരിക്കുന്നത്. ഇതിനു വ്യതിയാനം സംഭവിച്ചാൽ PAYMENT ELIGIBILITY തീയതിയിൽ വ്യത്യാസ
-                    വരുന്നതായിരിക്കും.<br> 
+                    വരുന്നതായിരിക്കും. <br>
                     ുറി ഇടയ്ക്കുവച്ച് നിർത്തുകയോ, റദ്ദാക്കുകയോ ചെയ്താൽ ഫോർമാൻ കമ്മീഷനും മറ്റ് അനുബന
                     ാർജുകളും കിഴിച്ച്, കുറിയുടെ കാലാവധി പൂർണമായും കഴിഞ്ഞതിനു ശേഷം മാത്രമേ PAYMENT
-                    ൂർണമായി ലഭിക്കുകയുള്ളു. <br>
-                    ാങ്കൾക്ക് ലഭിച്ചിട്ടുള്ള APP LINK വഴി താങ്കൾക്ക് ഡിജിറ്റൽ പാസ്ബുക്ക്, ഡിവിഡന്റ് ഡീറ്റെയിൽസ് , ഓക്ഷൻ
-                    എന്നിവ കാണാൻ സാധിക്കുന്നതാണ്. കൂടാതെ താങ്കൾക്ക് FEEDBACK & COMPLAINT , മറ്റു സർവീസ് എന്നിവയ
-                    ഇതിൽ ലഭിക്കുന്നതാണ്.<br> 
-                    ിട്ടിയിൽ അംഗമായതിനു ശേഷം തുടർന്നുള്ള ചിട്ടി സംബന്ധമായ എല്ലാ കാര്യങ്ങൾക്കും താങ്കൾക
-                    ഞങ്ങളുടെ കസ്റ്റമർ കെയറുമായി മാത്രം ബന്ധപ്പെടാവുന്നതാണ്. ചിട്ടി സംബന്ധമായ
-                    ിവരാന്വേഷണങ്ങൾക്ക് സെയിൽ ഡിവിഷനുമായോ, മറ്റു വ്യക്തികളുമായോ ബന്ധപ്പെടുന്നത
-                    ാങ്കേതികമായ ഏകീകരണ പ്രവർത്തനങ്ങൾക്ക് തടസ്സമാവുന്നതിനാൽ ദയവായി ഞങ്ങളുടെ കസ്റ്റമർ
-                    െയറുമായി മാത്രം ബന്ധപ്പെടാൻ ശ്രദ്ധിക്കുക. <br> 
-                    ൂടാതെ ഞങ്ങളുടെ കസ്റ്റമർ കെയർ സർവീസ് തിങ്കൾ മുതൽ ശനി വരെ രാവിലെ 9 മണിമുതൽ വൈകിട്ട് 5
-                    മണി വരെയും ലഭ്യമാണ്. 8089849800 എന്ന കസ്റ്റമർ കെയർ നമ്പറിലേക്കോ   kdcchitsprivate@gmail.com എന
-                    െയിൽ ഐഡി യിലേക്കോ  താങ്കൾക്ക് ഞങ്ങളുമായി ബന്ധപ്പെടാവുന്നതാണ്. ഞങ്ങളെക്കുറിച്ചുള്ള പൂർണ
-                    ിവരങ്ങൾ  www.kdcchits.com എന്ന വെബ്സൈറ്റിൽ ലഭ്യമാണ് . ഞാൻ പറഞ്ഞ കാര്യങ്ങളൊക്കെ താങ്കൾക
-                    യക്തമായി എന്ന് കരുതുന്നു .  താങ്കളുടെ സമയത്തിന് നന്ദി . ശുഭദിനം ..</p>
+                    ൂർണമായി ലഭിക്കുകയുള്ളു.<br> 
+
+
+                </div>
             </div>
 
 
+            <!-- seventh -->
+            <div>
+                <!-- Nominee Details Box -->
+                <div class="custom-box  mb-3">
+                    <h5 class="fw-bold">NOMINEE DETAILS</h5>
+                    <div class="row g-2">
+                        <div class="col-md-6 custom-input">
+                            <label class="mt-3 text-muted" for="name">Name</label>
+                            <input type="text" class="form-control border border-warning" placeholder=""
+                                value="{{detail.nominee_model_data.nominee_name}}">
+                        </div>
+                        <div class="col-md-6 custom-input">
+                            <label class="mt-3 text-muted" for="relation">Relation</label>
+                            <input type="text" class="form-control border border-warning" placeholder=""
+                                value="{{detail.nominee_model_data.nominee_relation}}">
+                        </div>
+                        <div class="col-md-6 custom-input">
+                            <label class="mt-3 text-muted" for="address">Address</label>
+                            <input type="text" class="form-control border border-warning" placeholder=""
+                                value="{{detail.nominee_model_data.nominee_address}}">
+                        </div>
+                        <div class="col-md-6 custom-input">
+                            <label class="mt-3 text-muted" for="phone">Phone Number</label>
+                            <input type="number" class="form-control border border-warning" placeholder=""
+                                value="{{detail.nominee_model_data.nominee_contact}}">
+                        </div>
+                    </div>
+                </div>
 
 
 
@@ -453,22 +579,350 @@
 
 
 
-            <!-- nineth -->
 
-            <!-- Button Group -->
-            <div class="d-flex justify-content-center gap-3 mb-3">
-                <button class="btn btn-confirm">confirmed</button>
-                <button class="btn btn-proceed">PROCEED</button>
+
+
+
+                <div class="custom-box  mb-3">
+                    <h5 class="fw-bold">LIABILITIES</h5>
+                    <div class="row g-2">
+                        <div class="col-md-4 custom-input">
+                            <label class="mt-3 text-muted" for="name">Bank</label>
+                            <input type="text" class="form-control border border-warning" placeholder="">
+                        </div>
+                        <div class="col-md-4 custom-input ">
+                            <label class="mt-3 text-muted" for="relation">Amount</label>
+                            <input type="text" class="form-control border border-warning" placeholder="">
+                        </div>
+                        <div class="col-md-4 custom-input">
+                            <label class="mt-3 text-muted" for="address">EMI</label>
+                            <input type="text" class="form-control border border-warning" placeholder="">
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <!-- pro start -->
+
+                <div>
+
+                    <div class="bg-white rounded shadow p-5 custom-form mb-3">
+                        <form>
+
+                            <div class="row">
+                                <h5 class="fw-bold">PRODUCT INFORMATIONS</h5>
+                                <label class="mt-3 ml-2 text-muted " for="name">Kuri Type</label>
+                              <select class="form-control border border-warning" name="kuri_type" id="asd">
+                                <option disabled {% if not detail.product_model_data.kuri_type %}selected{% endif %}>Select Kuri Type</option>
+                                <option value="auction" {% if detail.product_model_data.kuri_type == "auction" %}selected{% endif %}>auction</option>
+                                <option value="draw" {% if detail.product_model_data.kuri_type == "draw" %}selected{% endif %}>draw</option>
+                                <option value="offer" {% if detail.product_model_data.kuri_type == "offer" %}selected{% endif %}>offer</option>
+                                <option value="multi division" {% if detail.product_model_data.kuri_type == "multi division" %}selected{% endif %}>multi division</option>
+                            </select>
+
+
+                                <div class="col-md-12 col-lg-6">
+
+
+
+
+
+
+                                    <label class="mt-3 text-muted" for="name">Product</label>
+                                
+    <!-- <option value="201" {% if detail.product_model_data.product_code == "201" %}selected{% endif %}>201</option>
+    <option value="202" {% if detail.product_model_data.product_code == "202" %}selected{% endif %}>202</option>
+    <option value="203" {% if detail.product_model_data.product_code == "203" %}selected{% endif %}>203</option>
+    <option value="204" {% if detail.product_model_data.product_code == "204" %}selected{% endif %}>204</option>
+    <option value="205" {% if detail.product_model_data.product_code == "205" %}selected{% endif %}>205</option> -->
+
+      <select class="form-control border border-warning" name="product_code" id="product_code1">
+    <option value="301" {% if detail.product_model_data.product_code == "301" %}selected{% endif %}>301</option>
+        <option value="801" {% if detail.product_model_data.product_code == "801" %}selected{% endif %}>801</option>
+        </select>
+
+                
+                <select class="form-control border border-warning" name="product_code" id="product_code2">
+    <option value="201" {% if detail.product_model_data.product_code == "201" %}selected{% endif %}>201</option>
+        <option value="202" {% if detail.product_model_data.product_code == "202" %}selected{% endif %}>202</option>
+</select>
+
+
+
+                    <select class="form-control border border-warning" name="product_code" id="product_code3">
+    <option value="901" {% if detail.product_model_data.product_code == "901" %}selected{% endif %}>901</option>
+        <option value="902" {% if detail.product_model_data.product_code == "902" %}selected{% endif %}>902</option>
+
+            <option value="903" {% if detail.product_model_data.product_code == "903" %}selected{% endif %}>903</option>
+
+                <option value="904" {% if detail.product_model_data.product_code == "904" %}selected{% endif %}>904</option>
+                    <option value="951" {% if detail.product_model_data.product_code == "951" %}selected{% endif %}>951</option>
+
+                    <option value="952" {% if detail.product_model_data.product_code == "952" %}selected{% endif %}>952</option>
+
+</select>
+
+
+
+                    <select class="form-control border border-warning" name="product_code" id="product_code4">
+        <option value="502" {% if detail.product_model_data.product_code == "502" %}selected{% endif %}>502</option>
+
+</select>
+
+
+
+
+
+
+
+
+
+
+                                    <label class="mt-3 mb-2 text-muted" for="">Document Type</label>
+
+                                    <div class="d-flex">
+                                       <input type="radio" id="collateral" name="rif" value="collateral"
+    {% if detail.product_model_data.document_type == "collateral" %}checked{% endif %}>
+<label for="collateral" class="me-5 ms-4">collateral</label>
+
+<input type="radio" id="non_collateral" name="rif" value="non collateral"
+    {% if detail.product_model_data.document_type == "non collateral" %}checked{% endif %}>
+<label for="non_collateral" class="me-5 ms-4">non collateral</label>
+
+                                    </div>
+
+
+
+
+
+
+
+
+                                    <label class="mt-3 mb-2 text-muted" for="">Collection Mode</label>
+                                    <div class="d-flex">
+                                      <input type="radio" id="daily" name="hai" value="daily"
+    {% if detail.product_model_data.collection_mode == "daily" %}checked{% endif %}>
+<label for="daily" class="me-5 ms-4">daily</label>
+
+<input type="radio" id="weekly" name="hai" value="weekly"
+    {% if detail.product_model_data.collection_mode == "weekly" %}checked{% endif %}>
+<label for="weekly" class="me-5 ms-4">weekly</label>
+
+<input type="radio" id="monthly" name="hai" value="monthly"
+    {% if detail.product_model_data.collection_mode == "monthly" %}checked{% endif %}>
+<label for="monthly" class="me-5 ms-4">monthly</label>
+
+                                    </div>
+
+
+                                    <div class="col-md-12 custom-input">
+                                        <label class="mt-3 text-muted" for="phone">Chit Duration</label>
+                                        <input id="chit_data" type="text" class="form-control border border-warning"
+                                            placeholder="Chit Duration"
+                                            value="{{detail.product_model_data.chit_duration}}">
+                                    </div>
+
+                                    <div class="col-md-12 custom-input" id="auction_eligibility">
+                                        <label class="mt-3 text-muted" for="phone">Auction Eligibility</label>
+                                        <input type="number" class="form-control border border-warning"
+                                            placeholder="Auction Eligibility"
+                                            value="">
+                                    </div>
+
+                                    <div class="col-md-12 custom-input" id="auction_date">
+                                        <label class="mt-3 text-muted" for="phone">Auction Date</label>
+                                        <input type="date" class="form-control border border-warning"
+                                            placeholder="Auction Date"
+                                            value="">
+                                    </div>
+
+                                    <div class="col-md-12 custom-input " id="divident_date">
+                                        <label class="mt-3 text-muted" for="phone">Divident Date</label>
+                                        <input type="date" class="form-control border border-warning"
+                                            placeholder="Divident Date"
+                                            value="">
+                                    </div>
+
+
+
+                                </div>
+
+
+                                <div class="col-md-12 col-lg-6">
+
+
+                                    <div class="col-md-12 custom-input">
+                                        <label class="mt-3 text-muted" for="relation">Joining Date</label>
+                                        <input type="date" class="form-control border border-warning" id="joiningDate"
+                                            placeholder="Select Date"
+                                            value="{{detail.product_model_data.joining_date|date:'Y-m-d'}}">
+                                    </div>
+
+
+                                    <div class="col-md-12 custom-input">
+                                        <label class="mt-3 text-muted" for="relation">1 st EMI Completion Date</label>
+                                        <input type="date" class="form-control border border-warning" placeholder=""
+                                            value="{{detail.product_model_data.first_emi_completion_date|date:'Y-m-d'}}">
+                                    </div>
+                                    <div class="col-md-12 custom-input">
+                                        <label class="mt-3 text-muted" for="phone">Last EMI Date</label>
+                                        <input type="date" class="form-control border border-warning"
+                                            placeholder="Last EMI Date"
+                                            value="{{detail.product_model_data.last_emi_date|date:'Y-m-d'}}">
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-12 custom-input " id="draw_date">
+                                        <label class="mt-3 text-muted" for="phone">Draw Date</label>
+                                        <input type="date" class="form-control border border-warning"
+                                            placeholder="Draw Date" value="">
+                                    </div>
+
+                                    <div class="col-md-12 custom-input " id="dispatching_com_date">
+                                        <label class="mt-3 text-muted" for="phone">Dispatching Committed Date</label>
+                                        <input type="date" class="form-control border border-warning"
+                                            placeholder="Dispatching Committed Date"
+                                            value="">
+                                    </div>
+                                    <div class="col-md-12 custom-input " id="multi_auction_eligibility">
+                                        <label class="mt-3 text-muted" for="phone">Multi Division Auction
+                                            Eligibility</label>
+                                        <input type="number" class="form-control border border-warning"
+                                            placeholder="Multi Division Auction Eligibility"
+                                            value="">
+                                    </div>
+
+                                    <div class="col-md-12 custom-input " id="multi_auction_date">
+                                        <label class="mt-3 text-muted" for="phone">Multi Division Auction Date</label>
+                                        <input type="number" class="form-control border border-warning"
+                                            placeholder="Multi Division Auction Date"
+                                            value="">
+                                    </div>
+
+                                    <div class="col-md-12 custom-input " id="multi_divident_date">
+                                        <label class="mt-3 text-muted" for="phone">Multi Division Divident Date</label>
+                                        <input type="number" class="form-control border border-warning"
+                                            placeholder="Multi Division Divident Date"
+                                            value="">
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <!-- pro end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- eighth -->
+
+                <!-- Information Box -->
+                <div class="custom-box  mb-3">
+                    <p>ിലവിലെ കളക്ഷൻ മോഡ് അടിസ്ഥാനപ്പെടുത്തിയാണ് താങ്കളുടെ PAYMENT ELIGIBILITY ഫിക്സ
+                        െയ്തിരിക്കുന്നത്. ഇതിനു വ്യതിയാനം സംഭവിച്ചാൽ PAYMENT ELIGIBILITY തീയതിയിൽ വ്യത്യാസ
+                        വരുന്നതായിരിക്കും.<br> 
+                        ുറി ഇടയ്ക്കുവച്ച് നിർത്തുകയോ, റദ്ദാക്കുകയോ ചെയ്താൽ ഫോർമാൻ കമ്മീഷനും മറ്റ് അനുബന
+                        ാർജുകളും കിഴിച്ച്, കുറിയുടെ കാലാവധി പൂർണമായും കഴിഞ്ഞതിനു ശേഷം മാത്രമേ PAYMENT
+                        ൂർണമായി ലഭിക്കുകയുള്ളു. <br>
+                        ാങ്കൾക്ക് ലഭിച്ചിട്ടുള്ള APP LINK വഴി താങ്കൾക്ക് ഡിജിറ്റൽ പാസ്ബുക്ക്, ഡിവിഡന്റ് ഡീറ്റെയിൽസ് ,
+                        ഓക്ഷൻ
+                        എന്നിവ കാണാൻ സാധിക്കുന്നതാണ്. കൂടാതെ താങ്കൾക്ക് FEEDBACK & COMPLAINT , മറ്റു സർവീസ് എന്നിവയ
+                        ഇതിൽ ലഭിക്കുന്നതാണ്.<br> 
+                        ിട്ടിയിൽ അംഗമായതിനു ശേഷം തുടർന്നുള്ള ചിട്ടി സംബന്ധമായ എല്ലാ കാര്യങ്ങൾക്കും താങ്കൾക
+                        ഞങ്ങളുടെ കസ്റ്റമർ കെയറുമായി മാത്രം ബന്ധപ്പെടാവുന്നതാണ്. ചിട്ടി സംബന്ധമായ
+                        ിവരാന്വേഷണങ്ങൾക്ക് സെയിൽ ഡിവിഷനുമായോ, മറ്റു വ്യക്തികളുമായോ ബന്ധപ്പെടുന്നത
+                        ാങ്കേതികമായ ഏകീകരണ പ്രവർത്തനങ്ങൾക്ക് തടസ്സമാവുന്നതിനാൽ ദയവായി ഞങ്ങളുടെ കസ്റ്റമർ
+                        െയറുമായി മാത്രം ബന്ധപ്പെടാൻ ശ്രദ്ധിക്കുക. <br> 
+                        ൂടാതെ ഞങ്ങളുടെ കസ്റ്റമർ കെയർ സർവീസ് തിങ്കൾ മുതൽ ശനി വരെ രാവിലെ 9 മണിമുതൽ വൈകിട്ട് 5
+                        മണി വരെയും ലഭ്യമാണ്. 8089849800 എന്ന കസ്റ്റമർ കെയർ നമ്പറിലേക്കോ   kdcchitsprivate@gmail.com എന
+                        െയിൽ ഐഡി യിലേക്കോ  താങ്കൾക്ക് ഞങ്ങളുമായി ബന്ധപ്പെടാവുന്നതാണ്. ഞങ്ങളെക്കുറിച്ചുള്ള പൂർണ
+                        ിവരങ്ങൾ  www.kdcchits.com എന്ന വെബ്സൈറ്റിൽ ലഭ്യമാണ് . ഞാൻ പറഞ്ഞ കാര്യങ്ങളൊക്കെ താങ്കൾക
+                        യക്തമായി എന്ന് കരുതുന്നു .  താങ്കളുടെ സമയത്തിന് നന്ദി . ശുഭദിനം ..</p>
+                </div>
+
+
+                <!-- nineth -->
+
+                <!-- Button Group -->
+                <div class="d-flex justify-content-center gap-3 mb-3">
+                    <button class="btn btn-confirm">confirmed</button>
+                    <button class="btn btn-proceed">PROCEED</button>
+                </div>
             </div>
-        </div>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</div>
+        </form>
 
 
 
+
+    </div>
 
 
 
@@ -497,6 +951,163 @@
 
 
 
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            getkuritype();
+            
+            $("#asd").on("input", function () {
+                
+                getkuritype();
+            });
+        });
+
+
+        function getkuritype(){
+            var selected_input = $("#asd").val();
+                if (selected_input === "auction") {
+                    $("#auction_eligibility").show();
+                    $("#auction_date").show();
+                    $("#divident_date").show();
+
+                    $("#draw_date").hide();
+                    $("#dispatching_com_date").hide();
+                    $("#multi_auction_eligibility").hide();
+                    $("#multi_auction_date").hide();
+                    $("#multi_divident_date").hide();
+                    $("#product_code1").show();
+                    $("#product_code2").hide();
+                    $("#product_code3").hide();
+                    $("#product_code4").hide();
+
+                }
+                else if (selected_input === "draw") {
+                    $("#draw_date").show();
+
+                    $("#auction_eligibility").hide();
+                    $("#auction_date").hide();
+                    $("#divident_date").hide();
+                    $("#dispatching_com_date").hide();
+
+                    $("#multi_auction_eligibility").hide();
+                    $("#multi_auction_date").hide();
+                    $("#multi_divident_date").hide();
+
+                    $("#product_code2").show();
+                    $("#product_code1").hide();
+                    $("#product_code3").hide();
+                    $("#product_code4").hide();
+                    // $(".").hide();
+                }
+
+                else if (selected_input === "offer") {
+
+                    $("#dispatching_com_date").show();
+                    $("#divident_date").show();
+
+                    $("#draw_date").hide();
+
+                    $("#multi_auction_eligibility").hide();
+                    $("#multi_auction_date").hide();
+                    $("#multi_divident_date").hide();
+                    $("#auction_eligibility").hide();
+                    $("#auction_date").hide();
+                    $("#product_code3").show();
+                    $("#product_code1").hide();
+                    $("#product_code2").hide();
+                    $("#product_code4").hide();
+
+
+                }
+
+                else if (selected_input === "multi division") {
+                    $("#multi_auction_eligibility").show();
+                    $("#multi_auction_date").show();
+                    $("#multi_divident_date").show();
+
+                    $("#auction_eligibility").hide();
+                    $("#auction_date").hide();
+                    $("#draw_date").hide();
+                    $("#divident_date").hide();
+                    $("#dispatching_com_date").hide();
+
+                     $("#product_code4").show();
+                    $("#product_code2").hide();
+                    $("#product_code3").hide();
+                    $("#product_code1").hide();
+
+
+
+
+
+                }
+        }
+    </script>
+    <script>
+         $(document).ready(function () {
+
+            
+            
+            $("#product_code1").on("input", function () {
+                var prd_code = $(this).val();
+                if  (prd_code=="301" || prd_code=="801"){
+                    $('#chit_data').val('40 months');
+                }
+            })
+
+
+            $("#product_code2").on("input", function () {
+                var prd_code = $(this).val();
+                if  (prd_code=="201" || prd_code=="202"){
+                    $('#chit_data').val('25 months');
+                }
+            })
+
+
+            $("#product_code3").on("input", function () {
+                var prd_code = $(this).val();
+
+              
+    if (["901", "902", "903", "904"].includes(prd_code)) {
+        $('#chit_data').val('20 months');
+    } else if (["951", "952"].includes(prd_code)) {
+        $('#chit_data').val('40 months');
+    } else {
+        $('#chit_data').val(''); // Optional: clear if code doesn't match
+    }
+});
+
+               
+                // if  (prd_code=="901" || prd_code=="902" || prd_code=="903" || prd_code=="904"){
+                //     $('#chit_data').val('20 months');
+                // }
+
+                // else if (prd_code=="951" || prd_code=="952"){
+                //     $('#chit_data').val('40 months');
+                // }
+            })
+
+            $("#product_code4").on("input", function () {
+                var prd_code = $(this).val();
+                if  (prd_code=="502"){
+                    $('#chit_data').val('100 weeks');
+                }
+            })
+
+
+
+
+
+
+      
+    </script>
 
 </body>
 

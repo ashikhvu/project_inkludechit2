@@ -506,9 +506,14 @@ class CollectionModel(models.Model):
     cm_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="cm_agent_data")
     cm_customer_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     cm_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+    cm_salepunch_data = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
 
-    cm_full_name = models.CharField(max_length=255,blank=True,null=True)
+    cm_first_name = models.CharField(max_length=255,blank=True,null=True)
+    cm_last_name = models.CharField(max_length=255,blank=True,null=True)
+
+    cm_current_date_and_time = models.DateField()
     cm_next_date_and_time = models.DateField()
+
     cm_emi_tobe_paid = models.FloatField(default=0.0,blank=True,null=True)
     cm_visit_type_choices = (
         ("direct visit","direct visit"),
@@ -524,7 +529,7 @@ class CollectionModel(models.Model):
     cm_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
 
     def __str__(self):
-        return str(self.cm_full_name)
+        return str(self.cm_last_name)
 
 # ==========================================================================================================
 #                                         COLLECTION MODELS START END

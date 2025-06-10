@@ -344,8 +344,6 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
 
         response["customer_prof"]= GetAllRegisteredCustomerSerializer(instance.customer_prof).data
 
-
-
         return response
 
 class ShareMyInterestModelSerializer(serializers.ModelSerializer):

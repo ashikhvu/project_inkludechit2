@@ -69,7 +69,7 @@ class OtherModelSetup(admin.ModelAdmin):
     list_display_links = list_display
 
 class CollectionModelSetup(admin.ModelAdmin):
-    list_display = ["id","cm_full_name","cm_next_date_and_time"]
+    list_display = ["id","cm_first_name","cm_last_name","cm_current_date_and_time","cm_next_date_and_time"]
     list_display_links = list_display
 
 
