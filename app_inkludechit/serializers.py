@@ -414,6 +414,11 @@ class GetAllRegisteredCustomerSerializer(serializers.ModelSerializer):
             respose["visit_count"] = 0
             respose["product_code"] = salepunch.product_model_data.product_code
         return respose
+    
+class GetAllRegisteredCustomersNameandPhSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomerProfileModel
+        fields = ["customer_first_name","customer_last_name","mobile_no"]
 
 class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializer):
 

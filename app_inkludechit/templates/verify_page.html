@@ -1849,6 +1849,17 @@
     <input type="radio" {% if details.pro_da=="no collateral" %} selected {% endif %}>
     <input type="radio" {% if details.pro_da=="collateral" %} selected {% endif %}>
 
+    <script>
+        $(document).ready(function(){
+            $('#product_input1').on('input',function(){
+                var prd_code =  $(this).val()
+                if (prd_code=="301" || prd_code=='801'){
+                    $('#chit_data').val('40 months');
+                }
+            })
+        })
+    </script>
+
 </body>
 
 </html>
