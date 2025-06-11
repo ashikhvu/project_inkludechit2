@@ -47,8 +47,13 @@ class SalePunchViewPost(APIView):
                 cust_prof_id = val_data["customer_prof"].id
                 customer_prof =  CustomerProfileModel.objects.get(id=cust_prof_id)
 
-                # print(f"{kuri_type}\n{product_code}\n{document_type}\n{chit_duration}\n{first_emi_completion_date}\n{last_emi_date}\n{auction_eligibility}\n{auction_date}\n{divident_date}")
+                collect_start_date = sp.payment_model_data.collection_start_date
+                
+                example_cm_unit_amount = 1000
+                example_unit_sum = 0
 
+                reminder_date = collect_start_date - relativedelta(days=2)
+                # print(f"{kuri_type}\n{product_code}\n{document_type}\n{chit_duration}\n{first_emi_completion_date}\n{last_emi_date}\n{auction_eligibility}\n{auction_date}\n{divident_date}")
 
                 if kuri_type=="auction":
                     print(f"inside auction")
@@ -62,11 +67,21 @@ class SalePunchViewPost(APIView):
                         next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
                         CollectionModel.objects.get_or_create(
                             cm_salepunch_data=sp,
+
                             cm_first_name=customer_prof.customer_first_name,
                             cm_last_name=customer_prof.customer_last_name,
+                            cm_group=sp.product_model_data.product_code,
+                            cm_batch="5th",
+                            cm_reminder_date=reminder_date,
                             cm_current_date_and_time=future_emi_date,
-                            cm_next_date_and_time=next_emi_date
+                            cm_next_date_and_time=next_emi_date,
+                            cm_collection_count=13,
+                            cm_unit_amount=example_cm_unit_amount,
+                            cm_unit_sum=example_unit_sum,
+                            cm_emi_count=0,
+
                         )
+                        example_unit_sum+=example_cm_unit_amount
 
                 elif kuri_type=="draw":
                     print(f"inside draw")
@@ -188,3 +203,6 @@ class ClickOnRegisterBtn(APIView):
             return Response({"error":"Customer details doesn't exist"},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error",str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+# class DashBoard(APIView):
+#     def get()

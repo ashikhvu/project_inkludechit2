@@ -541,16 +541,22 @@ class CollectionModel(models.Model):
 
     )
     cm_group = models.PositiveIntegerField(blank=True,null=True,choices=cm_group_choices,default="301")
-    cm_batch_choices = models.CharField(max_length=10,blank=True,null=True)
+    cm_batch_choices = (
+        ('1st','1st'),
+        ('2nd','2nd'),
+        ('3rd','3rd'),
+        ('4th','4th'),
+        ('5th','5th')
+    )
+    cm_batch = models.CharField(max_length=10,blank=True,null=True,choices=cm_batch_choices)
     
-    cm_reminder_data = models.DateField(blank=True,null=True)
+    cm_reminder_date = models.DateField(blank=True,null=True)
     cm_current_date_and_time = models.DateField()
     cm_next_date_and_time = models.DateField()
     cm_collection_count = models.IntegerField()
     cm_unit_amount = models.PositiveBigIntegerField(blank=True,null=True)
     cm_unit_sum = models.PositiveBigIntegerField(blank=True,null=True)
     cm_emi_count = models.PositiveBigIntegerField(blank=True,null=True)
-    cm_unit_amount = models.PositiveBigIntegerField(blank=True,null=True)
     cm_emi_sum = models.PositiveBigIntegerField(blank=True,null=True)
     cm_payable_date_emi = models.PositiveBigIntegerField(blank=True,null=True)
     cm_emi_bounce_date = models.CharField(blank=True,null=True)
@@ -586,6 +592,8 @@ class CollectionModel(models.Model):
 
     def __str__(self):
         return str(self.cm_last_name)
+    
+
 
 # ==========================================================================================================
 #                                         COLLECTION MODELS START END

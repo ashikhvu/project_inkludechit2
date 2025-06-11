@@ -81,7 +81,7 @@ class CustomLoginView(APIView):
             "access": str(refresh.access_token),
             "refresh": str(refresh),
             "user_type":str(user_type),
-            "agent_name": user.first_name or user.username.split('@')[0],
+            "name": str(user.first_name) + " "+ str(user.last_name) or user.username.split('@')[0],
             "position": user.user_type,
             "agent_code": str(agent_prof_code)
         }, status=status.HTTP_200_OK)
@@ -113,4 +113,3 @@ class CustomerFetch(TemplateView):
     permission_classes= [IsAuthenticated,IsAdminUser]
     template_name = "style.html"
 
-    
