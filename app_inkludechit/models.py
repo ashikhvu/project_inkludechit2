@@ -508,11 +508,67 @@ class CollectionModel(models.Model):
     cm_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
     cm_salepunch_data = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
 
+    cm_kyc = models.CharField(unique=True,max_length=12,blank=True,null=True,validators=[
+        RegexValidator(
+            regex=r"^\d{12}",
+            message="KYC number should be 12 digit"
+        )
+    ])
+    cm_uid = models.CharField(unique=True,max_length=12,blank=True,null=True,validators=[
+        RegexValidator(
+            regex=r"^\d{12}",
+            message="UID number should be 12 digit"
+        )
+    ])
     cm_first_name = models.CharField(max_length=255,blank=True,null=True)
     cm_last_name = models.CharField(max_length=255,blank=True,null=True)
 
+    cm_group_choices = (
+        ("301","301"),
+        ("801","801"),
+        
+        ("201","201"),
+        ("202","202"),
+
+        ("901","901"),
+        ("902","902"),
+        ("903","903"),
+        ("904","904"),
+        ("951","951"),
+        ("952","952"),
+
+        ("502","502"),
+
+    )
+    cm_group = models.PositiveIntegerField(blank=True,null=True,choices=cm_group_choices,default="301")
+    cm_batch_choices = models.CharField(max_length=10,blank=True,null=True)
+    
+    cm_reminder_data = models.DateField(blank=True,null=True)
     cm_current_date_and_time = models.DateField()
     cm_next_date_and_time = models.DateField()
+    cm_collection_count = models.IntegerField()
+    cm_unit_amount = models.PositiveBigIntegerField(blank=True,null=True)
+    cm_unit_sum = models.PositiveBigIntegerField(blank=True,null=True)
+    cm_emi_count = models.PositiveBigIntegerField(blank=True,null=True)
+    cm_unit_amount = models.PositiveBigIntegerField(blank=True,null=True)
+    cm_emi_sum = models.PositiveBigIntegerField(blank=True,null=True)
+    cm_payable_date_emi = models.PositiveBigIntegerField(blank=True,null=True)
+    cm_emi_bounce_date = models.CharField(blank=True,null=True)
+    cm_collection_mode_choices = (
+        ('daily','daily'),
+        ('weekly','weekly'),
+        ('monthly','monthly')
+    )
+    cm_collection_mode = models.CharField(blank=True,null=True)
+    cm_payment_mode_choice = (
+        ("gpay","gpay"),
+        ("direct","direct")
+    )
+    cm_payment_mode = models.CharField(blank=True,null=True)
+    cm_collection_aprouch_mode_choices = (
+        ("by call","by call"),
+        ("by visit","by visit")
+    )
 
     cm_emi_tobe_paid = models.FloatField(default=0.0,blank=True,null=True)
     cm_visit_type_choices = (

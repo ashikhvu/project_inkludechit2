@@ -93,6 +93,6 @@ class CustomerOtpAuthenticateView(APIView):
                 else: 
                     return Response({"error":"Invalid OTP"},status=status.HTTP_400_BAD_REQUEST) 
             else:
-                return Response({"error":"mobile number not found"},status=status.HTTP_400_BAD_REQUEST) 
+                return Response({"error":"mobile number not found"},status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
