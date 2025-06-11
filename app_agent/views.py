@@ -204,9 +204,9 @@ class ClickOnRegisterBtn(APIView):
         except Exception as e:
             return Response({"error",str(e)},status=status.HTTP_400_BAD_REQUEST)
 
-class DashBoard(APIView):
+class SalesAgentDashBoard(APIView):
     def get(self,request):
-        sp_created_count = CustomerProfileModel.objects.filter(is_salepunch_created=True)
-        sp_not_create_count = CustomerProfileModel.objects.filter(is_salepunch_created=False)
+        sp_created_count = CustomerProfileModel.objects.filter(is_salepunch_created=True).count()
+        sp_not_create_count = CustomerProfileModel.objects.filter(is_salepunch_created=False).count()
         return Response({"sp_created_count":sp_created_count,
                          "sp_not_create_count":sp_not_create_count})
