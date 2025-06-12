@@ -565,23 +565,23 @@ class CollectionModel(models.Model):
         ('weekly','weekly'),
         ('monthly','monthly')
     )
-    cm_collection_mode = models.CharField(blank=True,null=True)
+    cm_collection_mode = models.CharField(default='daily',choices=cm_collection_mode_choices,blank=True,null=True)
     cm_payment_mode_choice = (
         ("gpay","gpay"),
         ("direct","direct")
     )
-    cm_payment_mode = models.CharField(blank=True,null=True)
+    cm_payment_mode = models.CharField(default='gpay',choices=cm_payment_mode_choice,blank=True,null=True)
     cm_collection_aprouch_mode_choices = (
         ("by call","by call"),
         ("by visit","by visit")
     )
 
-    cm_emi_tobe_paid = models.FloatField(default=0.0,blank=True,null=True)
+    cm_emi_tobe_paid = models.FloatField(default=0.0,choices=cm_collection_aprouch_mode_choices,blank=True,null=True)
     cm_visit_type_choices = (
         ("direct visit","direct visit"),
         ("phone","phone")
     )
-    cm_visit_type = models.CharField(max_length=100,default="direct visit",blank=True,null=True)
+    cm_visit_type = models.CharField(max_length=100,default="direct visit",choices=cm_visit_type_choices,blank=True,null=True)
     cm_visit_count = models.PositiveIntegerField(default=0,blank=True,null=True)
 
     cm_paid_data = models.ForeignKey(PaidModel,on_delete=models.CASCADE,blank=True,null=True)
