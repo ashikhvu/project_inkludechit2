@@ -557,7 +557,7 @@ class CollectionModel(models.Model):
     cm_unit_amount = models.PositiveBigIntegerField(blank=True,null=True)
     cm_unit_sum = models.PositiveBigIntegerField(blank=True,null=True)
     cm_emi_count = models.PositiveBigIntegerField(blank=True,null=True)
-    cm_emi_sum = models.PositiveBigIntegerField(blank=True,null=True)
+    # cm_emi_sum = models.PositiveBigIntegerField(blank=True,null=True)
     cm_payable_date_emi = models.PositiveBigIntegerField(blank=True,null=True)
     cm_emi_bounce_date = models.CharField(blank=True,null=True)
     cm_collection_mode_choices = (

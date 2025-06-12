@@ -79,6 +79,11 @@ class SalePunchViewPost(APIView):
                             cm_unit_amount=example_cm_unit_amount,
                             cm_unit_sum=example_unit_sum,
                             cm_emi_count=0,
+                            cm_payable_date_emi=6,
+                            cm_emi_bounce_date="7 July",
+                            cm_collection_mode="Daily",
+                            cm_payment_mode="gpay",
+                            
 
                         )
                         example_unit_sum+=example_cm_unit_amount
