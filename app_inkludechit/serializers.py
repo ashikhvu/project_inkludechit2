@@ -171,14 +171,16 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
         if SalePunchModel.objects.filter(customer_prof=customer_prof).exists():
             raise serializers.ValidationError(f"Salepunch already eixst for this customer",code=400)
         
-
+        multi_division_auction_eligibility=None
         if attrs["product_model_data"]["multi_division_auction_eligibility"]:
             multi_division_auction_eligibility= attrs["product_model_data"]["multi_division_auction_eligibility"]
             print(f"\n\nINSIDE SERIALIZER VALIDATION METHOD")
             print(f"----------------------------------------")
             print(f"multi_division_auction_eligibility = {multi_division_auction_eligibility}\n")
+        multi_division_auction_date=None
         if attrs["product_model_data"]["multi_division_auction_date"]:
             multi_division_auction_date=attrs["product_model_data"]["multi_division_auction_date"]
+        multi_division_divident_date=None
         if attrs["product_model_data"]["multi_division_divident_date"]:
             multi_division_divident_date=attrs["product_model_data"]["multi_division_divident_date"]
 
@@ -252,8 +254,13 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError(f"Last emi completion date should be {last_date.strftime('%d-%m-%Y')}")
                 
             dispatch_date = first_emi_completion_date + relativedelta(months=4)
+            print(f"=========================\n{dispatching_committed_date}\n================================")
+
+            if not dispatching_committed_date:
+                raise serializers.ValidationError(f"Please enter dispatching commited date",code=400)
+
             if not dispatch_date == dispatching_committed_date:
-                raise serializers.ValidationError(f"Dispatching commited date should be '{dispatching_committed_date.strftime('%d-%m-%Y')}'")
+                raise serializers.ValidationError(f"Dispatching commited date should be '{dispatch_date.strftime('%d-%m-%Y')}'")
             
             div_date = first_emi_completion_date.day
             if not divident_date == div_date :
@@ -282,10 +289,10 @@ class SalePunchCreationSerializer(serializers.ModelSerializer):
                     init_day += relativedelta(days=1)
 
             if multi_division_auction_eligibility == None or multi_division_auction_eligibility == "":
-                raise serializers.ValidationError(f"Please provide auction eligibility date ")
+                raise serializers.ValidationError(f"Please provide a multi division auction eligibility date ")
             else:
                 if not init_day == multi_division_auction_eligibility:
-                    raise serializers.ValidationError(f"Auction eligibility date should be '{init_day.strftime('%d-%m-%Y')}' ")
+                    raise serializers.ValidationError(f"Auction multi divsion eligibility date should be '{init_day.strftime('%d-%m-%Y')}' ")
 
             # print(f"{multi_division_auction_date}\t{type(multi_division_auction_date)}")
             if not multi_division_auction_date == "Friday":

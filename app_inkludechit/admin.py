@@ -16,7 +16,7 @@ class salepunchmodel(admin.ModelAdmin):
     get_customer_prof.short_description = ""
 
 class shareinterestsetup(admin.ModelAdmin):
-    list_display=["id","get_customer_name","customer_email","custoemr_comment","customer_country_code","customer_phone"]
+    list_display=["id","get_customer_name","customer_email","customer_comment","customer_country_code","customer_phone"]
     list_display_links = list_display
 
     def get_customer_name(self,obj):
@@ -24,7 +24,7 @@ class shareinterestsetup(admin.ModelAdmin):
     get_customer_name.short_description = "first name"
 
 class customerprofileclass(admin.ModelAdmin):
-    list_display = ["id","mobile_no","email","amount","reciept_no","agent","agent_id"]
+    list_display = ["id","mobile_no","email","amount","reciept_no","agent","agent_id","is_salepunch_created"]
     list_display_links = list_display
 
     def agent_id(self,obj):
@@ -77,12 +77,12 @@ admin.site.register(User,Usersetup)
 admin.site.register(SalePunchModel,salepunchmodel)
 admin.site.register(NomineeModel)
 admin.site.register(ProductModel,productsetup)
-admin.site.register(ShareMyInterestModel,shareinterestsetup)
+# admin.site.register(ShareMyInterestModel,shareinterestsetup)
 admin.site.register(CustomerProfileModel,customerprofileclass)
-admin.site.register(AgentProfileModel,AgentSetup)
-admin.site.register(LiabilitiesModel,liabilitysetup)
-admin.site.register(BankListModel,bankmodel_setup)
-admin.site.register(PaidModel,PaidModelSetup)
-admin.site.register(UnpaidModel,UnpaidModelSetup)
-admin.site.register(OtherModel,OtherModelSetup)
+# admin.site.register(AgentProfileModel,AgentSetup)
+# admin.site.register(LiabilitiesModel,liabilitysetup)
+# admin.site.register(BankListModel,bankmodel_setup)
+# admin.site.register(PaidModel,PaidModelSetup)
+# admin.site.register(UnpaidModel,UnpaidModelSetup)
+# admin.site.register(OtherModel,OtherModelSetup)
 admin.site.register(CollectionModel,CollectionModelSetup)

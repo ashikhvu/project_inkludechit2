@@ -28,7 +28,6 @@ class SalePunchViewPost(APIView):
             serializer.save()
 
             val_data = serializer.validated_data
-            # print(serializer.data['id'])
 
             if val_data:
                 kuri_type=val_data["product_model_data"]["kuri_type"]
@@ -53,55 +52,17 @@ class SalePunchViewPost(APIView):
                 example_unit_sum = 0
 
                 reminder_date = collect_start_date - relativedelta(days=2)
-                # print(f"{kuri_type}\n{product_code}\n{document_type}\n{chit_duration}\n{first_emi_completion_date}\n{last_emi_date}\n{auction_eligibility}\n{auction_date}\n{divident_date}")
+
+                range_limit=None
 
                 if kuri_type=="auction":
                     print(f"inside auction")
-                    range_limit=None
-
                     if product_code in [301,801]:
                         range_limit=40
-
-                    for i in range(40):
-                        future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
-                        next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
-                        CollectionModel.objects.get_or_create(
-                            cm_salepunch_data=sp,
-
-                            cm_first_name=customer_prof.customer_first_name,
-                            cm_last_name=customer_prof.customer_last_name,
-                            cm_group=sp.product_model_data.product_code,
-                            cm_batch="5th",
-                            cm_reminder_date=reminder_date,
-                            cm_current_date_and_time=future_emi_date,
-                            cm_next_date_and_time=next_emi_date,
-                            cm_collection_count=13,
-                            cm_unit_amount=example_cm_unit_amount,
-                            cm_unit_sum=example_unit_sum,
-                            cm_emi_count=0,
-                            cm_payable_date_emi=6,
-                            cm_emi_bounce_date="7 July",
-                            cm_collection_mode="Daily",
-                            cm_payment_mode="gpay",
-                            
-
-                        )
-                        example_unit_sum+=example_cm_unit_amount
-
                 elif kuri_type=="draw":
                     print(f"inside draw")
                     if product_code in [201,202]:
                         range_limit = 25
-                    for i in range(range_limit):
-                        future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
-                        next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
-                        CollectionModel.objects.get_or_create(
-                            cm_salepunch_data=sp,
-                            cm_first_name=customer_prof.customer_first_name,
-                            cm_last_name=customer_prof.customer_last_name,
-                            cm_current_date_and_time=future_emi_date,
-                            cm_next_date_and_time=next_emi_date
-                        )
                 elif kuri_type=="offer":
                     print(f"inside offer")
                     if product_code in [901,903,904]:
@@ -110,33 +71,42 @@ class SalePunchViewPost(APIView):
                         range_limit = 25
                     elif product_code in [951,952]:
                         range_limit = 40
-
-                    for i in range(range_limit):
-                        future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
-                        next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
-                        CollectionModel.objects.get_or_create(
-                            cm_salepunch_data=sp,
-                            cm_first_name=customer_prof.customer_first_name,
-                            cm_last_name=customer_prof.customer_last_name,
-                            cm_current_date_and_time=future_emi_date,
-                            cm_next_date_and_time=next_emi_date
-                        )
-
                 elif kuri_type=="multi division":
                     print(f"inside multi division")
                     if product_code in [502]:
                         range_limit=100
 
-                    for i in range(range_limit):
+                for i in range(range_limit):
+
+                    if kuri_type in ["auction","draw","offer"]:
+                        future_emi_date = first_emi_completion_date+relativedelta(months=i+1)
+                        next_emi_date = first_emi_completion_date+relativedelta(months=i+2)
+                    elif kuri_type in ["multi division"]:
                         future_emi_date = first_emi_completion_date+relativedelta(weeks=i+1)
                         next_emi_date = first_emi_completion_date+relativedelta(weeks=i+2)
-                        CollectionModel.objects.get_or_create(
-                            cm_salepunch_data=sp,
-                            cm_first_name=customer_prof.customer_first_name,
-                            cm_last_name=customer_prof.customer_last_name,
-                            cm_current_date_and_time=future_emi_date,
-                            cm_next_date_and_time=next_emi_date
-                        )
+
+                    CollectionModel.objects.get_or_create(
+                        cm_salepunch_data=sp,
+                        cm_agent_data = sp.agent,
+                        cm_customer_data=sp.customer,
+                        cm_customer_prof_data= sp.customer_prof,
+                        
+                        cm_first_name=customer_prof.customer_first_name,
+                        cm_last_name=customer_prof.customer_last_name,
+                        cm_group=sp.product_model_data.product_code,
+                        cm_batch="5th",
+                        cm_reminder_date=reminder_date,
+                        cm_current_date_and_time=future_emi_date,
+                        cm_next_date_and_time=next_emi_date,
+                        cm_collection_count=13,
+                        cm_unit_amount=example_cm_unit_amount,
+                        cm_unit_sum=example_unit_sum,
+                        cm_emi_count=0,
+                        cm_payable_date_emi=6,
+                        cm_emi_bounce_date="7 July",
+                        cm_collection_mode="Daily",
+                        cm_payment_mode="gpay"
+                    )
 
             return Response({"success":"SalePunch submitted successfully"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('customer_name', models.CharField(blank=True, max_length=255, null=True)),
                 ('customer_email', models.EmailField(blank=True, max_length=254, null=True, unique=True)),
-                ('custoemr_comment', models.TextField(blank=True, default='', null=True)),
+                ('customer_comment', models.TextField(blank=True, default='', null=True)),
                 ('customer_country_code', models.CharField(blank=True, default='+91', max_length=50, null=True)),
                 ('customer_phone', models.CharField(max_length=10, unique=True, validators=[django.core.validators.RegexValidator(message='Enter a valid 10 digit phone number', regex='^\\d{10}$')])),
             ],

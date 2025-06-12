@@ -4,7 +4,7 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager
 from django.core.validators import RegexValidator,MinValueValidator,MaxValueValidator
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,post_delete
 from django.dispatch import receiver
 from datetime import datetime
 from shortuuid.django_fields import ShortUUIDField
@@ -412,6 +412,15 @@ class SalePunchModel(models.Model):
     product_model_data = models.ForeignKey(ProductModel,on_delete=models.CASCADE,blank=True,null=True)
     payment_model_data = models.ForeignKey(PaymentModel,on_delete=models.CASCADE,blank=True,null=True)
 
+@receiver(post_delete,sender=SalePunchModel)
+def reset_is_salepunch_created(sender,instance,**kwargs):
+    # try:
+    cust_prof_data = CustomerProfileModel.objects.get(id= instance.customer_prof.id)
+    cust_prof_data.is_salepunch_created = False
+    cust_prof_data.save
+    # except:
+    #     pass
+
 class LiabilitiesModel(models.Model):
     salepunch = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
     # current liabilities
@@ -425,7 +434,7 @@ class LiabilitiesModel(models.Model):
 class ShareMyInterestModel(models.Model):
     customer_name = models.CharField(max_length=255,blank=True,null=True)
     customer_email = models.EmailField(unique=True,blank=True,null=True)
-    custoemr_comment = models.TextField(default='',blank=True,null=True)
+    customer_comment = models.TextField(default='',blank=True,null=True)
     customer_country_code = models.CharField(max_length=50,blank=True,null=True,default='+91')
     customer_phone = models.CharField(max_length=10,unique=True,validators=[RegexValidator(
         regex=r"^\d{10}$",
@@ -503,10 +512,10 @@ class OtherModel(models.Model):
         return self.other_remarks
 
 class CollectionModel(models.Model):
+    cm_salepunch_data = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
     cm_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="cm_agent_data")
     cm_customer_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     cm_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
-    cm_salepunch_data = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
 
     cm_kyc = models.CharField(unique=True,max_length=12,blank=True,null=True,validators=[
         RegexValidator(
