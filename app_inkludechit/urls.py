@@ -12,6 +12,10 @@ urlpatterns = [
 
     # bank
     path('get_all_bank',views.GetAllBankView.as_view(),name="get_all_bank"),
+
+    #agent
+    path("get_user_profile",views.UserProfileView.as_view(),name="get_user_profile"),
+
 ]
 
 if settings.DEBUG:

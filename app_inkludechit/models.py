@@ -59,7 +59,13 @@ class User(AbstractBaseUser,PermissionsMixin):
         regex=r"^\d{10}",
         message="Please Provide a 10 digit number"
     )])
-
+    gender_choices = (
+        ("male","male"),
+        ("female","female"),
+        ("others","others")
+    )
+    gender = models.CharField(max_length=50,choices=gender_choices,default="male",blank=True,null=True)
+    date_of_birth = models.DateField(blank=True,null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     

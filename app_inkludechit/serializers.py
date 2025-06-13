@@ -104,6 +104,11 @@ class UserGetSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username','first_name','last_name','email']
 
+class UserProfileGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+
 class NomineeModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = NomineeModel
@@ -371,8 +376,13 @@ class BankModelSerializer(serializers.ModelSerializer):
 
 class AgentProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AgentProfileModel
+        model = User
         fields = "__all__"
+
+    def to_representation(self,instance):
+        response = super().to_representation(instance)
+        response["agent"] = UserProfileGetSerializer(instance.agent).data
+        return response
 
 # AGENT SERILISZERS END*******************************************************************************************
 
@@ -404,6 +414,12 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         print(f"{dob}\n{type(dob)}")
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+
+        try:    
+            datetime.strptime(dob,"%Y-%m-%d").date()
+        except:
+            raise serializers.ValidationError({"error":"Date of birth format should be like this [ DD-MM-YYYY ]"})
 
         eligible_date_end = current_date-relativedelta(years=18)
         if(dob>eligible_date_end):
@@ -458,4 +474,23 @@ class PartialFetchSelectedRegisteredCustomerSerializer(serializers.ModelSerializ
         return response
     
 # CUSTOMER SERILISZERS END****************************************************************************************
+
+
+# Get Collection model
+class UserProfileGetSerailzer(serializers.ModelSerializer):
+
+    date_of_birth = serializers.DateField(input_formats=["%d-%m-%Y"])
+
+    class Meta:
+        model = User
+        fields = ["username","user_type","first_name","last_name","date_of_birth","gender","email","mobile"]
+
+    # def to_representation(self,instance):
+    #     response = super().to_representation(instance)
+    #     response[""] = 
+    #     return response
+
+#===================================================================================================================
+#                                               COLLECTION MODULE
+#===================================================================================================================
 

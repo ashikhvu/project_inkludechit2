@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import User,SalePunchModel,ShareMyInterestModel,AgentProfileModel,BankListModel
-from .serializers import SalePunchCreationSerializer,CustomTokenObtainPairSerializer,CustomUserLoginSerializer,SendOtpSerializer,ShareMyInterestModelSerializer,BankModelSerializer
+from .serializers import SalePunchCreationSerializer,CustomTokenObtainPairSerializer,CustomUserLoginSerializer,SendOtpSerializer,ShareMyInterestModelSerializer,BankModelSerializer,UserProfileGetSerailzer
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -21,6 +21,10 @@ from rest_framework.permissions import BasePermission
 class IsAdminOrIsStaff(BasePermission):
     def has_permission(self,request,view):
         return request.user and request.user.is_authenticated and (request.user.user_type in ["admin","super admin"] or request.user.user_type in ["sales agent","sales and collection agent"])
+
+class IsAgent(BasePermission):
+    def has_permission(self,request,view):
+        return request.user and request.user.is_authenticated and request.user.user_type in ["sales agent","collection agent","sales and collection agent"]
 
 # BANK VIEW FUNCTION START
 
@@ -113,3 +117,14 @@ class CustomerFetch(TemplateView):
     permission_classes= [IsAuthenticated,IsAdminUser]
     template_name = "style.html"
 
+class UserProfileView(APIView):
+
+    permission_classes = [IsAgent]
+
+    def get(self,request):
+        try:
+            user_data = User.objects.get(id=request.user.id)
+        except User.DoesNotExist:
+            return Response({"error":"Agent doesn't exist"},status=status.HTTP_400_BAD_REQUEST)
+        serializer = UserProfileGetSerailzer(user_data,many=False)
+        return Response(serializer.data,status=status.HTTP_200_OK)
