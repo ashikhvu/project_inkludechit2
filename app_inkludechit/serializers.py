@@ -385,8 +385,11 @@ class CustomerUserCreationModelsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ["password"]
+       
 
 class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
+    
+    dob = serializers.DateField(input_formats=["%d-%m-%Y"])
 
     class Meta:
         model = CustomerProfileModel
@@ -395,6 +398,26 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
     def validate(self,attrs):
         email = attrs.get("email")
         mobile_no = attrs.get("mobile_no")
+        dob = attrs['dob']
+        current_date = datetime.now().date()
+
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print(f"{dob}\n{type(dob)}")
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+
+        try:    
+            datetime.strptime(dob,"%Y-%m-%d").date()
+        except:
+            raise serializers.ValidationError({"error":"Date of birth format should be like this [DD-MM-YYYY ]"})
+
+        eligible_date_end = current_date-relativedelta(years=18)
+        if(dob>eligible_date_end):
+            raise serializers.ValidationError({"error":"Customer age should be over 18"},code=400)
+
+        print('**************************************************')
+        print(current_date)
+        print('**************************************************')
 
         if User.objects.filter(mobile = mobile_no):
             raise serializers.ValidationError({"error":"User Already exist with this number"},code=400)

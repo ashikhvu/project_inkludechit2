@@ -62,7 +62,7 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
+    
     objects= UserManager()
 
     USERNAME_FIELD = 'email'
@@ -201,6 +201,13 @@ class CustomerProfileModel(models.Model):
     # customer_name = models.CharField(max_length=255)
     customer_first_name = models.CharField(max_length=255,blank=True,null=True)
     customer_last_name = models.CharField(max_length=255,blank=True,null=True)
+    dob = models.DateField(blank=True,null=True)
+    gender_choices = (
+        ("male","male"),
+        ("female","female"),
+        ("others","others")
+    )
+    gender = models.CharField(max_length=50,choices=gender_choices,default="male",blank=True,null=True)
     mobile_no = models.CharField(max_length=10,validators=[
         RegexValidator(
             regex=r"\d{10}$",
