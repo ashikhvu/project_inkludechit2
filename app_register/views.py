@@ -67,6 +67,7 @@ class CustomerOtpAuthenticateView(APIView):
             email = serializer.validated_data["email"]
             customer_first_name = serializer.validated_data["customer_first_name"]
             customer_last_name = serializer.validated_data["customer_last_name"]
+            # date_of_birth = serializer.validated_data["date_of_birth"]
             
             # cust_data = request.session.get("customer_data")
             cust_datas = OtpRecordModel.objects.filter(mobile_no=mobile).last()
@@ -76,6 +77,7 @@ class CustomerOtpAuthenticateView(APIView):
                     customer_user = User.objects.create(
                         first_name=customer_first_name,
                         last_name=customer_last_name,
+                        # date_of_birth=date_of_birth,
                         mobile=mobile,
                         email=email,
                     )
