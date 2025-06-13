@@ -405,12 +405,6 @@ class CustomerCreationAndSendOtpSerializer(serializers.ModelSerializer):
         print(f"{dob}\n{type(dob)}")
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-
-        # try:    
-        #     datetime.strptime(dob,"%Y-%m-%d").date()
-        # except:
-        #     raise serializers.ValidationError({"error":"Date of birth format should be like this [ DD-MM-YYYY ]"})
-
         eligible_date_end = current_date-relativedelta(years=18)
         if(dob>eligible_date_end):
             raise serializers.ValidationError({"error":"Customer age should be over 18"},code=400)
