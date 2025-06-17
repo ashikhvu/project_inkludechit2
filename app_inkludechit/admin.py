@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User,SalePunchModel,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,LiabilitiesModel
-from .models import AgentProfileModel,BankListModel,PaidModel,UnpaidModel,OtherModel,CollectionModel
+from .models import AgentProfileModel,BankListModel,PaidModel,UnpaidModel,OtherModel,CollectionModel,LastVisitDetailsModel
 # Register your models here.
 
 class productsetup(admin.ModelAdmin):
@@ -72,6 +72,10 @@ class CollectionModelSetup(admin.ModelAdmin):
     list_display = ["id","cm_first_name","cm_last_name","cm_current_date_and_time","cm_next_date_and_time"]
     list_display_links = list_display
 
+class LastVisiteddetailsSetup(admin.ModelAdmin):
+    list_display = ["id","ls_visit_count","ls_visit_date","ls_visit_status","ls_unit_amount"]
+    list_display_links = list_display
+
 
 admin.site.register(User,Usersetup)
 admin.site.register(SalePunchModel,salepunchmodel)
@@ -86,3 +90,4 @@ admin.site.register(CustomerProfileModel,customerprofileclass)
 # admin.site.register(UnpaidModel,UnpaidModelSetup)
 # admin.site.register(OtherModel,OtherModelSetup)
 admin.site.register(CollectionModel,CollectionModelSetup)
+admin.site.register(LastVisitDetailsModel,LastVisiteddetailsSetup)

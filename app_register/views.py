@@ -9,6 +9,7 @@ from django.conf import settings
 import random
 from app_inkludechit.serializers import CustomerCreationAndSendOtpSerializer
 from app_inkludechit.models import User,AgentProfileModel,OtpRecordModel
+from app_inkludechit.views import SendMSG91Otp
 
 def SendOTPFunction(ph,msg):
     client = Client(settings.TWILIO_ACCOUNT_SID,settings.TWILIO_AUTH_TOKEN)

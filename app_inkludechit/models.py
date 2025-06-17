@@ -524,6 +524,23 @@ class OtherModel(models.Model):
     def __str__(self):
         return self.other_remarks
 
+class LastVisitDetailsModel(models.Model):
+    ls_salepunch_data = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
+    ls_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="ls_agent_data")
+    ls_customer_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    ls_customer_prof_data = models.ForeignKey(CustomerProfileModel,on_delete=models.CASCADE,blank=True,null=True)
+    
+    ls_visit_count = models.PositiveIntegerField(blank=True,null=True)
+    ls_visit_date = models.DateField(blank=True,null=True)
+    ls_visit_status_choices = (
+        ("paid","paid"),
+        ("unpaid","unpaid"),
+        ("other","other")
+    )
+    ls_visit_status = models.CharField(default="unpaid",choices=ls_visit_status_choices,blank=True,null=True)
+    ls_unit_amount = models.PositiveIntegerField(blank=True,null=True) 
+
+
 class CollectionModel(models.Model):
     cm_salepunch_data = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)
     cm_agent_data = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="cm_agent_data")
@@ -559,7 +576,7 @@ class CollectionModel(models.Model):
         ("951","951"),
         ("952","952"),
 
-        ("502","502"),
+        ("502","502")
 
     )
     cm_group = models.PositiveIntegerField(blank=True,null=True,choices=cm_group_choices,default="301")
@@ -609,6 +626,8 @@ class CollectionModel(models.Model):
     cm_paid_data = models.ForeignKey(PaidModel,on_delete=models.CASCADE,blank=True,null=True)
     cm_unpaid_data = models.ForeignKey(UnpaidModel,on_delete=models.CASCADE,blank=True,null=True)
     cm_others_data = models.ForeignKey(OtherModel,on_delete=models.CASCADE,blank=True,null=True)
+
+    cm_last_visited_details = models.ForeignKey(LastVisitDetailsModel,on_delete=models.CASCADE,blank=True,null=True)
 
     cm_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
 

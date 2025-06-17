@@ -18,6 +18,36 @@ from rest_framework.permissions import BasePermission
 # class CustomTokenObtainPairView(TokenObtainPairView):
 #     serializer_class = CustomTokenObtainPairSerializer
         
+# Send MSG1 OTP
+import requests
+import json
+
+def SendMSG91Otp(phone_number, message):
+    url = "https://api.msg91.com/api/v2/sendsms"
+
+    payload = {
+        "sender": "ashikhvu",  # Must be approved in MSG91 panel
+        "route": "4",  # 4 = transactional
+        "country": "91",  # For India
+        "sms": [
+            {
+                "message": message,
+                "to": ["9074006756"]
+            }
+        ]
+    }
+
+    headers = {
+        "authkey": "454474A8bsHZc5WJc86850eab9P1",
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(url, data=json.dumps(payload), headers=headers)
+
+    print("Status Code:", response.status_code)
+    print("Response:", response.json())
+
+
 class IsAdminOrIsStaff(BasePermission):
     def has_permission(self,request,view):
         return request.user and request.user.is_authenticated and (request.user.user_type in ["admin","super admin"] or request.user.user_type in ["sales agent","sales and collection agent"])
@@ -59,6 +89,7 @@ class SendOtp(APIView):
         print(f"\n{ph}\n{msg}")
         try:
             # OtpSendFunction(ph,msg)
+            SendMSG91Otp("9074006756",msg)
             return Response({"success":"OTP has been send to your Registered mobile number"},status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"error":str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -119,7 +150,7 @@ class CustomerFetch(TemplateView):
 
 class UserProfileView(APIView):
 
-    permission_classes = [IsAgent]
+    permission_classes = [IsAuthenticated]
 
     def get(self,request):
         try:
@@ -128,3 +159,8 @@ class UserProfileView(APIView):
             return Response({"error":"Agent doesn't exist"},status=status.HTTP_400_BAD_REQUEST)
         serializer = UserProfileGetSerailzer(user_data,many=False)
         return Response(serializer.data,status=status.HTTP_200_OK)
+    
+
+
+
+
