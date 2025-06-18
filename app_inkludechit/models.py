@@ -166,7 +166,7 @@ class BankListModel(models.Model):
 
     def __str__(self):
         return self.bank_name
-
+    
 # BANK MODEL END
 
 
@@ -177,7 +177,7 @@ class AgentProfileModel(models.Model):
     agent_code = ShortUUIDField(max_length=6,length=4,alphabet="0123456789",unique=True,blank=True,null=True)
 
     def __str__(self):
-        return "AgentProfile "+str(self.id)
+        return  self.agent.username or "AgentProfile "+str(self.id)
 
 @receiver(post_save,sender=User)
 def create_agent_profile(sender,instance,created,**kwargs):
@@ -433,6 +433,11 @@ def reset_is_salepunch_created(sender,instance,**kwargs):
     cust_prof_data.save
     # except:
     #     pass
+
+@receiver(post_delete,sender=User)
+def save_is_salepunch_created(sender,instance,**kwargs):
+    if hasattr(instance,"customerprofilemodel"):
+        instance.customderprofilemodel.save()
 
 class LiabilitiesModel(models.Model):
     salepunch = models.ForeignKey(SalePunchModel,on_delete=models.CASCADE,blank=True,null=True)

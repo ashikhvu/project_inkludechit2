@@ -43,7 +43,7 @@ class CustomerDetailsForCollectionAgent(APIView):
     
     def get(self,request):
         try:
-            cust_prof_id = request.data.get("id")
+            cust_prof_id = request.GET.get("id")
         except Exception as e:
             return Response({"error":str(e)},status=status.HTTP_400_BAD_REQUEST)
         if not cust_prof_id:
@@ -143,3 +143,19 @@ class CustomerDetailsForCollectionAgent(APIView):
         print(f"\n{cust_prof_id}\n{cust_prof}\n{current_date}")
         
         return JsonResponse(customer_data,status=status.HTTP_200_OK)
+    
+class CollectionPost(APIView):
+     
+    permission_classes = [IsCollectionAgent]
+
+    def post(self,request):
+
+        try:
+            id = request.data.get('id')
+        except:
+            return 
+
+        cm = CollectionModel.objects.get(id=id)
+
+        print(cm)
+        return Response({"succes":"Collection model created"},status=status.HTTP_200_OK)
