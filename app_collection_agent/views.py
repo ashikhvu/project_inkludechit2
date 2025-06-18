@@ -64,7 +64,7 @@ class CustomerDetailsForCollectionAgent(APIView):
         kyc = sp.kyc
         uid = sp.uid
         group = sp.product_model_data.product_code
-        # batch = 
+        batch = 
 
         current_date = datetime.today().date()
         print(current_date)
@@ -97,6 +97,7 @@ class CustomerDetailsForCollectionAgent(APIView):
         payable_date_emi = collection_data.cm_payable_date_emi
         emi_bounce_date = collection_data.cm_emi_bounce_date
 
+        batch = collection_count.cm_batch
         # prev details-----------------------------
         last_visited_data = None
         
@@ -116,10 +117,15 @@ class CustomerDetailsForCollectionAgent(APIView):
             last_visit_status = last_visited_data.ls_visit_status
             last_unit_amount = last_visited_data.ls_unit_amount
 
+
+
+
         customer_data = {
             "basic_details":{
                 "kyc":str(kyc),
                 "uid":str(uid),
+                "group":str(group),
+                "batch":str(batch),
             },
             "emi_details":{
                 "remider_date":str(reminder_date),
