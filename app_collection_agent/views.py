@@ -96,7 +96,7 @@ class CustomerDetailsForCollectionAgent(APIView):
         payable_date_emi = collection_data.cm_payable_date_emi
         emi_bounce_date = collection_data.cm_emi_bounce_date
 
-        batch = collection_count.cm_batch
+        batch = collection_data.cm_batch
         # prev details-----------------------------
         last_visited_data = None
         
