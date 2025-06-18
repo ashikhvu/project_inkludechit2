@@ -64,7 +64,6 @@ class CustomerDetailsForCollectionAgent(APIView):
         kyc = sp.kyc
         uid = sp.uid
         group = sp.product_model_data.product_code
-        batch = 
 
         current_date = datetime.today().date()
         print(current_date)
