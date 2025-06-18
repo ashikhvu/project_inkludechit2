@@ -118,25 +118,25 @@ class CustomerDetailsForCollectionAgent(APIView):
 
         customer_data = {
             "basic_details":{
-                "kyc":kyc,
-                "uid":uid,
+                "kyc":str(kyc),
+                "uid":str(uid),
             },
             "emi_details":{
-                "remider_date":reminder_date,
-                "fixed_date":fixed_date,
-                "collection_count":collection_count,
-                "unit_amount":unit_amount,
-                "unit_sum":unit_sum,
-                "emi_count":emi_count,
-                "payable_date_emi":payable_date_emi,
-                "emi_bounce_date":emi_bounce_date
+                "remider_date":str(reminder_date),
+                "fixed_date":str(fixed_date),
+                "collection_count":str(collection_count),
+                "unit_amount":str(unit_amount),
+                "unit_sum":str(unit_sum),
+                "emi_count":str(emi_count),
+                "payable_date_emi":str(payable_date_emi),
+                "emi_bounce_date":str(emi_bounce_date)
             },
             "previous_visit_details":{
-                "last_visited_details_id": last_visited_details_id,
-                "last_visit_count":last_visit_count,
-                "last_visit_date":last_visit_date,
-                "last_visit_status":last_visit_status,
-                "last_unit_amount":last_unit_amount
+                "last_visited_details_id": str(last_visited_details_id),
+                "last_visit_count":str(last_visit_count),
+                "last_visit_date":str(last_visit_date),
+                "last_visit_status":str(last_visit_status),
+                "last_unit_amount":str(last_unit_amount)
             }
         }
 
