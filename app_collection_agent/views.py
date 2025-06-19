@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from app_inkludechit.serializers import GetAllRegisteredCustomerSerializer,GetAllRegisteredCustomersNameandPhSerializer
+from app_inkludechit.serializers import GetAllRegisteredCustomerSerializer,GetAllRegisteredCustomersNameandPhSerializer,CollectionPutSeralizer
 from app_inkludechit.models import CustomerProfileModel,AgentProfileModel,SalePunchModel,CollectionModel,LastVisitDetailsModel
 from rest_framework.response import Response
 from rest_framework import status
@@ -116,9 +116,6 @@ class CustomerDetailsForCollectionAgent(APIView):
             last_visit_status = last_visited_data.ls_visit_status
             last_unit_amount = last_visited_data.ls_unit_amount
 
-
-
-
         customer_data = {
             "basic_details":{
                 "kyc":str(kyc),
@@ -150,17 +147,36 @@ class CustomerDetailsForCollectionAgent(APIView):
         return JsonResponse(customer_data,status=status.HTTP_200_OK)
     
 class CollectionPost(APIView):
-     
+    
     permission_classes = [IsCollectionAgent]
 
-    def post(self,request):
+    def put(self,request):
 
         try:
             id = request.data.get('id')
         except:
-            return 
+            return Response({"errors":"please provide an id"},status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            cust_prof = CustomerProfileModel.objects.get(id=id)
+        except CustomerProfileModel.DoesNotExist:
+            return Response({"error":"customer profile doesn't exist"},status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error":str(e)},status=status.HTTP_200_OK)
 
-        cm = CollectionModel.objects.get(id=id)
-
-        print(cm)
-        return Response({"succes":"Collection model created"},status=status.HTTP_200_OK)
+        try:
+            # month = f"{datetime.today().month:02d}"
+            month = "8"
+            cm = CollectionModel.objects.filter(cm_current_date_and_time__month=month,cm_customer_prof_data=cust_prof).first()
+            print(cm)
+        except:
+            pass
+        
+        if cm:
+            serializer = CollectionPutSeralizer(instance=cm,data=request.data,partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                print(f"Next Date will be : {serializer.validated_data["cm_current_date_and_time"]}")
+                return Response({"success":"Collection model created"},status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    

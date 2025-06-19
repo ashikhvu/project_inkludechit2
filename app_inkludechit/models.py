@@ -502,7 +502,7 @@ class UnpaidModel(models.Model):
         ("current over liability","current over liability"),
         ("unstructured financial behaviour","unstructured financial behaviour")
     )
-    unpaid_reason = models.CharField(max_length=255,blank=True,null=True)
+    unpaid_reason = models.CharField(max_length=255,blank=True,null=True,choices=unpaid_reason_choices)
     unpaid_pos_next_pend_pay_choices = (
         ("salary/income","salary/income"),
         ("anticipating money","anticipating money"),
@@ -582,9 +582,8 @@ class CollectionModel(models.Model):
         ("952","952"),
 
         ("502","502")
-
     )
-    cm_group = models.PositiveIntegerField(blank=True,null=True,choices=cm_group_choices,default="301")
+    cm_group = models.CharField(max_length=50,blank=True,null=True,choices=cm_group_choices,default="301")
     cm_batch_choices = (
         ('1st','1st'),
         ('2nd','2nd'),
@@ -628,6 +627,13 @@ class CollectionModel(models.Model):
     cm_visit_type = models.CharField(max_length=100,default="direct visit",choices=cm_visit_type_choices,blank=True,null=True)
     cm_visit_count = models.PositiveIntegerField(default=0,blank=True,null=True)
 
+    cm_payment_status_choices = (
+        ("paid","paid"),
+        ("unpaid","unpaid"),
+        ("other","other")
+    )
+    cm_payment_status = models.CharField(max_length=50,choices=cm_payment_status_choices,default="unpaid",blank=True,null=True)
+
     cm_paid_data = models.ForeignKey(PaidModel,on_delete=models.CASCADE,blank=True,null=True)
     cm_unpaid_data = models.ForeignKey(UnpaidModel,on_delete=models.CASCADE,blank=True,null=True)
     cm_others_data = models.ForeignKey(OtherModel,on_delete=models.CASCADE,blank=True,null=True)
@@ -642,7 +648,7 @@ class CollectionModel(models.Model):
 
 
 # ==========================================================================================================
-#                                         COLLECTION MODELS START END
+#                                         COLLECTION MODELS END
 # ==========================================================================================================
 
 

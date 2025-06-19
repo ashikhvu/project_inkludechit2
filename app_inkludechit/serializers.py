@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from app_inkludechit.models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel,LiabilitiesModel,BankListModel
+from .models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel,LiabilitiesModel,BankListModel
+from .models import CollectionModel
 # from django.contrib.auth.models import c
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
@@ -492,4 +493,13 @@ class UserProfileGetSerailzer(serializers.ModelSerializer):
 #===================================================================================================================
 #                                               COLLECTION MODULE
 #===================================================================================================================
+
+class CollectionPutSeralizer(serializers.ModelSerializer):
+
+    cm_current_date_and_time = serializers.DateField(input_formats=["%d-%m-%Y"])
+    cm_next_date_and_time = serializers.DateField(input_formats=["%d-%m-%Y"])
+
+    class Meta:
+        model = CollectionModel
+        fields = "__all__"
 
