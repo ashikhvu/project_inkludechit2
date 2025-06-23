@@ -165,8 +165,8 @@ class CollectionPost(APIView):
             return Response({"error":str(e)},status=status.HTTP_200_OK)
 
         try:
-            # month = f"{datetime.today().month:02d}"
-            month = "8"
+            month = f"{datetime.today().month:02d}"
+            # month = "8"
             cm = CollectionModel.objects.filter(cm_current_date_and_time__month=month,cm_customer_prof_data=cust_prof).first()
             print(cm)
         except:
@@ -176,7 +176,13 @@ class CollectionPost(APIView):
             serializer = CollectionPutSeralizer(instance=cm,data=request.data,partial=True)
             if serializer.is_valid():
                 serializer.save()
-                print(f"Next Date will be : {serializer.validated_data["cm_current_date_and_time"]}")
-                return Response({"success":"Collection model created"},status=status.HTTP_200_OK)
+                print(f"Next Date will be : {serializer.validated_data['cm_current_date_and_time']}")
+                return Response({"success":"Collection model updated"},status=status.HTTP_200_OK)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self,request):
+        cm = CollectionModel.objects.filter()
+        serializer = CollectionPutSeralizer(cm,many=True)
+        return Response(serializer.data)
+    
     

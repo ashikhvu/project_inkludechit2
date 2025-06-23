@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import SalePunchModel,User,NomineeModel,ProductModel,PaymentModel,ShareMyInterestModel,CustomerProfileModel,AgentProfileModel,LiabilitiesModel,BankListModel
-from .models import CollectionModel
+from .models import CollectionModel,PaidModel,UnpaidModel,OtherModel
 # from django.contrib.auth.models import c
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
@@ -494,12 +494,80 @@ class UserProfileGetSerailzer(serializers.ModelSerializer):
 #                                               COLLECTION MODULE
 #===================================================================================================================
 
+class PaidModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PaidModel
+        fields = "__all__"
+
+class UnPaidModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UnpaidModel
+        fields = "__all__"
+
+
+class OtherModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OtherModel
+        fields = "__all__"
+
+
 class CollectionPutSeralizer(serializers.ModelSerializer):
 
     cm_current_date_and_time = serializers.DateField(input_formats=["%d-%m-%Y"])
     cm_next_date_and_time = serializers.DateField(input_formats=["%d-%m-%Y"])
+    
+    paid_next_pay_date = serializers.DateField(input_formats=["%d-%m-%Y"])
+    unpaid_pos_next_pend_pay = serializers.DateField(input_formats=["%d-%m-%Y"])
+    unpaid_res_date = serializers.DateField(input_formats=["%d-%m-%Y"])
+
+    cm_paid_data = PaidModelSerializer()
+    cm_unpaid_data = UnPaidModelSerializer()
+    cm_others_data = OtherModelSerializer()
 
     class Meta:
         model = CollectionModel
         fields = "__all__"
+        
+    def update(self,instance,validated_data):
 
+        paid_data = validated_data.pop('cm_paid_data',None)
+        if paid_data:
+            print("-----------------------")
+            print("inside paid")
+            print("-----------------------")
+            paid = PaidModel.objects.create(**paid_data)
+            instance.cm_paid_data = paid
+
+        unpaid_data = validated_data.pop('cm_unpaid_data',None)
+        if unpaid_data:
+            print("-----------------------")
+            print("inside unpaid")
+            print("-----------------------")
+            unpaid = UnpaidModel.objects.create(**unpaid_data)
+            instance.cm_unpaid_data=unpaid
+
+        other_data = validated_data.pop('cm_others_data',None)
+        if other_data:
+            print("-----------------------")
+            print("inside other")
+            print("-----------------------")
+            other = OtherModel.objects.create(**other_data)        
+            instance.cm_others_data = other
+
+        instance.save()
+        print("******************************************************************")
+        print(str(instance))
+        print("******************************************************************")
+
+        return instance
+
+    def to_representation(self,instance):
+        response = super().to_representation(instance)
+        response["cm_paid_data"] = PaidModelSerializer(instance.cm_paid_data).data
+        response["cm_unpaid_data"] = PaidModelSerializer(instance.cm_unpaid_data).data
+        response["cm_others_data"] = PaidModelSerializer(instance.cm_others_data).data
+
+        return response

@@ -483,8 +483,8 @@ class PaidModel(models.Model):
         ("minimum required amount","minimum required amount")
     )
     paid_pay_type = models.CharField(max_length=100,choices=paid_pay_type_choices,blank=True,null=True)
-    paid_next_pay_date = models.DateTimeField(blank=True,null=True)
-    paid_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    paid_next_pay_date = models.DateField(blank=True,null=True)
+    paid_created_at = models.DateField(auto_now_add=True,blank=True,null=True)
 
     def __str__(self):
         return self.paid_amount
@@ -511,8 +511,8 @@ class UnpaidModel(models.Model):
         ("better financial profile","better financial profile"),
     )
     unpaid_pos_next_pend_pay = models.CharField(max_length=100,choices=unpaid_pos_next_pend_pay_choices,blank=True,null=True)
-    unpaid_res_date = models.DateTimeField(blank=True,null=True)
-    unpaid_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    unpaid_res_date = models.DateField(blank=True,null=True)
+    unpaid_created_at = models.DateField(auto_now_add=True,blank=True,null=True)
 
     def __str__(self):
         return self.unpaid_reason
@@ -524,7 +524,7 @@ class OtherModel(models.Model):
 
     other_remarks = models.TextField(blank=True,null=True)
     other_res_date = models
-    other_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    other_created_at = models.DateField(auto_now_add=True,blank=True,null=True)
 
     def __str__(self):
         return self.other_remarks
@@ -643,7 +643,7 @@ class CollectionModel(models.Model):
     cm_created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
 
     def __str__(self):
-        return str(self.cm_last_name)
+        return f"{str(self.id)} {str(self.cm_last_name)}"
     
 
 
